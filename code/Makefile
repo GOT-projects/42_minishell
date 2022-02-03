@@ -1,0 +1,116 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
+#    Updated: 2022/02/03 20:20:24 by aartiges         ###   ########lyon.fr    #
+#                                                                              #
+# **************************************************************************** #
+
+################################################################################
+##                               Présentation                                 ##
+################################################################################
+
+COLOR_NORM		=	\033[0m
+COLOR_RED		=	\033[31m
+COLOR_PURPLE	=	\033[35m
+
+################################################################################
+##                               SRCS                                         ##
+################################################################################
+
+DIR_HDS			=	includes/
+
+RELATIVE_HDS	=	mini_shell.h	\
+					struct.h
+
+SRC_GLOBAL		=	main.c
+DIR_GLOBAL			=	.
+
+SRC_BUILTIN		=	env.c		\
+					export.c	\
+					unset.c		
+#					echo.c		
+#					cd.c		
+#					pwd.c		
+#					exit.c
+DIR_BUILTIN		=	srcs/builtin
+
+SRC_ENV			=	get_envp.c		\
+					lst_env.c
+DIR_ENV			=	srcs/env
+
+MK				=	Makefile
+
+################################################################################
+##                       Compilation Environnement                            ##
+################################################################################
+
+NAME		=	minishell
+CC			=	cc
+CFLAGS		=	-Wall -Werror -Wextra -O3
+#-fsanitize=address
+LIBS		=	-L/usr/local/lib -I/usr/local/include -lreadline -I$(DIR_HDS)
+DIR_LIBFT	= 	libft
+LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
+
+SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
+				$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
+				$(addprefix $(DIR_ENV)/, $(SRC_ENV))
+DIR_OBJ		=	obj
+OBJS		=	$(addprefix $(DIR_OBJ)/, $(SRCS:.c=.o))
+HDS			=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
+
+DEPEND		=	$(HDS) $(MK) $(LIBFT_NAME)
+
+################################################################################
+##                                 Règles                                     ##
+################################################################################
+
+all	:	$(NAME)
+
+$(DIR_OBJ)/$(DIR_GLOBAL)/%.o:	$(DIR_GLOBAL)/%.c	$(DEPEND)
+	@mkdir -p $(DIR_OBJ)/$(DIR_GLOBAL)
+	@printf "\r\033[K\tCompilation de $(COLOR_PURPLE)$< ==> $@\$(COLOR_NORM)"
+	@$(CC) $(CFLAGS) -c -o $@ $< $(LIB)
+	@sleep 0.1
+
+$(DIR_OBJ)/$(DIR_BUILTIN)/%.o:	$(DIR_BUILTIN)/%.c	$(DEPEND)
+	@mkdir -p $(DIR_OBJ)/$(DIR_BUILTIN)
+	@printf "\r\033[K\tCompilation de $(COLOR_PURPLE)$< ==> $@\$(COLOR_NORM)"
+	@$(CC) $(CFLAGS) -c -o $@ $< $(LIB)
+	@sleep 0.1
+
+$(DIR_OBJ)/$(DIR_ENV)/%.o:	$(DIR_ENV)/%.c	$(DEPEND)
+	@mkdir -p $(DIR_OBJ)/$(DIR_ENV)
+	@printf "\r\033[K\tCompilation de $(COLOR_PURPLE)$< ==> $@\$(COLOR_NORM)"
+	@$(CC) $(CFLAGS) -c -o $@ $< $(LIB)
+	@sleep 0.1
+
+$(NAME)	:	$(DEPEND) $(OBJS)
+	@printf "\n\tCompilation de $(COLOR_PURPLE)$(NAME)\$(COLOR_NORM)\n"
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_NAME) $(LIB)
+
+$(LIBFT_NAME)	:
+	@make -C $(DIR_LIBFT)
+
+l_clean:
+	@printf "\tSuppression $(COLOR_RED)$(DIR_OBJ)/$(COLOR_NORM)\n"
+	@rm -rf $(DIR_OBJ)
+
+clean:	l_clean
+	@make -C $(DIR_LIBFT) clean
+
+fclean:	l_clean
+	@make -C $(DIR_LIBFT) fclean
+	@printf "\tSuppression $(COLOR_RED)$(NAME)$(COLOR_NORM)\n"
+	@rm -rf $(NAME)
+
+re:	fclean all
+
+norm:
+	@make -C $(DIR_LIBFT) norm || true
+	@norminette	$(HDS)	$(SRCS) || true
