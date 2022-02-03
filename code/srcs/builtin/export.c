@@ -1,20 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 22:54:14 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/02/03 22:54:17 by jmilhas          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "../../includes/mini_shell.h"
 
-
-# include "../../includes/struct.h"
-# include "../../includes/mini_shell.h"
-
-void	ft_show_export(t_env *env)
+void	ft_show_export(t_shell *env)
 {
 	t_envp	*elem;
 
@@ -28,7 +14,7 @@ void	ft_show_export(t_env *env)
 	}
 }
 
-t_bool	ft_check_var(char *s1, char *s2, int c)
+int	ft_check_var(char *s1, char *s2, int c)
 {
 	int	i;
 
@@ -44,10 +30,10 @@ t_bool	ft_check_var(char *s1, char *s2, int c)
 	return (false);
 }
 
-t_bool	ft_export(t_env *env, char *export)
+int	ft_export(t_shell *env, char *export)
 {
 	t_envp	*elem;
-	
+
 	elem = env->envp;
 	if (!export || export[0] == '\0')
 	{

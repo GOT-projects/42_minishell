@@ -6,7 +6,7 @@
 #    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/02/03 20:20:24 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/02/04 00:16:19 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,19 +76,19 @@ $(DIR_OBJ)/$(DIR_GLOBAL)/%.o:	$(DIR_GLOBAL)/%.c	$(DEPEND)
 	@mkdir -p $(DIR_OBJ)/$(DIR_GLOBAL)
 	@printf "\r\033[K\tCompilation de $(COLOR_PURPLE)$< ==> $@\$(COLOR_NORM)"
 	@$(CC) $(CFLAGS) -c -o $@ $< $(LIB)
-	@sleep 0.1
+#	@sleep 0.1
 
 $(DIR_OBJ)/$(DIR_BUILTIN)/%.o:	$(DIR_BUILTIN)/%.c	$(DEPEND)
 	@mkdir -p $(DIR_OBJ)/$(DIR_BUILTIN)
 	@printf "\r\033[K\tCompilation de $(COLOR_PURPLE)$< ==> $@\$(COLOR_NORM)"
 	@$(CC) $(CFLAGS) -c -o $@ $< $(LIB)
-	@sleep 0.1
+#	@sleep 0.1
 
 $(DIR_OBJ)/$(DIR_ENV)/%.o:	$(DIR_ENV)/%.c	$(DEPEND)
 	@mkdir -p $(DIR_OBJ)/$(DIR_ENV)
 	@printf "\r\033[K\tCompilation de $(COLOR_PURPLE)$< ==> $@\$(COLOR_NORM)"
 	@$(CC) $(CFLAGS) -c -o $@ $< $(LIB)
-	@sleep 0.1
+#	@sleep 0.1
 
 $(NAME)	:	$(DEPEND) $(OBJS)
 	@printf "\n\tCompilation de $(COLOR_PURPLE)$(NAME)\$(COLOR_NORM)\n"
