@@ -1,17 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lst_env.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 22:56:08 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/02/03 22:56:14 by jmilhas          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-# include "../../includes/struct.h"
-# include "../../includes/mini_shell.h"
+#include "../../includes/mini_shell.h"
 
 /* function creer elem for the list chainé
  * @param1 str add to list
@@ -42,7 +29,6 @@ t_envp	*ft_last(t_envp *lst)
 		lst = lst->next;
 	return (lst);
 }
-
 
 /* function add node en dernier pos
  * @param1 t_envp **lst
