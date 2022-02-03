@@ -16,3 +16,5 @@ minishell
 .ccls
 _*/
 _*
+*.gch
+*.swp
