@@ -1,7 +1,5 @@
 mini_shell
 
-TEst branh=
-
 # Documentation
 
 https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
