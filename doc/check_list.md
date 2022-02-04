@@ -12,8 +12,8 @@ export\
 	[X] print la liste avec en debut "Declare -x" et la value en "valeur"\
 	[X] affiche les export quand la commande export n'a pas d args1\
 	[X] export var si value dans env\
-	[ ] export var si non value dans export sorted\
-	[ ] si var n'a pas de = ne pas ajouté les ""\
+	[X] export var si non value dans export sorted\
+	[X] si var n'a pas de = ne pas ajouté les ""\
 	[ ] export test    ajouter dans export\
 	[ ] export test=VALUE ajouter dans env:w\
 \
