@@ -1,5 +1,8 @@
 #include "../../includes/mini_shell.h"
 
+/* function printf export var
+ * @param1 t_shell env
+ * @return (exit)*/
 void	ft_show_export(t_shell *env)
 {
 	t_envp	*elem;
@@ -12,45 +15,68 @@ void	ft_show_export(t_shell *env)
 		ft_putstr_fd("\n", 1);
 		elem = elem->next;
 	}
+	exit(EXIT_SUCCESS);
 }
 
-int	ft_check_var(char *s1, char *s2, int c)
+/* function cherche var dans list 
+ * et la remplace par la nouvelle valeur
+ * @param1 t_envp lst
+ * @param2 char	*string
+ * @return (void)*/
+void	ft_replace_export(t_envp *lst, char *s)
 {
+	t_envp	*elem;
+	int	index;
 	int	i;
 
-	i = 0;
-	while (s1[i] == s2[i])
-	{
-		if (s1[i] == s2[i] && s1[i] == c && s2[i] == c)
-			return (true);
-		i++;
-	}
-	if (s1[i] == s2[i] && s1[i] == c && s2[i] == c)
-		return (true);
-	return (false);
+	i = -1;
+	elem = lst;
+	index = ft_check_lst(lst, s);
+	while (i++ < index -1)
+		elem = elem->next;
+	elem->envp = s;
 }
 
+/* function add dans export vairable 
+ * @param1 t_shell env
+ * @param2 char	*string
+ * @return (exit)*/
+void	ft_export_var(t_shell *env, char*s)
+{
+		if (ft_check_lst(env->export, s) > -1)
+		{
+			ft_replace_export(env->export, s);
+			exit(EXIT_SUCCESS);
+		}
+		ft_add_back(&env->export, ft_create_envp(s, env->t_env));
+		ft_sort_export(env->export);
+		exit(EXIT_SUCCESS);
+}
+
+/* function builtin de export
+ * @param1 t_shell env
+ * @param2 char	*string
+ * @return (exit)*/
 int	ft_export(t_shell *env, char *export)
 {
 	t_envp	*elem;
 
 	elem = env->envp;
 	if (!export || export[0] == '\0')
-	{
 		ft_show_export(env);
-		return (true);
-	}
-	if (ft_strchr(export, '=') == NULL)
-		export = ft_track(ft_strjoin(export, "="), env->t_env);
-	while (elem)
+	if (ft_strichr(export, '=') < 0)
+		ft_export_var(env, export);
+	if (ft_check_lst(env->export, export) > -1 || ft_check_lst(env->envp, export) > -1)
 	{
-		if (ft_check_var(elem->envp, export, '=') == true)
-		{
-			elem->envp = export;
-			return (true);
-		}
-		elem = elem->next;
+		if (ft_check_lst(env->export, export) > -1)
+			ft_replace_export(env->export, export);
+		if (ft_check_lst(env->envp, export) > -1)
+			ft_replace_export(env->envp, export);
 	}
-	ft_add_back(&env->envp, ft_create_envp(export, env->t_env));
-	return (true);
+	if (ft_check_lst(env->export, export) == -1)
+		ft_add_back(&env->export, ft_create_envp(export, env->t_env));
+	if (ft_check_lst(env->envp, export) == -1)
+		ft_add_back(&env->envp, ft_create_envp(export, env->t_env));
+	ft_sort_export(env->export);
+	exit(EXIT_SUCCESS);
 }

@@ -32,6 +32,7 @@ void	ft_add_back(t_envp **alst, t_envp *ne);
 int		ft_get_env(t_shell *env, t_track *t, char **envp);
 int		ft_get_export(t_shell *env, t_track *t, char **envp);
 int		ft_sort_export(t_envp *export);
+int		ft_check_lst(t_envp *lst, char *s);
 
 /***************************************************************/
 /*                           BULTIN                            */
