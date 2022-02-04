@@ -92,7 +92,7 @@ $(DIR_OBJ)/$(DIR_ENV)/%.o:	$(DIR_ENV)/%.c	$(DEPEND)
 
 $(NAME)	:	$(DEPEND) $(OBJS)
 	@printf "\n\tCompilation of $(COLOR_PURPLE)$(NAME)\$(COLOR_NORM)\n"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_NAME) $(LIB)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_NAME) $(LIB) $(LIBS)
 
 $(LIBFT_NAME)	:
 	@make -C $(DIR_LIBFT)

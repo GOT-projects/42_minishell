@@ -12,7 +12,7 @@ void	ft_exit(t_shell *shell, int status)
 {
 	if (shell)
 	{
-		ft_track_free_all(shell->t_pars);
+		/* ft_track_free_all(shell->t_pars); */
 		ft_track_free_all(shell->t_env);
 	}
 	write(1, "exit\n", 5);
