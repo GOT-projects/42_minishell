@@ -6,7 +6,9 @@ int	ft_exec_builtin(t_shell *env, char*cmd, char *args)
 		ft_export(env, args);
 	if (ft_strcmp(cmd, "env") == 0)
 		ft_env(env);
-	return (0);
+	if (ft_strcmp(cmd, "clear") == 0)
+		printf("\e[1;1H\e[2J");
+	return (1);
 }
 
 
@@ -15,8 +17,6 @@ int	main(int ac, char **av, char **ev)
 	t_shell	*env;
 	char	*line;
 	char	**args;
-	pid_t	pid[2];
-	int	status;
 
 	ac = 10 + 1;
 	if (ac == 100 && av)
@@ -29,17 +29,14 @@ int	main(int ac, char **av, char **ev)
 	while (1)
 	{
 		line = readline("🔞 Minishell> ");
-		args = ft_split(line, ' ');
-		ft_track_tab((void **)args, env->t_env);
-		free(line);
-		if (ft_strcmp(args[0], "exit") == 0)
-			ft_exit(env, 0);
-		pid[1] = fork();
-		if (pid[1] == 0)
-			ft_exec_builtin(env, args[0], args[1]);
-		else
+		if (line[0] != '\0' && line)
 		{
-			waitpid(pid[1], &status, 0);
+			args = ft_split(line, ' ');
+			ft_track_tab((void **)args, env->t_env);
+			free(line);
+			if (ft_strcmp(args[0], "exit") == 0)
+				ft_exit(env, 0);
+			ft_exec_builtin(env, args[0], args[1]);
 			ft_track_free_tab(env->t_env, (void **)args);
 		}
 	}
