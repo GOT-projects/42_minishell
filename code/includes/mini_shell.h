@@ -33,6 +33,10 @@ int		ft_get_env(t_shell *env, t_track *t, char **envp);
 int		ft_get_export(t_shell *env, t_track *t, char **envp);
 int		ft_sort_export(t_envp *export);
 
+/***************************************************************/
+/*                           BULTIN                            */
+/***************************************************************/
+
 /* fucntion builtin env.c */
 int		ft_env(t_shell *env);
 
@@ -44,6 +48,9 @@ char	*ft_export_syntax(char *str);
 
 /* fucntion builtin unset.c */
 int		ft_unset(t_shell *env, char *unset);
+
+/* fucntion builtin exit.c */
+void	ft_exit(t_shell *shell, int status);
 
 #endif
 
