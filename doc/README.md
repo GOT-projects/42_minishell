@@ -1,5 +1,21 @@
 mini_shell
 
+# git
+
+- merge master
+
+```sh
+git checkout master
+git merge <branch>
+```
+
+- recup master
+
+```sh
+git checkout <branch>
+git rebase master
+```
+
 # Documentation
 
 https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
