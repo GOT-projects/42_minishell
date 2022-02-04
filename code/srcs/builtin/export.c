@@ -3,11 +3,18 @@
 /* function printf export var
  * @param1 t_shell env
  * @return (exit)*/
-void	ft_show_export(t_shell *env)
+int	ft_show_export(t_shell *env, char *export)
 {
 	t_envp	*elem;
 
 	elem = env->export;
+	if (export && ft_isalpha(export[0]) == 0)
+	{
+		ft_putstr_fd("Minishell: export: '", 2);
+		ft_putstr_fd(export, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		return (1);
+	}
 	while (elem)
 	{
 		ft_putstr_fd("declare -x ", 1);
@@ -15,6 +22,7 @@ void	ft_show_export(t_shell *env)
 		ft_putstr_fd("\n", 1);
 		elem = elem->next;
 	}
+	return (0);
 }
 
 /* function cherche var dans list 
@@ -60,11 +68,8 @@ int	ft_export(t_shell *env, char *export)
 {
 	char 	*tmp;
 
-	if (!export || export[0] == '\0')
-	{
-		ft_show_export(env);
-		return (1);
-	}
+	if (!export || export[0] == '\0' || ft_isalpha(export[0]) == 0)
+		return(ft_show_export(env, export));
 	if (ft_check_lst(env->export, export) > -1 || ft_check_lst(env->envp, export) > -1)
 	{
 		if (ft_check_lst(env->export, export) > -1)
@@ -73,7 +78,7 @@ int	ft_export(t_shell *env, char *export)
 			ft_replace_export(env->envp, export);
 		return (1);
 	}
-	if (ft_strichr(export, '=') > 0)
+	if (ft_strichr(export, '=') > -1)
 	{
 		tmp = export;
 		if ((int)ft_strlen(export) > (ft_strichr(export, '=') + 2))
@@ -85,7 +90,7 @@ int	ft_export(t_shell *env, char *export)
 	}
 	if (ft_check_lst(env->export, export) == -1)
 		ft_add_back(&env->export, ft_create_envp(export, env->t_env));
-	if (ft_check_lst(env->envp, export) == -1)
+	if (ft_check_lst(env->envp, export) == -1 && ft_strichr(export, '=') > -1)
 		ft_add_back(&env->envp, ft_create_envp(export, env->t_env));
 	ft_sort_export(env->export);
 	return(1);

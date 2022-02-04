@@ -6,6 +6,8 @@ int	ft_exec_builtin(t_shell *env, char*cmd, char *args)
 		ft_export(env, args);
 	if (ft_strcmp(cmd, "env") == 0)
 		ft_env(env);
+	if (ft_strcmp(cmd, "unset") == 0)
+		ft_unset(env, args);
 	if (ft_strcmp(cmd, "clear") == 0)
 		printf("\e[1;1H\e[2J");
 	return (1);
