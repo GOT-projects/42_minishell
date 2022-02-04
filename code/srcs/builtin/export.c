@@ -65,20 +65,22 @@ int	ft_export(t_shell *env, char *export)
 		ft_show_export(env);
 		return (1);
 	}
-	if (ft_strichr(export, '=') > 0)
-	{
-		tmp = export;
-		export = ft_export_syntax(export);
-		ft_export_var(env, export);
-		free(tmp);
-		return (1);
-	}
 	if (ft_check_lst(env->export, export) > -1 || ft_check_lst(env->envp, export) > -1)
 	{
 		if (ft_check_lst(env->export, export) > -1)
 			ft_replace_export(env->export, export);
 		if (ft_check_lst(env->envp, export) > -1)
 			ft_replace_export(env->envp, export);
+		return (1);
+	}
+	if (ft_strichr(export, '=') > 0)
+	{
+		tmp = export;
+		if ((int)ft_strlen(export) > (ft_strichr(export, '=') + 2))
+			ft_add_back(&env->envp, ft_create_envp(export, env->t_env));
+		export = ft_export_syntax(export);
+		ft_export_var(env, export);
+		free(tmp);
 		return (1);
 	}
 	if (ft_check_lst(env->export, export) == -1)
