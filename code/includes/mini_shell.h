@@ -52,6 +52,9 @@ int		ft_unset(t_shell *env, char *unset);
 /* fucntion builtin exit.c */
 void	ft_exit(t_shell *shell, int status);
 
+/* fucntion builtin echo.c */
+void	ft_echo(char **args);
+
 #endif
 
 /* https://harm-smits.github.io/42docs/projects/minishell */
