@@ -1,37 +1,50 @@
 #include "../../includes/mini_shell.h"
 
+/* fonction unset var in list
+* @param1 t_envp *lst
+* @param2 char *unset
+* @return (exit) */
+int	ft_unset_var(t_envp *lst, char *unset)
+{
+	t_envp	*elem;
+	t_envp	*tmp;
+
+	elem = lst;
+	if (ft_check_var(elem->envp, unset, '=') == true)
+	{
+		elem = elem->next;
+		elem->prev = NULL;
+		return (EXIT_SUCCESS);
+	}
+	while (elem)
+	{
+		if (ft_check_var(elem->envp, unset, '=') == true)
+		{
+			tmp = elem;
+			if (elem->next != NULL)
+				elem->next->prev = tmp->prev;
+			if (elem->prev != NULL)
+				elem->prev->next = tmp->next;
+			return (EXIT_SUCCESS);
+		}
+		elem = elem->next;
+	}
+	return (EXIT_FAILURE);
+}
+
 /* fonction unset var in env
 * @param1 struct env
 * @param2 char *unset
 * @return (bool) */
-/* int	ft_unset(t_shell *env, char *unset) */
-/* { */
-/* 	t_envp	*elem; */
-/* 	t_envp	*tmp; */
+int	ft_unset(t_shell *env, char *unset)
+{
+	t_envp	*elem;
+	t_envp	*tmp;
 
-/* 	elem = env->envp; */
-/* 	if (!unset) */
-/* 		return (false); */
-/* 	if (ft_strchr(unset, '=') == NULL) */
-/* 		unset = ft_track(ft_strjoin(unset, "="), env->t_env); */
-/* 	if (ft_check_var(elem->envp, unset, '=') == true) */
-/* 	{ */
-/* 		env->envp = elem->next; */
-/* 		env->envp->prev = NULL; */
-/* 		return (true); */
-/* 	} */
-/* 	while (elem) */
-/* 	{ */
-/* 		if (ft_check_var(elem->envp, unset, '=') == true) */
-/* 		{ */
-/* 			tmp = elem; */
-/* 			if (elem->next != NULL) */
-/* 				elem->next->prev = tmp->prev; */
-/* 			if (elem->prev != NULL) */
-/* 				elem->prev->next = tmp->next; */
-/* 			return (true); */
-/* 		} */
-/* 		elem = elem->next; */
-/* 	} */
-/* 	return (false); */
-/* } */
+	elem = env->envp;
+	if (!unset)
+		return (EXIT_FAILURE);
+	ft_unset_var(env->envp, unset);
+	ft_unset_var(env->export, unset);
+	return (EXIT_FAILURE);
+}
