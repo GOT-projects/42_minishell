@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strichr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:13:31 by jmilhas           #+#    #+#             */
-/*   Updated: 2021/11/03 18:28:12 by jmilhas          ###   ########.fr       */
+/*   Updated: 2022/02/04 20:18:28 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strichr(const char *str, int c)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])

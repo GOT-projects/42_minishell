@@ -6,7 +6,7 @@
 #    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/02/04 19:39:28 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/02/05 00:55:14 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ DIR_GLOBAL			=	.
 SRC_BUILTIN		=	env.c		\
 					export.c	\
 					unset.c		\
-					exit.c
-#					echo.c		
+					exit.c		\
+					echo.c		
 #					cd.c		
 #					pwd.c		
 DIR_BUILTIN		=	srcs/builtin
@@ -77,7 +77,7 @@ define src2obj
 $(DIR_OBJ)/$(1)/%.o:	$(1)/%.c $(2)
 	@mkdir -p $(DIR_OBJ)/$(1)
 	@printf "\r\033[K\tCompilation of $(COLOR_PURPLE)$$< ==> $$@\$(COLOR_NORM)"
-	@$(CC) $(CFLAGS) -c -o $$@ $$< $(LIBS)
+	@$(CC) $(CFLAGS) -c -o $$@ $$<
 endef
 
 $(foreach dir,$(DIRS_SRC),$(eval $(call src2obj,$(dir), $(DEPENDS))))
