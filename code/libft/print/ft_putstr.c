@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 21:04:25 by jmilhas           #+#    #+#             */
-/*   Updated: 2021/11/16 21:04:25 by jmilhas          ###   ########.fr       */
+/*   Updated: 2022/02/04 20:33:50 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_putstr(char *str)
 {
-	int	res;
+	size_t	res;
 
 	if (!str)
 		return (0);

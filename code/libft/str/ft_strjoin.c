@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:58:58 by jmilhas           #+#    #+#             */
-/*   Updated: 2021/11/04 19:13:18 by jmilhas          ###   ########.fr       */
+/*   Updated: 2022/02/04 20:25:18 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-char	*ft_joint(char *dest, char const *s2, unsigned int i, char *tmp)
+char	*ft_joint(char *dest, char const *s2, size_t i, char *tmp)
 {
-	size_t			len;
-	unsigned int	j;
+	size_t	len;
+	size_t	j;
 
 	len = ft_strlen(tmp);
 	j = 0;
@@ -32,9 +32,9 @@ char	*ft_joint(char *dest, char const *s2, unsigned int i, char *tmp)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t			size;
-	char			*str;
-	unsigned int	i;
+	size_t	size;
+	char	*str;
+	size_t	i;
 
 	if (!s1 || !s2)
 		return (NULL);
