@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:58:09 by jmilhas           #+#    #+#             */
-/*   Updated: 2021/11/05 18:17:29 by jmilhas          ###   ########.fr       */
+/*   Updated: 2022/02/04 20:25:18 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-static int	split_len(const char *str, char c)
+static size_t	split_len(const char *str, char c)
 {
 	int	i;
-	int	trigger;
+	size_t	trigger;
 
 	i = 0;
 	trigger = 0;
