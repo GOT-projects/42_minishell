@@ -59,9 +59,6 @@ void	ft_export_var(t_shell *env, char*s)
  * @return (exit)*/
 int	ft_export(t_shell *env, char *export)
 {
-	t_envp	*elem;
-
-	elem = env->envp;
 	if (!export || export[0] == '\0')
 		ft_show_export(env);
 	if (ft_strichr(export, '=') < 0)
