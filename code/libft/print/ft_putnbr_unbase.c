@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_unbase.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 01:05:03 by jmilhas           #+#    #+#             */
-/*   Updated: 2021/11/17 01:05:03 by jmilhas          ###   ########.fr       */
+/*   Updated: 2022/02/04 20:39:23 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	ft_sort_int_tab(char *str)
 {
-	int	i;
-	int	m;
+	size_t	i;
+	size_t	m;
 
 	i = 0;
 	while (str[i])
