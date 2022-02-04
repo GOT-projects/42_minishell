@@ -60,11 +60,12 @@ LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
 SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
 				$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
 				$(addprefix $(DIR_ENV)/, $(SRC_ENV))
+DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV)
 DIR_OBJ		=	obj
 OBJS		=	$(addprefix $(DIR_OBJ)/, $(SRCS:.c=.o))
 HDS			=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
 
-DEPEND		=	$(HDS) $(MK) $(LIBFT_NAME)
+DEPENDS		=	$(HDS) $(MK) $(LIBFT_NAME)
 
 ################################################################################
 ##                                 Règles                                     ##
@@ -72,27 +73,18 @@ DEPEND		=	$(HDS) $(MK) $(LIBFT_NAME)
 
 all	:	$(NAME)
 
-$(DIR_OBJ)/$(DIR_GLOBAL)/%.o:	$(DIR_GLOBAL)/%.c	$(DEPEND)
-	@mkdir -p $(DIR_OBJ)/$(DIR_GLOBAL)
-	@printf "\r\033[K\tCompilation of $(COLOR_PURPLE)$< ==> $@\$(COLOR_NORM)"
-	@$(CC) $(CFLAGS) -c -o $@ $< $(LIB)
-#	@sleep 0.1
+define src2obj
+$(DIR_OBJ)/$(1)/%.o:	$(1)/%.c $(2)
+	@mkdir -p $(DIR_OBJ)/$(1)
+	@printf "\r\033[K\tCompilation of $(COLOR_PURPLE)$$< ==> $$@\$(COLOR_NORM)"
+	@$(CC) $(CFLAGS) -c -o $$@ $$< $(LIBS)
+endef
 
-$(DIR_OBJ)/$(DIR_BUILTIN)/%.o:	$(DIR_BUILTIN)/%.c	$(DEPEND)
-	@mkdir -p $(DIR_OBJ)/$(DIR_BUILTIN)
-	@printf "\r\033[K\tCompilation of $(COLOR_PURPLE)$< ==> $@\$(COLOR_NORM)"
-	@$(CC) $(CFLAGS) -c -o $@ $< $(LIB)
-#	@sleep 0.1
+$(foreach dir,$(DIRS_SRC),$(eval $(call src2obj,$(dir), $(DEPENDS))))
 
-$(DIR_OBJ)/$(DIR_ENV)/%.o:	$(DIR_ENV)/%.c	$(DEPEND)
-	@mkdir -p $(DIR_OBJ)/$(DIR_ENV)
-	@printf "\r\033[K\tCompilation of $(COLOR_PURPLE)$< ==> $@\$(COLOR_NORM)"
-	@$(CC) $(CFLAGS) -c -o $@ $< $(LIB)
-#	@sleep 0.1
-
-$(NAME)	:	$(DEPEND) $(OBJS)
+$(NAME)	:	$(DEPENDS) $(OBJS)
 	@printf "\n\tCompilation of $(COLOR_PURPLE)$(NAME)\$(COLOR_NORM)\n"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_NAME) $(LIB)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_NAME) $(LIBS)
 
 $(LIBFT_NAME)	:
 	@make -C $(DIR_LIBFT)
