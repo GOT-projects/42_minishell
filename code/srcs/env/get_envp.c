@@ -84,21 +84,21 @@ char	*ft_export_syntax(char *str)
 	char	*export;
 	int		i;
 	int		j;
+	int	check;
 
-	i = 0;
+	i = -1;
 	j = 0;
+	check = 0;
 	export = (char *)malloc(sizeof(char) * (ft_strlen(str) + 3));
-	if (!export)
-		return (NULL);
-	while (str[i])
+	while (str[++i])
 	{
 		export[i + j] = str[i];
-		if (str[i] == '=')
+		if (str[i] == '=' && check == 0)
 		{
 			j++;
 			export[i + j] = '"';
+			check++;
 		}
-		i++;
 	}
 	export[i + j] = '"';
 	export[i + j + 1] = '\0';

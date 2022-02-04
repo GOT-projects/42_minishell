@@ -49,3 +49,27 @@ void	ft_add_back(t_envp **alst, t_envp *ne)
 	elem->next = ne;
 	ne->prev = elem;
 }
+
+/* function check si str et dans une list
+ * @param1 t_envp *lst
+ * @return (lst trouve)*/
+int	ft_check_lst(t_envp *lst, char *s)
+{
+	t_envp	*elem;
+	int	i;
+	int	index;
+
+	i = 0;
+	elem = lst;
+	index = ft_strichr(s, '=');
+	if (index == -1)
+		index = ft_strlen(s);
+	while (elem)
+	{
+		if (ft_strncmp(elem->envp, s, index) == 0)
+			return (i);
+		elem = elem->next;
+		i++;
+	}
+	return (-1);
+}
