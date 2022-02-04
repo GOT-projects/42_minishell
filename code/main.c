@@ -16,7 +16,7 @@ int	main(int ac, char **av, char **ev)
 	char	*line;
 	char	**args;
 	pid_t	pid[2];
-	/* int	status; */
+	int	status;
 
 	ac = 10;
 	av[0] = NULL;
@@ -24,9 +24,10 @@ int	main(int ac, char **av, char **ev)
 	env->t_env = ft_memalloc(sizeof(t_track));
 	ft_get_env(env, env->t_env, ev);
 	ft_get_export(env, env->t_env, ev);
+	printf("\e[1;1H\e[2J");
 	while (1)
 	{
-		line = readline("Minishell> ");
+		line = readline("🔞 Minishell> ");
 		args = ft_split(line, ' ');
 		ft_track_tab((void **)args, env->t_env);
 		free(line);
@@ -37,7 +38,7 @@ int	main(int ac, char **av, char **ev)
 			ft_exec_builtin(env, args[0], args[1]);
 		else
 		{
-			waitpid(pid[1], NULL, 0);
+			waitpid(pid[1], &status, 0);
 			ft_track_free_tab(env->t_env, (void **)args);
 		}
 	}
