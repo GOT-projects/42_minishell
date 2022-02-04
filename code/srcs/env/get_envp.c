@@ -14,7 +14,8 @@ int	ft_get_env(t_shell *env, t_track *t, char **envp)
 		return (false);
 	while (envp[i])
 	{
-		ft_add_back(&env->envp, ft_create_envp(envp[i], t));
+		if (ft_strncmp(envp[i], "OLDPWD=", 6) != 0)
+			ft_add_back(&env->envp, ft_create_envp(envp[i], t));
 		i++;
 	}
 	return (true);
@@ -35,6 +36,8 @@ int	ft_get_export(t_shell *env, t_track *t, char **envp)
 		return (false);
 	while (envp[i])
 	{
+		if (ft_strncmp(envp[i], "OLDPWD=", 6) == 0)
+			envp[i] = ft_strndup(envp[i], 6);
 		tmp = ft_export_syntax(envp[i]);
 		ft_add_back(&env->export, ft_create_envp(tmp, t));
 		free(tmp);
@@ -84,23 +87,25 @@ char	*ft_export_syntax(char *str)
 	char	*export;
 	int		i;
 	int		j;
-	int	check;
 
 	i = -1;
 	j = 0;
-	check = 0;
 	export = (char *)malloc(sizeof(char) * (ft_strlen(str) + 3));
 	while (str[++i])
 	{
 		export[i + j] = str[i];
-		if (str[i] == '=' && check == 0)
+		if (str[i] == '=' && j == 0)
 		{
 			j++;
 			export[i + j] = '"';
-			check++;
 		}
 	}
-	export[i + j] = '"';
-	export[i + j + 1] = '\0';
+	if (j > 0)
+	{
+		export[i + j] = '"';
+		export[i + j + 1] = '\0';
+	}
+	else
+		export[i + j] = '\0';
 	return (export);
 }
