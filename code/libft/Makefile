@@ -164,7 +164,7 @@ $(NAME): $(OBJ_C) $(OBJ_ISA) $(OBJ_MEM) $(OBJ_STR) $(OBJ_PRINT) $(OBJ_LST)
 
 clean:
 	@printf "$(CCYAN)[✅]\t$(CCRED)Removal of $(EXEC) Objects...$(CCEND)\n"
-	@-/bin/rm -rf $(PATH_OBJ)*.o
+	@-/bin/rm -rf $(PATH_OBJ)
 
 fclean: clean
 	@printf "$(CCYAN)[✅]\t$(CCRED)Removal of $(NAME)...$(CCEND)\n"
