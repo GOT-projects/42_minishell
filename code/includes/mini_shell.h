@@ -39,7 +39,7 @@ int		ft_check_lst(t_envp *lst, char *s);
 /***************************************************************/
 
 /* fucntion builtin env.c */
-int		ft_env(t_shell *env);
+void		ft_env(t_shell *env);
 
 /* fucntion builtin export.c */
 int		ft_export(t_shell *env, char *export);
