@@ -7,6 +7,10 @@ void	ft_echo(char **args)
 
 	i = 0;
 	nl = true;
+	while (args && args[i++])
+		if (i == SIZE_T_MAX)
+			exit(EXIT_FAILURE);
+	i = 0;
 	while (args && args[i] && !ft_strcmp(args[i], "-n"))
 	{
 		nl = false;
