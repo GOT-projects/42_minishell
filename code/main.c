@@ -18,8 +18,9 @@ int	main(int ac, char **av, char **ev)
 	pid_t	pid[2];
 	int	status;
 
-	ac = 10;
-	av[0] = NULL;
+	ac = 10 + 1;
+	if (ac == 100 && av)
+		ac = 100;
 	env = ft_memalloc(sizeof(t_shell));
 	env->t_env = ft_memalloc(sizeof(t_track));
 	ft_get_env(env, env->t_env, ev);

@@ -15,6 +15,6 @@ void	ft_exit(t_shell *shell, int status)
 		/* ft_track_free_all(shell->t_pars); */
 		ft_track_free_all(shell->t_env);
 	}
-	write(1, "exit\n", 5);
+	ft_putstr_fd("exit\n", 1);
 	exit(status);
 }

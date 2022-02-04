@@ -42,7 +42,7 @@ int		ft_check_lst(t_envp *lst, char *s);
 void		ft_env(t_shell *env);
 
 /* fucntion builtin export.c */
-int		ft_export(t_shell *env, char *export);
+int		ft_export(t_shell *env, char *exptrt);
 int		ft_check_var(char *s1, char *s2, int c);
 void	ft_show_export(t_shell *env);
 char	*ft_export_syntax(char *str);
