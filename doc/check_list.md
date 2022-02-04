@@ -6,6 +6,7 @@ env\
 	[X] creatation liste chainé\
 	[X] print la liste\
 	[ ]modifier pour afficher juste les variables avec value;\
+	[ ]faire test avec args
 export\
 	[X] creatation liste chainé\
 	[X] sorted la liste chainé export par ordre alpha\
@@ -14,14 +15,11 @@ export\
 	[X] export var si value dans env\
 	[X] export var si non value dans export sorted\
 	[X] si var n'a pas de = ne pas ajouté les ""\
-	[ ] export test    ajouter dans export\
-	[ ] export test=VALUE ajouter dans env:w\
+	[X] export test    ajouter dans export\
+	[X] export test=VALUE ajouter dans env:w\
 \
 unset\
 	[X] unset variable dans env\
 	[ ] unset variable dans export\
 \
 \
-voir avec alix \
-	quand on lance notre minishell doit etre set dans OLDPWD\
-	dans export et non dans env si cd n'est pas utilisé\
