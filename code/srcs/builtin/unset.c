@@ -8,23 +8,17 @@ int	ft_unset_var(t_envp *lst, char *unset)
 {
 	t_envp	*elem;
 	t_envp	*tmp;
-	size_t	len;
 
 	elem = lst;
-	len = ft_strlen(unset);
 	while (elem)
 	{
-		if (ft_strncmp(elem->envp, unset, len - 1) == 0)
+		if (ft_strncmp(elem->envp, unset, ft_strlen(unset)) == 0)
 		{
 			tmp = elem;
 			if (elem->next != NULL)
 				elem->next->prev = tmp->prev;
-			else
-				elem->prev->next = NULL;
 			if (elem->prev != NULL)
 				elem->prev->next = tmp->next;
-			else
-				elem->next->prev = NULL;
 			return (0);
 		}
 		elem = elem->next;
