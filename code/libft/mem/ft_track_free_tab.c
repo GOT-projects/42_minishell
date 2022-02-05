@@ -57,7 +57,7 @@ void	**ft_track_free_tab(t_track *track, void **mem)
 		else
 			dest[var[1]++] = track->mem[var[0]++];
 	}
-	while (check <= size)
+	while (size-- > 0)
 		free(track->mem[check++]);
 	free(track->mem);
 	track->mem = dest;

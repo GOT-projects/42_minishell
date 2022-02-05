@@ -59,6 +59,11 @@ void	ft_echo(char **args);
 
 /* function conv lst to tab lst_to_tab.c*/
 char	**ft_lst_to_tab(t_envp *lst);
+char	*ft_get_pwd(t_envp *lst);
+
+/* function alloc pwd for mini_shell in show_pwd.c*/ 
+char	*ft_get_pwd(t_envp *lst);
+
 
 
 #endif
