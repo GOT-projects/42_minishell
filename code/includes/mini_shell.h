@@ -57,6 +57,10 @@ void	ft_exit(t_shell *shell, int status);
 /* fucntion builtin echo.c */
 void	ft_echo(char **args);
 
+/* function conv lst to tab lst_to_tab.c*/
+char	**ft_lst_to_tab(t_envp *lst);
+
+
 #endif
 
 /* https://harm-smits.github.io/42docs/projects/minishell */
