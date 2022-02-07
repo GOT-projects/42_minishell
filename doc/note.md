@@ -1,5 +1,11 @@
 (echo 1 && sleep 3 && echo 2) | cat -e
 grep yes << o
+
+t_envp	*ft_get_env_key(t_envp *env, char *key); //TODO
+char	*ft_get_env_val(t_envp *var_env); //TODO
+int		ft_export_replace(char *key, char *new_val);
+//suppr elem -- free rm track -- (elem)
+//int		ft_export_replace("OLDPWD", path);
 # Priorities
 
 1. quotes
