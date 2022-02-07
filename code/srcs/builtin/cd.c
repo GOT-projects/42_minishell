@@ -1,9 +1,5 @@
 #include "../../includes/mini_shell.h"
 
-t_envp	*ft_get_env_key(t_envp *env, char *key); //TODO
-char	*ft_get_env_val(t_envp *var_env); //TODO
-//ft_export_replace("OLDPWD", path);
-
 static int	ft_cd_pwd_path(char *path)
 {
 	if (chdir(path) == -1)
