@@ -2,8 +2,56 @@
 
 int	ft_exec_prg(t_shell *shell, char **cmd)
 {
-	pid_t	pid;
-	
+	size_t	i;
+	char	**paths;
+	char	*true_path;
+	int		ret;
+
+	ret = ERR_404_EXEC;
+	true_path = NULL;
+	if (strchr(cmd[0], '/'))
+	{
+		if (/*exist*/)
+		{
+			if (!access(cmd[0], X_OK))
+				true_path = cmd[0];
+			else
+				ret = ERR_403_EXEC;
+		}
+	}
+	else
+	{
+		paths = ft_get_env_paths(shell);
+		if (!paths)
+		{
+			//TODO
+		}
+		i = 0;
+		while (!true_path && paths[i])
+		{
+			true_path = ft_strjoin(paths[i++], cmd[0]);
+			if (!true_path)
+				// TODO free
+			if (access(true_path, X_OK))
+			{
+				free(true_path);
+				true_path = NULL;
+			}
+		}
+	}
+	if (true_path)
+		// create sub process
+	else
+	{
+		ft_putstr_fd(cmd[0], 2);
+		if (ret == ERR_403_EXEC)
+			ft_putstr_fd(": Permission denied\n", 2);
+		if (strchr(cmd[0], '/') && ret == ERR_404_EXEC)
+			ft_putstr_fd(": No such file or directory\n", 2);
+		else if (strchr(cmd[0], '/') && ret == ERR_403_EXEC)
+			ft_putstr_fd(": Command not found\n", 2);
+	}
+	return (ret);
 }
 
 int	ft_exec_cmd(t_shell *shell, char **cmd)
