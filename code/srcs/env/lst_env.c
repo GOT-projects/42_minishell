@@ -4,7 +4,7 @@
  * @param1 str add to list
  * @param2 struct tracker malloc
  * @return (stack)*/
-t_env	*ft_create_envp(char *key, char *value, t_track *t)
+t_env	*ft_create_envp(char *key, char *value, t_track **t)
 {
 	t_env	*stack;
 	char	*m_key;

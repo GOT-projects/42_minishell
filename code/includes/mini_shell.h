@@ -34,11 +34,16 @@
 # define ENV_PWD_OLD	"OLDPWD"
 
 /* function in lst_env.c */
-t_env	*ft_create_envp(char *key, char *value, t_track *t);
+t_env	*ft_create_envp(char *key, char *value, t_track **t);
 t_env	*ft_last(t_env *lst);
 void	ft_add_back(t_env **alst, t_env *ne);
 
-/* function in get_envp.c */
+/* function in get_utils.c */
+t_env	*ft_get_env_key(t_env *lst, const char *key);
+char	*ft_get_env_val(t_env *node_var);
+t_env	*ft_replace_node(t_env *node, char *value);
+int		ft_export_add(t_shell *shell, char *key, char *new_val);
+
 
 /***************************************************************/
 /*                           BULTIN                            */
@@ -48,17 +53,10 @@ void	ft_add_back(t_env **alst, t_env *ne);
 /* int		ft_env(t_shell *env); */
 
 /* fucntion builtin export.c */
-<<<<<<< HEAD
 /* int		ft_export(t_shell *env, char *exptrt); */
 /* int		ft_check_var(char *s1, char *s2, int c); */
 /* int	ft_show_export(t_shell *env, char *export); */
 /* char	*ft_export_syntax(char *str); */
-=======
-int		ft_export(t_shell *env, char *exptrt);
-int		ft_check_var(char *s1, char *s2, int c);
-int		ft_show_export(t_shell *env, char *export);
-char	*ft_export_syntax(char *str);
->>>>>>> alix
 
 /* fucntion builtin unset.c */
 /* int		ft_unset(t_shell *env, char *unset); */
@@ -67,25 +65,20 @@ char	*ft_export_syntax(char *str);
 void	ft_exit(t_shell *shell, int status);
 
 /* fucntion builtin echo.c */
-<<<<<<< HEAD
 /* void	ft_echo(char **args); */
 
 /* function conv lst to tab lst_to_tab.c*/
 /* char	**ft_lst_to_tab(t_envp *lst); */
-/* char	*ft_get_pwd(t_envp *lst); */
 
-/* function alloc pwd for mini_shell in show_pwd.c*/ 
-/* char	*ft_get_pwd(t_envp *lst); */
-
-=======
+// echo
 int		ft_echo(char **args);
 
-/* builtin cd : cd.c cd_utils.c */
+// cd
 size_t	ft_nb_args(char **args);
 int		ft_get_pwd(char *str);
 int		ft_cd(t_shell *shell, char **paths);
->>>>>>> alix
+
+// pwd
+int		ft_pwd(void);
 
 #endif
-
-/* https://harm-smits.github.io/42docs/projects/minishell */
