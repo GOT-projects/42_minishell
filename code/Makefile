@@ -6,7 +6,7 @@
 #    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/02/05 00:55:14 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/02/08 02:53:27 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,14 +34,15 @@ SRC_BUILTIN		=	env.c		\
 					export.c	\
 					unset.c		\
 					exit.c		\
-					echo.c		
-#					pwd.c		
-#					cd.c		
+					echo.c		\
+					pwd.c		\
+					cd.c		\
+					cd_utils.c
 DIR_BUILTIN		=	srcs/builtin
 
-SRC_ENV			=	get_envp.c		\
-					lst_env.c	\
-					lst_to_tab.c
+SRC_ENV			=	lst_env.c	\
+					env_utils.c	
+#					lst_to_tab.c
 DIR_ENV			=	srcs/env
 
 MK				=	Makefile
@@ -53,7 +54,7 @@ MK				=	Makefile
 NAME		=	minishell
 CC			=	cc
 CFLAGS		=	-Wall -Werror -Wextra -O3
-#-fsanitize=address
+# -fsanitize=address
 LIBS		=	-L/usr/local/lib -I/usr/local/include -lreadline -I$(DIR_HDS)
 DIR_LIBFT	= 	libft
 LIBFT_NAME	=	$(DIR_LIBFT)/libft.a

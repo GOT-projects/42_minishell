@@ -12,8 +12,8 @@ void	ft_exit(t_shell *shell, int status)
 {
 	if (shell)
 	{
-		/* ft_track_free_all(shell->t_pars); */
-		ft_track_free_all(shell->t_env);
+		// TO_ADD_ALL_TRACKS
+		ft_track_free_all(&(shell->t_env));
 	}
 	ft_putstr_fd("exit\n", 1);
 	exit(status);

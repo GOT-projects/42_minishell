@@ -7,6 +7,7 @@ t_env	*ft_get_env_key(t_env *lst, const char *key)
 
 	if (!key)
 		return (NULL);
+	elem = lst;
 	while (elem)
 	{
 		if (!ft_strncmp(elem->key, key, ft_strlen(key)))
@@ -32,7 +33,6 @@ t_env	*ft_replace_node(t_env *node, char *value)
 	return (node);
 }
 
-
 /* function export new key value or add new value to node
  * \/!\ key and value will be copy and not free /!\\
  * @param1 t_shell shell
@@ -47,10 +47,13 @@ int		ft_export_add(t_shell *shell, char *key, char *new_val)
 	node = ft_get_env_key(shell->env, key);
 	if (!node)
 	{
-		ft_add_back(&(shell->env), ft_create_envp(key, new_val, shell->t_env));
+		ft_add_back(&(shell->env), ft_create_envp(key, new_val,
+			&(shell->t_env)));
 		return (EXIT_SUCCESS);
 	}
-	ft_track((char *)ft_memalloc(sizeof(char) * (ft_strlen(new_val) + 1)), shell->t_env);
+	m_val = ft_track((char *)ft_memalloc(sizeof(char) *
+		(ft_strlen(new_val) + 1)), &(shell->t_env));
+	ft_strcpy(m_val, new_val);
 	ft_replace_node(node, m_val);
 	return (EXIT_SUCCESS);
 }

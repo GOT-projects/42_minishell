@@ -20,12 +20,13 @@ size_t	ft_nb_args(char **args)
  * @brief put in str the actual path (pwd)
  * 
  * @param str (char*) the string of destination
- * /!\ str must have a length >= at _PC_PATH_MAX
+ * /!\ str must have a length >= at PATH_MAX
  * @return ** int 0 if success, else it return errno that is > 0
  */
 int	ft_get_pwd(char *str)
 {
-	if (!getcwd(str, _PC_PATH_MAX))
+	ft_bzero(str, PATH_MAX * sizeof(char));
+	if (!getcwd(str, PATH_MAX))
 	{
 		ft_putstr_fd("cd: path error\n", 2);
 		return (errno);

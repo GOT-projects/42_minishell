@@ -35,36 +35,36 @@ void	ft_print(char **tabs)
 /* 	return (1); */
 /* } */
 
-int	main(int ac, char **av, char **ev)
+int	main(int ac, char **av/*, char **ev*/)
 {
-	t_shell	*env;
+	t_shell	shell;
 	char	*line;
 	char	**args;
-	/* char	*mini_shell; */
 
 	ac = 10 + 1;
 	if (ac == 100 && av)
 		ac = 100;
-	env = ft_memalloc(sizeof(t_shell));
-	env->t_env = ft_memalloc(sizeof(t_track));
+	ft_bzero(&shell, sizeof(t_shell));
+	shell.t_env = ft_memalloc(sizeof(t_track));
 	printf("\e[1;1H\e[2J");
 	while (1)
 	{
-		printf("env node: %d ", env->t_env->len);
+		printf("env node: %d ", shell.t_env->len);
 		line = readline("Minishell > ");
 		if (line[0] != '\0' && line)
 		{
 			args = ft_strsplit(line, ' ');
-			ft_track_tab((void **)args, env->t_env);
+			ft_track_tab((void **)args, &(shell.t_env));
 			if (ft_strcmp(args[0], "exit") == 0)
-				ft_exit(env, 0);
-			/* ft_exec_builtin(env, args[0], args[1]); */
-			ft_track_free_tab(env->t_env, (void *)args);
+				ft_exit(&shell, 0);
+			else if (ft_strcmp(args[0], "cd") == 0)
+				ft_cd(&shell, &(args[1]));
+			else if (ft_strcmp(args[0], "pwd") == 0)
+				ft_pwd();
+			ft_track_free_tab(&(shell.t_env), (void **)args);
 		}
 		free(line);
-		/* ft_track_free(env->t_env, (void *)mini_shell); */
 	}
-	ft_track_free_all(env->t_env);
-	free(env);
+	ft_track_free_all(&(shell.t_env));
 	return (0);
 }

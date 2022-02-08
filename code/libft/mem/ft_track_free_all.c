@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_track_free_all.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:12:31 by jmilhas           #+#    #+#             */
-/*   Updated: 2021/11/03 18:48:52 by jmilhas          ###   ########.fr       */
+/*   Updated: 2022/02/08 02:01:26 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ void	**ft_track_free(t_track **track, void *mem)
 	j = 0;
 	if (ft_check_track(track, mem, &check) == -1)
 		return (NULL);
-	dest = ft_error_mal(malloc(sizeof(void *) * ((*track)->len - 1)), &track);
+	dest = ft_error_mal(malloc(sizeof(void *) * ((*track)->len - 1)), track);
 	if (!dest)
 		return (NULL);
 	ft_bzero(dest, sizeof(dest) * ((*track)->len - 1));
-	while (track->mem[++i] != NULL)
+	while ((*track)->mem[++i] != NULL)
 	{
 		if (i != check)
-			dest[j++] = track->mem[i];
+			dest[j++] = (*track)->mem[i];
 	}
 	free((*track)->mem[check]);
 	free((*track)->mem);
-	track->mem = dest;
-	track->len--;
+	(*track)->mem = dest;
+	(*track)->len--;
 	return (dest);
 }
 
