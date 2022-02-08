@@ -35,12 +35,13 @@ SRC_BUILTIN		=	env.c		\
 					unset.c		\
 					exit.c		\
 					echo.c		
-#					cd.c		
 #					pwd.c		
+#					cd.c		
 DIR_BUILTIN		=	srcs/builtin
 
 SRC_ENV			=	get_envp.c		\
-					lst_env.c
+					lst_env.c	\
+					lst_to_tab.c
 DIR_ENV			=	srcs/env
 
 MK				=	Makefile

@@ -17,11 +17,13 @@ char	*ft_strrchr(const char *str, int c)
 	size_t	n;
 
 	n = ft_strlen((char *)str);
-	while (n >= 0)
+	while (n > 0)
 	{
 		if (str[n] == c)
 			return ((char *)str + n);
 		n--;
 	}
+	if (str[n] == c)
+		return ((char *)str + n);
 	return (NULL);
 }
