@@ -24,6 +24,8 @@ https://www.gnu.org/software/bash/manual/bash.html
 
 https://stackoverflow.com/questions/39199299/what-is-the-essential-difference-between-compound-command-and-normal-command-in
 
+https://tiswww.case.edu/php/chet/readline/readline.html
+
 
 ## 2 Definitions
 These definitions are used throughout the remainder of this manual.
