@@ -1,5 +1,6 @@
 #include "../../includes/mini_shell.h"
 
+
 /**
  * @brief print in term the current path
  * 
@@ -14,7 +15,7 @@ int	ft_pwd(void)
 	if (getcwd(path, PATH_MAX))
 	{
 		ft_putstr_fd(path, 1);
-		write(1, "\n", 1);
+		ft_putstr_fd("\n", 1);
 		return (EXIT_SUCCESS);
 	}
 	perror("pwd");

@@ -44,6 +44,9 @@ char	*ft_get_env_val(t_env *node_var);
 t_env	*ft_replace_node(t_env *node, char *value);
 int		ft_export_add(t_shell *shell, char *key, char *new_val);
 
+/* function in ft_get_env.c */ 
+void	ft_print_env(t_env *lst);
+void	ft_init_env(t_shell *shell, char **ev);
 
 /***************************************************************/
 /*                           BULTIN                            */
@@ -53,7 +56,7 @@ int		ft_export_add(t_shell *shell, char *key, char *new_val);
 /* int		ft_env(t_shell *env); */
 
 /* fucntion builtin export.c */
-/* int		ft_export(t_shell *env, char *exptrt); */
+int		ft_export(t_shell *env, char *exptrt);
 /* int		ft_check_var(char *s1, char *s2, int c); */
 /* int	ft_show_export(t_shell *env, char *export); */
 /* char	*ft_export_syntax(char *str); */

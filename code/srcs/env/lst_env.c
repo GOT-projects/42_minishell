@@ -15,8 +15,8 @@ t_env	*ft_create_envp(char *key, char *value, t_track **t)
 	m_value = ft_track(ft_memalloc(sizeof(char *) * ft_strlen(value) + 1), t);
 	if (!m_key || !m_value || !stack)
 		return (NULL);
-	m_key = ft_strcpy(key, key);
-	m_value = ft_strcpy(value, key);
+	m_key = ft_strcpy(m_key, key);
+	m_value = ft_strcpy(m_value, value);
 	stack->key = m_key;
 	stack->value = m_value;
 	stack->next = NULL;
