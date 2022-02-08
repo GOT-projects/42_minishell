@@ -30,6 +30,9 @@
 #  define MY_SIZE_T_MAX SIZE_T_MAX
 # endif
 
+# define ENV_PWD		"PWD"
+# define ENV_PWD_OLD	"OLDPWD"
+
 /* function in lst_env.c */
 t_env	*ft_create_envp(char *key, char *value, t_track *t);
 t_env	*ft_last(t_env *lst);
@@ -45,10 +48,17 @@ void	ft_add_back(t_env **alst, t_env *ne);
 /* int		ft_env(t_shell *env); */
 
 /* fucntion builtin export.c */
+<<<<<<< HEAD
 /* int		ft_export(t_shell *env, char *exptrt); */
 /* int		ft_check_var(char *s1, char *s2, int c); */
 /* int	ft_show_export(t_shell *env, char *export); */
 /* char	*ft_export_syntax(char *str); */
+=======
+int		ft_export(t_shell *env, char *exptrt);
+int		ft_check_var(char *s1, char *s2, int c);
+int		ft_show_export(t_shell *env, char *export);
+char	*ft_export_syntax(char *str);
+>>>>>>> alix
 
 /* fucntion builtin unset.c */
 /* int		ft_unset(t_shell *env, char *unset); */
@@ -57,6 +67,7 @@ void	ft_add_back(t_env **alst, t_env *ne);
 void	ft_exit(t_shell *shell, int status);
 
 /* fucntion builtin echo.c */
+<<<<<<< HEAD
 /* void	ft_echo(char **args); */
 
 /* function conv lst to tab lst_to_tab.c*/
@@ -66,6 +77,14 @@ void	ft_exit(t_shell *shell, int status);
 /* function alloc pwd for mini_shell in show_pwd.c*/ 
 /* char	*ft_get_pwd(t_envp *lst); */
 
+=======
+int		ft_echo(char **args);
+
+/* builtin cd : cd.c cd_utils.c */
+size_t	ft_nb_args(char **args);
+int		ft_get_pwd(char *str);
+int		ft_cd(t_shell *shell, char **paths);
+>>>>>>> alix
 
 #endif
 
