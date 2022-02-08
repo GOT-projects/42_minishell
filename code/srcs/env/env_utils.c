@@ -57,4 +57,3 @@ int		ft_export_add(t_shell *shell, char *key, char *new_val)
 	ft_replace_node(node, m_val);
 	return (EXIT_SUCCESS);
 }
-//int		ft_export_replace("OLDPWD", path);

@@ -41,7 +41,8 @@ SRC_BUILTIN		=	env.c		\
 DIR_BUILTIN		=	srcs/builtin
 
 SRC_ENV			=	lst_env.c	\
-					env_utils.c	
+				env_utils.c	\
+				ft_get_env.c		
 #					lst_to_tab.c
 DIR_ENV			=	srcs/env
 

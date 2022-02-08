@@ -65,6 +65,7 @@ int	ft_cd(t_shell *shell, char **paths)
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
 	}
+	var_env[1] = NULL;
 	ret = ft_cd_precd(shell, &var_env, path);
 	if (!ret && !paths[0])
 		ret = ft_cd_with_env(shell, "HOME");
