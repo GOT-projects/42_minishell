@@ -17,7 +17,7 @@ void	**ft_add_malloc(t_track *track, int len)
 	void	**dest;
 	int		i;
 
-	i = 0;
+	i = -1;
 	if (len == 0)
 		len = 1;
 	if (track->len == 0)
@@ -28,12 +28,11 @@ void	**ft_add_malloc(t_track *track, int len)
 		return (dest);
 	}
 	dest = ft_error_mal(malloc(sizeof(void *) * (track->len + len)), track);
+	if (!dest)
+		return (NULL);
 	ft_bzero(dest, sizeof(dest) * (track->len + len));
-	while (track->mem[i] != NULL)
-	{
+	while (track->mem[++i] != NULL)
 		dest[i] = track->mem[i];
-		i++;
-	}
 	track->len += len;
 	free(track->mem);
 	return (dest);
@@ -44,7 +43,8 @@ void	*ft_track(void *src, t_track *track)
 	int	i;
 
 	i = 0;
-	ft_error_mal(src, track);
+	if (!ft_error_mal(src, track))
+		return (NULL);
 	track->mem = ft_add_malloc(track, 0);
 	while (track->mem[i] != NULL)
 		i++;
@@ -59,10 +59,13 @@ void	**ft_track_tab(void **src, t_track *track)
 
 	i = 0;
 	len = 0;
-	ft_error_malt(src, track);
+	if (!ft_error_malt(src, track))
+		return (NULL);
 	while (src[len] != NULL)
 		len++;
 	track->mem = ft_add_malloc(track, len + 1);
+	if (!track->mem)
+		return (NULL);
 	while (track->mem[i] != NULL)
 		i++;
 	len = 0;

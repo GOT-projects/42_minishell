@@ -8,7 +8,7 @@ void	ft_echo(char **args)
 	i = 0;
 	nl = true;
 	while (args && args[i++])
-		if (i == SIZE_T_MAX)
+		if (i == MY_SIZE_T_MAX)
 			exit(EXIT_FAILURE);
 	i = 0;
 	while (args && args[i] && !ft_strcmp(args[i], "-n"))
@@ -19,6 +19,6 @@ void	ft_echo(char **args)
 	while (args && args[i])
 		ft_putstr_fd(args[i++], 1);
 	if (nl)
-		write(1, "\n", 1);
+		ft_putstr_fd("\n", 1);
 	exit(EXIT_SUCCESS);
 }

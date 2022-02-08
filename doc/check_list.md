@@ -17,6 +17,7 @@ export\
 	[X] si var n'a pas de = ne pas ajouté les ""\
 	[X] export test    ajouter dans export\
 	[X] export test=VALUE ajouter dans env:w\
+	[ ] if PDW unset si export pwd updaate pwd
 \
 unset\
 	[X] unset variable dans env\

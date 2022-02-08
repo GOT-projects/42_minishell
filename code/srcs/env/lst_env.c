@@ -4,15 +4,21 @@
  * @param1 str add to list
  * @param2 struct tracker malloc
  * @return (stack)*/
-t_envp	*ft_create_envp(char *str, t_track *t)
+t_env	*ft_create_envp(char *key, char *value, t_track *t)
 {
-	t_envp	*stack;
-	char	*envp;
+	t_env	*stack;
+	char	*m_key;
+	char	*m_value;
 
-	stack = ft_track((t_envp *)malloc(sizeof(*stack)), t);
-	envp = ft_track(ft_memalloc(sizeof(char *) * ft_strlen(str) + 1), t);
-	envp = ft_strcpy(envp, str);
-	stack->envp = envp;
+	stack = ft_track((t_env *)malloc(sizeof(*stack)), t);
+	m_key = ft_track(ft_memalloc(sizeof(char *) * ft_strlen(key) + 1), t);
+	m_value = ft_track(ft_memalloc(sizeof(char *) * ft_strlen(value) + 1), t);
+	if (!m_key || !m_value || !stack)
+		return (NULL);
+	m_key = ft_strcpy(key, key);
+	m_value = ft_strcpy(value, key);
+	stack->key = m_key;
+	stack->value = m_value;
 	stack->next = NULL;
 	stack->prev = NULL;
 	return (stack);
@@ -21,7 +27,7 @@ t_envp	*ft_create_envp(char *str, t_track *t)
 /* function va au dernier node
  * @param1 t_envp lst
  * @return (stack)*/
-t_envp	*ft_last(t_envp *lst)
+t_env	*ft_last(t_env *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -34,9 +40,9 @@ t_envp	*ft_last(t_envp *lst)
  * @param1 t_envp **lst
  * @param2 t_envp *elem
  * @return (stack)*/
-void	ft_add_back(t_envp **alst, t_envp *ne)
+void	ft_add_back(t_env **alst, t_env *ne)
 {
-	t_envp	*elem;
+	t_env	*elem;
 
 	if (ne == NULL || alst == NULL)
 		return ;
@@ -48,28 +54,4 @@ void	ft_add_back(t_envp **alst, t_envp *ne)
 	elem = ft_last(*alst);
 	elem->next = ne;
 	ne->prev = elem;
-}
-
-/* function check si str et dans une list
- * @param1 t_envp *lst
- * @return (lst trouve)*/
-int	ft_check_lst(t_envp *lst, char *s)
-{
-	t_envp	*elem;
-	int	i;
-	int	index;
-
-	i = 0;
-	elem = lst;
-	index = ft_strichr(s, '=');
-	if (index == -1)
-		index = ft_strlen(s);
-	while (elem)
-	{
-		if (ft_strncmp(elem->envp, s, index) == 0)
-			return (i);
-		elem = elem->next;
-		i++;
-	}
-	return (-1);
 }
