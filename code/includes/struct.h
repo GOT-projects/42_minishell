@@ -28,7 +28,8 @@ typedef struct s_shell
 {
 	t_track		*t_env;
 	t_track		*t_pars;
-	struct s_env		*env;
+	t_env		*env;
+	int			last_exit_status; //$?
 }		t_shell;
 
 #endif

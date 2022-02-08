@@ -30,6 +30,9 @@
 #  define MY_SIZE_T_MAX SIZE_T_MAX
 # endif
 
+# define ERR_404_EXEC	127
+# define ERR_403_EXEC	126
+
 # define ENV_PWD		"PWD"
 # define ENV_PWD_OLD	"OLDPWD"
 
@@ -62,7 +65,7 @@ int		ft_export_add(t_shell *shell, char *key, char *new_val);
 /* int		ft_unset(t_shell *env, char *unset); */
 
 /* fucntion builtin exit.c */
-void	ft_exit(t_shell *shell, int status);
+int		ft_exit(t_shell *shell, char **status);
 
 /* fucntion builtin echo.c */
 /* void	ft_echo(char **args); */
