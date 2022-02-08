@@ -84,7 +84,7 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list		*ft_lstnew(void *content);
 void		**ft_add_mal(void **mem);
 void		**ft_track_free(t_track *track, void *mem);
-void		**ft_track_free_all(t_track *track);
+void		**ft_track_free_all(t_track **track);
 void		**ft_track_free_tab(t_track *track, void **mem);
 void		**ft_track_tab(void **src, t_track *track);
 void		*ft_calloc(size_t count, size_t size);

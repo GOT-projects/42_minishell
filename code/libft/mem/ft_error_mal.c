@@ -19,7 +19,6 @@ void	*ft_error_mal(void *mem, t_track *track)
 		ft_putstr_fd("Error allocation\n..", 2);
 		if (track->len > 0)
 			ft_track_free_all(track);
-		exit (EXIT_FAILURE);
 	}
 	return (mem);
 }
@@ -31,7 +30,6 @@ void	**ft_error_malt(void **mem, t_track *track)
 		ft_putstr_fd("Error allocation\n..", 2);
 		if (track->len > 0)
 			ft_track_free_all(track);
-		exit (EXIT_FAILURE);
 	}
 	return (mem);
 }

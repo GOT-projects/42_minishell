@@ -24,46 +24,47 @@
 # include "../libft/include/libft.h"
 # include "struct.h"
 
+# if defined(__linux__) || defined(linux) || defined(__linux)
+#  define MY_SIZE_T_MAX SIZE_MAX
+# else
+#  define MY_SIZE_T_MAX SIZE_T_MAX
+# endif
+
 /* function in lst_env.c */
-t_envp	*ft_create_envp(char *str, t_track *t);
-t_envp	*ft_last(t_envp *lst);
-void	ft_add_back(t_envp **alst, t_envp *ne);
+t_env	*ft_create_envp(char *key, char *value, t_track *t);
+t_env	*ft_last(t_env *lst);
+void	ft_add_back(t_env **alst, t_env *ne);
 
 /* function in get_envp.c */
-int		ft_get_env(t_shell *env, t_track *t, char **envp);
-int		ft_get_export(t_shell *env, t_track *t, char **envp);
-int		ft_sort_export(t_envp *export);
-int		ft_check_lst(t_envp *lst, char *s);
 
 /***************************************************************/
 /*                           BULTIN                            */
 /***************************************************************/
 
 /* fucntion builtin env.c */
-int		ft_env(t_shell *env);
+/* int		ft_env(t_shell *env); */
 
 /* fucntion builtin export.c */
-int		ft_export(t_shell *env, char *exptrt);
-int		ft_check_var(char *s1, char *s2, int c);
-int	ft_show_export(t_shell *env, char *export);
-char	*ft_export_syntax(char *str);
+/* int		ft_export(t_shell *env, char *exptrt); */
+/* int		ft_check_var(char *s1, char *s2, int c); */
+/* int	ft_show_export(t_shell *env, char *export); */
+/* char	*ft_export_syntax(char *str); */
 
 /* fucntion builtin unset.c */
-int		ft_unset(t_shell *env, char *unset);
+/* int		ft_unset(t_shell *env, char *unset); */
 
 /* fucntion builtin exit.c */
 void	ft_exit(t_shell *shell, int status);
 
 /* fucntion builtin echo.c */
-void	ft_echo(char **args);
+/* void	ft_echo(char **args); */
 
 /* function conv lst to tab lst_to_tab.c*/
-char	**ft_lst_to_tab(t_envp *lst);
-char	*ft_get_pwd(t_envp *lst);
+/* char	**ft_lst_to_tab(t_envp *lst); */
+/* char	*ft_get_pwd(t_envp *lst); */
 
 /* function alloc pwd for mini_shell in show_pwd.c*/ 
-char	*ft_get_pwd(t_envp *lst);
-
+/* char	*ft_get_pwd(t_envp *lst); */
 
 
 #endif
