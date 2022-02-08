@@ -53,7 +53,7 @@ static int	ft_splitstr(char **tab, char *s, char c, size_t len)
 			return (0);
 		count++;
 	}
-	tab[count] = 0;
+	tab[count] = NULL;
 	return (1);
 }
 
