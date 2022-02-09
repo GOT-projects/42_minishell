@@ -146,8 +146,6 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
  */
 int	ft_exec_prg(t_shell *shell, char **cmd)
 {
-	size_t	i;
-	char	**paths;
 	char	*true_path;
 	int		ret;
 
