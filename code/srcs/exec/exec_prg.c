@@ -130,7 +130,7 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
 			return (1);
 		}
 		execve(path_prg, cmd, env);
-		return (1);
+		exit(1);
 	}
 	waitpid(pid, &status, 0/*WCONTINUED*/);
 	free_tab(env);

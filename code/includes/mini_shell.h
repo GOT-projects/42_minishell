@@ -36,6 +36,10 @@
 # define ENV_PWD		"PWD"
 # define ENV_PWD_OLD	"OLDPWD"
 
+/***************************************************************/
+/*                             ENV                             */
+/***************************************************************/
+
 /* function in lst_env.c */
 t_env	*ft_create_envp(char *key, char *value, t_track **t);
 t_env	*ft_last(t_env *lst);
@@ -88,6 +92,7 @@ int		ft_pwd(void);
 /*                            EXEC                             */
 /***************************************************************/
 
+// Simple exec
 int		ft_exec_prg(t_shell *shell, char **cmd);
 int		ft_error_exit_process(char *prg_name, int status);
 void	ft_prg_error_research_path(char **cmd, int error_research);
