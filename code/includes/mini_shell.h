@@ -36,6 +36,16 @@
 # define ENV_PWD		"PWD"
 # define ENV_PWD_OLD	"OLDPWD"
 
+# define CHECK_OK			0
+# define EMPTY				0b1
+# define CHECK_TEXT			0b10
+# define CHECK_PIPE			0b100
+# define CHECK_RED_APPEND	0b1000
+# define CHECK_RED_CREATE	0b10000
+# define CHECK_RED_HR_DOC	0b100000
+# define CHECK_RED_INPUT	0b1000000
+# define CHECK_QUOTE		0b10000000
+
 /***************************************************************/
 /*                             ENV                             */
 /***************************************************************/
@@ -96,5 +106,15 @@ int		ft_pwd(void);
 int		ft_exec_prg(t_shell *shell, char **cmd);
 int		ft_error_exit_process(char *prg_name, int status);
 void	ft_prg_error_research_path(char **cmd, int error_research);
+
+/***************************************************************/
+/*                           PARSE                             */
+/***************************************************************/
+
+// utils
+_Bool	ft_str_start_with(char *str, char *to_find);
+
+// syntax
+int		ft_check_syntax(char *line);
 
 #endif
