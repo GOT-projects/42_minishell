@@ -5,7 +5,7 @@
  * 
  * @param line the command line
  * @return _Bool true if ok, false else
- */
+ *//*
 _Bool	ft_check_quotes(char *line)
 {
 	size_t	i;
@@ -56,13 +56,13 @@ _Bool	ft_check_pipe(char *line)
 	}
 	return (true);
 }
-
+*/
 /**
  * @brief check if the pipes are ok
  * 
  * @param line the command line
  * @return _Bool true if ok, false else
- */
+ *//*
 _Bool	ft_check_pipes(char *line)
 {
 	size_t	i;
@@ -82,7 +82,7 @@ _Bool	ft_check_pipes(char *line)
 		{
 			if (!pipe && line[i] == '|')
 				pipe = 1;
-			else if (pipe && !strchr("| &", (int)line[i])) //change
+			else if (pipe && !ft_strchr("| &", (int)line[i])) //change
 				pipe = 0;
 			else if (pipe)
 				return (false);
@@ -92,19 +92,36 @@ _Bool	ft_check_pipes(char *line)
 	return (true);
 }
 
-_Bool	ft_check_syntaxe(char *line)
+char	*ft_strchrstr(char *str, char *to_find)
 {
 	size_t	i;
-	char	cmd;
-	char	separator;
+	size_t	j;
 
-	cmd = 0;
-	separator = 0;
 	i = 0;
-	while (line[i])
+	while (str[i])
 	{
-		if (line[i] != ' ')
-		if (strchr("|", line[i]))
-			separator = line[i];
+		j = 0;
+		while (str[i + j] && to_find[j] && str[i + j] == to_find[j])
+			++j;
+		if (to_find[j] == 0)
+			return (str + i);
 	}
+	return (NULL);
 }
+*/
+
+/*
+int main(int argc, char const *argv[])
+{
+	char *test;
+	while (1)
+	{
+		test = readline("> ");
+		printf("%s\n", test);
+		ft_check_syntaxe(test);
+		add_history(test);
+		free(test);
+	}
+	return 0;
+}
+*/
