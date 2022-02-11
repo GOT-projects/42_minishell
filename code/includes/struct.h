@@ -32,4 +32,36 @@ typedef struct s_shell
 	int			last_exit_status; //$?
 }		t_shell;
 
+typedef	enum e_priority
+{
+	BOOL,
+	PIPE,
+	REDIRECTION
+}	t_priority;
+
+typedef	enum e_redirection
+{
+	OUT_1,
+	OUT_2,
+	IN_1,
+	IN_2
+}	t_redirection;
+
+typedef	enum e_bool
+{
+	AND,
+	OR
+}	t_bool;
+
+typedef struct s_operaration
+{
+	t_priority			genre;
+	t_redirection		type_redirection;
+	t_bool				type_bool;
+	char				**cmd;
+	char				*to_parse;
+	struct s_operation	*next_op;
+	struct s_operation	*lst_op;
+}	t_operation;
+
 #endif
