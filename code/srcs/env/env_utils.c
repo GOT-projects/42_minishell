@@ -24,11 +24,11 @@ char	*ft_get_env_val(t_env *node_var)
 	return (node_var->value);
 }
 
-t_env	*ft_replace_node(t_env *node, char *value)
+t_env	*ft_replace_node(t_env *node, char *value, t_track **t)
 {
 	if (!node)
 		return (NULL);
-	free(node->value);
+	ft_track_free(t, node->value);
 	node->value = value;
 	return (node);
 }
@@ -54,6 +54,6 @@ int		ft_export_add(t_shell *shell, char *key, char *new_val)
 	m_val = ft_track((char *)ft_memalloc(sizeof(char) *
 		(ft_strlen(new_val) + 1)), &(shell->t_env));
 	ft_strcpy(m_val, new_val);
-	ft_replace_node(node, m_val);
+	ft_replace_node(node, m_val, &(shell)->t_env);
 	return (EXIT_SUCCESS);
 }
