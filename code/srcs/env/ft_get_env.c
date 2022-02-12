@@ -42,3 +42,13 @@ void	ft_init_env(t_shell *shell, char **ev)
 		}
 	}
 }
+
+char	**ft_get_path(t_shell *shell)
+{
+	t_env	*node;
+
+	node = ft_get_env_key(shell->env, "PATH");
+	if (node)
+		return (ft_strsplit(node->value, ':'));
+	return (NULL);
+}

@@ -41,22 +41,23 @@ void	ft_add_back(t_env **alst, t_env *ne);
 /* function in get_utils.c */
 t_env	*ft_get_env_key(t_env *lst, const char *key);
 char	*ft_get_env_val(t_env *node_var);
-t_env	*ft_replace_node(t_env *node, char *value);
+t_env	*ft_replace_node(t_env *node, char *value, t_track **t);
 int		ft_export_add(t_shell *shell, char *key, char *new_val);
 
 /* function in ft_get_env.c */ 
 void	ft_print_env(t_env *lst);
 void	ft_init_env(t_shell *shell, char **ev);
+char	**ft_get_path(t_shell *shell);
 
 /***************************************************************/
 /*                           BULTIN                            */
 /***************************************************************/
 
 /* fucntion builtin env.c */
-/* int		ft_env(t_shell *env); */
+int		ft_env(t_shell *env);
 
 /* fucntion builtin export.c */
-int		ft_export(t_shell *env, char *exptrt);
+int		ft_export(t_shell *env, char **exp);
 /* int		ft_check_var(char *s1, char *s2, int c); */
 /* int	ft_show_export(t_shell *env, char *export); */
 /* char	*ft_export_syntax(char *str); */
