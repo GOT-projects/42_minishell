@@ -35,7 +35,8 @@ void	ft_print(char **tabs)
 /* 	return (1); */
 /* } */
 
-int	main(int ac, char **av/*, char **ev*/)
+/*
+int	main(int ac, char **av, char **ev)
 {
 	t_shell	shell;
 	char	*line;
@@ -67,4 +68,56 @@ int	main(int ac, char **av/*, char **ev*/)
 	}
 	ft_track_free_all(&(shell.t_env));
 	return (0);
+}
+*/
+
+int	main(int ac, char **av/*, char **ev*/)
+{
+	t_shell	shell;
+	char	*line;
+
+	if (ac > 1)
+	{
+		ft_putstr_fd(av[0], 2);
+		ft_putstr_fd("to many arguments\n", 2);
+		return (1);
+	}
+	ft_bzero(&shell, sizeof(t_shell));
+	line = NULL;
+	shell.t_env = ft_memalloc(sizeof(t_track));
+	printf("\e[1;1H\e[2J");
+	// get env TODO
+	// signal interactive
+	interactive_mode();
+	//printf("env node: %d ", shell.t_env->len);
+	line = readline("Minishell > ");
+	while (line)
+	{
+		//printf("env node: %d ", shell.t_env->len);
+		printf("%s\n", line);
+		if (line && line[0] != '\0')
+		{
+			add_history(line);
+			if (ft_check_syntax_prompt(line))
+				shell.last_exit_status = 1;
+			else
+			{
+				shell.t_pars = ft_memalloc(sizeof(t_track));
+				if (!shell.t_pars)
+				{
+					ft_putstr_fd("parsing allocation problem [track]\n", 2);
+					return (1);
+				}
+				if (ft_parse(&shell, line))
+					printf("oups\n");
+					//ft_exec_line(shell.operation);
+				ft_track_free_all(&(shell.t_pars));
+			}
+		}
+		free(line);
+		line = readline("Minishell > ");
+	}
+	ft_track_free_all(&(shell.t_env));
+	printf("exit\n");
+	return (shell.last_exit_status);
 }

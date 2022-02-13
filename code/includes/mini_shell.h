@@ -36,6 +36,8 @@
 # define ENV_PWD		"PWD"
 # define ENV_PWD_OLD	"OLDPWD"
 
+# define SPACES			" \t\n\r\v\f"
+
 # define CHECK_OK			0
 # define EMPTY				0b1
 # define CHECK_TEXT			0b10
@@ -108,13 +110,37 @@ int		ft_error_exit_process(char *prg_name, int status);
 void	ft_prg_error_research_path(char **cmd, int error_research);
 
 /***************************************************************/
-/*                           PARSE                             */
+/*                         PARSING                             */
 /***************************************************************/
 
 // utils
 _Bool	ft_str_start_with(char *str, char *to_find);
+int		ft_pars_quote(char c, char *quote);
+void	ft_free_2d(char **array);
+
+int		ft_free2d_index(char **split, size_t index);
+char	*create_string(char *str, size_t start, size_t end);
+char	**ft_split_str(char const *s, char *to_find);
 
 // syntax
 int		ft_check_syntax(char *line);
+int		ft_check_syntax_prompt(char *line);
+
+// PROMPT
+int		ft_get_forgot_pipe(t_shell *shell);
+
+//parsing
+int		ft_parse(t_shell *shell, char *line);
+
+/***************************************************************/
+/*                         SIGNALS                             */
+/***************************************************************/
+
+/*
+Ctrl+C - SIGINT
+Ctrl+\ - SIGQUIT
+*/
+
+void	interactive_mode(void);
 
 #endif

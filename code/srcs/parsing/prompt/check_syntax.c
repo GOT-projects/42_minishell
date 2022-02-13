@@ -1,4 +1,4 @@
-#include "../../includes/mini_shell.h"
+#include "../../../includes/mini_shell.h"
 
 /**
  * @brief check if an error of syntaxe occurs on
@@ -72,7 +72,7 @@ static void	ft_check_syntax_apply_algo(char *line, char *state, size_t *i)
  * 0 else
  * @return int the error code of the syntax, CHECK_OK else
  */
-static int	ft_check_syntaxe_algo_with_quote(char *line, size_t *i, char *state,
+static int	ft_check_syntax_algo_with_quote(char *line, size_t *i, char *state,
 	char *quote)
 {
 	if (!(*quote) && (line[*i] == '"' || line[*i] == '\''))
@@ -128,11 +128,11 @@ static int	ft_check_syntax_algo(char *line)
  * @param line the command line
  * @return int 1 if error, 0 else
  */
-int	ft_check_syntax(char *line)
+int	ft_check_syntax_prompt(char *line)
 {
 	int	state;
 
-	state = ft_check_syntaxe_algo(line);
+	state = ft_check_syntax_algo(line);
 	if (state == EMPTY)
 		ft_putstr_fd("Syntax error: empty\n", 2);
 	else if (state == CHECK_PIPE)

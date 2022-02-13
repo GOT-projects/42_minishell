@@ -125,3 +125,23 @@ int main(int argc, char const *argv[])
 	return 0;
 }
 */
+
+//ft_track_tab
+//ft_track
+
+int	ft_parse(t_shell *shell, char *line)
+{
+	shell->operation = ft_track(malloc(sizeof(t_operation)), &(shell->t_pars));
+	if (!shell->operation)
+		return (1);
+	ft_bzero(shell->operation, sizeof(t_operation));
+	shell->operation->root = true;
+	shell->operation->to_parse = ft_track(ft_strtrim(line, SPACES),
+		&(shell->t_pars));
+	if (shell->operation->to_parse[ft_strlen(shell->operation->to_parse) - 1]
+			== '|' && (ft_get_forgot_pipe(shell)
+			|| ft_check_syntax(shell->operation->to_parse)))
+		return (1);
+	printf("Debugfin parse %d\n", shell->last_exit_status);
+	return (0);
+}
