@@ -40,6 +40,26 @@ SRC_BUILTIN		=	env.c		\
 					cd_utils.c
 DIR_BUILTIN		=	srcs/builtin
 
+SRC_SIGNAL		=	interactve_mode.c
+
+DIR_SIGNAL		=	srcs/signal
+
+SRC_PARSING_SYNTAX	=	check_syntax.c
+
+DIR_PARSING_SYNTAX	=	srcs/parsing/syntax
+
+SRC_PARSING_PROMPT	=	get_pipe.c check_syntax.c
+
+DIR_PARSING_PROMPT	=	srcs/parsing/prompt
+
+SRC_PARSING_TRANSFORM	=	split_str.c split_str_utils.c
+
+DIR_PARSING_TRANSFORM	=	srcs/parsing/transform
+
+SRC_PARSING		=	parse.c			\
+					utils.c
+DIR_PARSING		=	srcs/parsing
+
 SRC_ENV			=	lst_env.c	\
 					env_utils.c	
 #					lst_to_tab.c
@@ -53,16 +73,25 @@ MK				=	Makefile
 
 NAME		=	minishell
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra -O3
-# -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 LIBS		=	-L/usr/local/lib -I/usr/local/include -lreadline -I$(DIR_HDS)
 DIR_LIBFT	= 	libft
 LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
 
 SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
 				$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
-				$(addprefix $(DIR_ENV)/, $(SRC_ENV))
-DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV)
+				$(addprefix $(DIR_ENV)/, $(SRC_ENV))			\
+				$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))			\
+				$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))	\
+				$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
+				$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))	\
+				$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
+
+DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV) $(DIR_PARSING) \
+				$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) \
+				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL)
+
+
 DIR_OBJ		=	obj
 OBJS		=	$(addprefix $(DIR_OBJ)/, $(SRCS:.c=.o))
 HDS			=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
