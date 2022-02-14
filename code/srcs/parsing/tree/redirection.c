@@ -17,14 +17,14 @@ char	*ft_get_redirect_file(char *str, size_t *offset)
 	{
 		if (ft_pars_quote(str[i], &quote))
 		{
-			if (!quote && (!str[i + 1] || ft_strchr(SPACES, str[i + i])))
+			if (!quote && (!str[i + 1] || ft_strchr(SPACES, str[i + i]) || str[i] == '<' || str[i] == '>'))
 				end = i + 1;
 		}
 		else
 		{
 			if (!quote && !str[i + 1])
 				end = i + 1;
-			if (!quote && ft_strchr(SPACES, str[i]))
+			if (!quote && (ft_strchr(SPACES, str[i]) || str[i] == '<' || str[i] == '>'))
 				end = i;
 		}
 		++i;
@@ -33,7 +33,7 @@ char	*ft_get_redirect_file(char *str, size_t *offset)
 	if (start >= end)
 		return (NULL);
 	*offset += end;
-	return (ft_strndup(str + start, end - start + 1));
+	return (ft_strndup(str + start, end - start));
 }
 
 t_operation	*ft_get_redirection(t_shell *shell, t_redirection r, char *redir,

@@ -14,7 +14,7 @@
 
 static size_t	split_len(const char *str, char c)
 {
-	int	i;
+	size_t	i;
 	size_t	trigger;
 
 	i = 0;

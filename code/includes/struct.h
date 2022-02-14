@@ -23,15 +23,14 @@ typedef struct s_env
 	struct s_env	*prev;
 }		t_env;
 
-typedef	enum e_priority
+typedef enum e_priority
 {
 	PIPE,
-	//CMD_REDIR, // command avec redirection
-	REDIRECTION, // redirection
-	CMD // command simple
+	REDIRECTION,
+	CMD
 }	t_priority;
 
-typedef	enum e_redirection
+typedef enum e_redirection
 {
 	OUT_1,
 	OUT_2,
@@ -39,9 +38,9 @@ typedef	enum e_redirection
 	IN_2
 }	t_redirection;
 
-typedef	enum e_bool
+typedef enum e_bool
 {
-	NONE, // 1ST
+	NONE,
 	AND,
 	OR
 }	t_bool;
@@ -55,9 +54,9 @@ typedef struct s_operation
 	char				**cmd;
 	char				*to_parse;
 	char				*file;
-	struct s_operation	*childs; // sequence a éxécuter tout en application la propriété du node
-	struct s_operation	*next; // frere
-	struct s_operation	*lst_redir; //
+	struct s_operation	*childs;
+	struct s_operation	*next;
+	struct s_operation	*lst_redir;
 }	t_operation;
 
 /* structure generale */
@@ -66,7 +65,7 @@ typedef struct s_shell
 	t_track		*t_env;
 	t_track		*t_pars;
 	t_env		*env;
-	int			last_exit_status; //$?
+	int			last_exit_status;
 	t_operation	*operation;
 }		t_shell;
 
