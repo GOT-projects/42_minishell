@@ -26,6 +26,8 @@ https://stackoverflow.com/questions/39199299/what-is-the-essential-difference-be
 
 https://tiswww.case.edu/php/chet/readline/readline.html
 
+https://stackoverflow.com/questions/55668865/how-to-kill-all-child-processes-after-parent-process-termination
+
 
 ## 2 Definitions
 These definitions are used throughout the remainder of this manual.

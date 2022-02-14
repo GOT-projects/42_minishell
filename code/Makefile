@@ -56,6 +56,10 @@ SRC_PARSING_TRANSFORM	=	split_str.c split_str_utils.c
 
 DIR_PARSING_TRANSFORM	=	srcs/parsing/transform
 
+SRC_PARSING_TREE		=	cmd.c construct_childs.c lst_childs.c \
+							pipe.c redirection.c
+DIR_PARSING_TREE		=	srcs/parsing/tree
+
 SRC_PARSING		=	parse.c			\
 					utils.c
 DIR_PARSING		=	srcs/parsing
@@ -85,11 +89,12 @@ SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
 				$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))	\
 				$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
 				$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))	\
+				$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))	\
 				$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
 
 DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV) $(DIR_PARSING) \
 				$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) \
-				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL)
+				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE)
 
 
 DIR_OBJ		=	obj

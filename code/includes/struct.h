@@ -54,6 +54,7 @@ typedef struct s_operation
 	t_bool				type_bool;
 	char				**cmd;
 	char				*to_parse;
+	char				*file;
 	struct s_operation	*childs; // sequence a éxécuter tout en application la propriété du node
 	struct s_operation	*next; // frere
 	struct s_operation	*lst_redir; //

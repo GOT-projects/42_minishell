@@ -123,7 +123,7 @@ static int	ft_check_syntax_algo(char *line)
 
 /**
  * @brief check if the command line have a good syntax and print an error
- * message if the line have an error syntax
+ * message if the line have an error syntax (total command)
  * 
  * @param line the command line
  * @return int 1 if error, 0 else
