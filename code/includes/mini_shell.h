@@ -63,7 +63,6 @@ char	*ft_get_env_val(t_env *node_var);
 t_env	*ft_replace_node(t_env *node, char *value);
 int		ft_export_add(t_shell *shell, char *key, char *new_val);
 
-
 /***************************************************************/
 /*                           BULTIN                            */
 /***************************************************************/
@@ -131,11 +130,11 @@ int		ft_get_forgot_pipe(t_shell *shell);
 
 // tree
 void	ft_op_add_back(t_operation **ops, t_operation *node);
-t_operation	*ft_get_new_node(t_shell *shell);
-int			ft_construct_cmd(t_shell *shell, t_operation *current);
+t_operation		*ft_get_new_node(t_shell *shell);
+int		ft_construct_cmd(t_shell *shell, t_operation *current);
 t_operation	*ft_construct_pipe(t_shell *shell, t_operation *current);
 t_operation	*ft_construct_redirection(t_shell *shell, t_operation *current);
-int	ft_construct_child(t_shell *shell, t_operation *current);
+int		ft_construct_child(t_shell *shell, t_operation *current);
 
 
 //parsing
