@@ -54,7 +54,7 @@ MK				=	Makefile
 
 NAME		=	minishell
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra -O3
+CFLAGS		=	-Wall -Werror -Wextra -O3 -g3
 # -fsanitize=address
 LIBS		=	-L/usr/local/lib -I/usr/local/include -lreadline -I$(DIR_HDS)
 DIR_LIBFT	= 	libft

@@ -16,7 +16,10 @@ t_env	*ft_create_envp(char *key, char *value, t_track **t)
 	if (!m_key || !m_value || !stack)
 		return (NULL);
 	m_key = ft_strcpy(m_key, key);
-	m_value = ft_strcpy(m_value, value);
+	if (value != NULL)
+		m_value = ft_strcpy(m_value, value);
+	else
+		m_value = NULL;
 	stack->key = m_key;
 	stack->value = m_value;
 	stack->next = NULL;

@@ -10,9 +10,10 @@ int	ft_env(t_shell *shell)
 	elem = shell->env;
 	while (elem)
 	{
-		if (ft_strichr(elem->value, '=') >= 0)
+		if (elem->value != NULL)
 		{
 			ft_putstr_fd(elem->key, 1);
+			ft_putstr_fd("=", 1);
 			ft_putstr_fd(elem->value, 1);
 			ft_putchar_fd('\n', 1);
 		}
