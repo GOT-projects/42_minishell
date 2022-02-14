@@ -26,7 +26,7 @@ typedef struct s_env
 typedef	enum e_priority
 {
 	PIPE,
-	CMD_REDIR, // command avec redirection
+	//CMD_REDIR, // command avec redirection
 	REDIRECTION, // redirection
 	CMD // command simple
 }	t_priority;
