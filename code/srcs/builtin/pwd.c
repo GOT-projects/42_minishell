@@ -1,6 +1,5 @@
 #include "../../includes/mini_shell.h"
 
-
 /**
  * @brief print in term the current path
  * 
