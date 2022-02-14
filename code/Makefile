@@ -6,7 +6,7 @@
 #    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/02/08 02:53:27 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/02/14 18:27:23 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,16 @@ NAME		=	minishell
 CC			=	cc
 CFLAGS		=	-Wall -Werror -Wextra -O3 -g3
 # -fsanitize=address
-LIBS		=	-L/usr/local/lib -I/usr/local/include -lreadline -I$(DIR_HDS)
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	INC_LIB = -L/usr/local/lib
+	INC_INC = -I/usr/local/include
+endif
+ifeq ($(UNAME_S),Darwin)
+	INC_LIB = -L ~/.brew/opt/readline/lib
+	INC_INC = -I ~/.brew/opt/readline/include
+endif
+LIBS		=	$(INC_LIB) $(INC_INC) -lreadline -I$(DIR_HDS)
 DIR_LIBFT	= 	libft
 LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
 
@@ -99,10 +108,10 @@ SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
 				$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))	\
 				$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
 
-DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV) $(DIR_PARSING) \
+DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV) \
 				$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) \
 				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) \
-				$(DIR_EXEC)
+				$(DIR_EXEC) $(DIR_PARSING)
 
 
 DIR_OBJ		=	obj
@@ -121,7 +130,7 @@ define src2obj
 $(DIR_OBJ)/$(1)/%.o:	$(1)/%.c $(2)
 	@mkdir -p $(DIR_OBJ)/$(1)
 	@printf "\r\033[K\tCompilation of $(COLOR_PURPLE)$$< ==> $$@\$(COLOR_NORM)"
-	@$(CC) $(CFLAGS) -c -o $$@ $$<
+	@$(CC) $(CFLAGS) -c -o $$@ $$< $(INC_INC)
 endef
 
 $(foreach dir,$(DIRS_SRC),$(eval $(call src2obj,$(dir), $(DEPENDS))))
