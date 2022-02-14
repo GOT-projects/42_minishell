@@ -142,6 +142,7 @@ int	ft_parse(t_shell *shell, char *line)
 			== '|' && (ft_get_forgot_pipe(shell)
 			|| ft_check_syntax(shell->operation->to_parse)))
 		return (1);
-	printf("Debugfin parse %d\n", shell->last_exit_status);
+	ft_construct_child(shell, shell->operation);
+	printf("\n\nDebugfin parse %d\n", shell->last_exit_status);
 	return (0);
 }

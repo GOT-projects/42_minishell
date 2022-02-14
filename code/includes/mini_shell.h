@@ -129,6 +129,15 @@ int		ft_check_syntax_prompt(char *line);
 // PROMPT
 int		ft_get_forgot_pipe(t_shell *shell);
 
+// tree
+void	ft_op_add_back(t_operation **ops, t_operation *node);
+t_operation	*ft_get_new_node(t_shell *shell);
+int			ft_construct_cmd(t_shell *shell, t_operation *current);
+t_operation	*ft_construct_pipe(t_shell *shell, t_operation *current);
+t_operation	*ft_construct_redirection(t_shell *shell, t_operation *current);
+int	ft_construct_child(t_shell *shell, t_operation *current);
+
+
 //parsing
 int		ft_parse(t_shell *shell, char *line);
 
@@ -137,8 +146,8 @@ int		ft_parse(t_shell *shell, char *line);
 /***************************************************************/
 
 /*
-Ctrl+C - SIGINT
-Ctrl+\ - SIGQUIT
+Ctrl+C - SIGINT Interruption (ctrl-C)	Terminaison
+Ctrl+\ - SIGQUIT 	Interruption forte (ctrl-\)	Terminaison + core dump
 */
 
 void	interactive_mode(void);

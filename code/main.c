@@ -94,7 +94,7 @@ int	main(int ac, char **av/*, char **ev*/)
 	while (line)
 	{
 		//printf("env node: %d ", shell.t_env->len);
-		printf("%s\n", line);
+		//printf("%s\n", line);
 		if (line && line[0] != '\0')
 		{
 			add_history(line);
