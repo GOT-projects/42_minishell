@@ -23,12 +23,50 @@ typedef struct s_env
 	struct s_env	*prev;
 }		t_env;
 
+typedef enum e_priority
+{
+	PIPE,
+	REDIRECTION,
+	CMD
+}	t_priority;
+
+typedef enum e_redirection
+{
+	OUT_1,
+	OUT_2,
+	IN_1,
+	IN_2
+}	t_redirection;
+
+typedef enum e_bool
+{
+	NONE,
+	AND,
+	OR
+}	t_bool;
+
+typedef struct s_operation
+{
+	_Bool				root;
+	t_priority			genre;
+	t_redirection		type_redirection;
+	t_bool				type_bool;
+	char				**cmd;
+	char				*to_parse;
+	char				*file;
+	struct s_operation	*childs;
+	struct s_operation	*next;
+	struct s_operation	*lst_redir;
+}	t_operation;
+
 /* structure generale */
 typedef struct s_shell
 {
 	t_track		*t_env;
 	t_track		*t_pars;
-	struct s_env		*env;
+	t_env		*env;
+	int			last_exit_status;
+	t_operation	*operation;
 }		t_shell;
 
 #endif
