@@ -7,8 +7,7 @@ void	ft_print(char **tabs)
 	i = 0;
 	while (tabs[i])
 	{
-		ft_putstr_fd(tabs[i], 1);
-		ft_putstr_fd("\n", 1);
+		printf("%s\n", tabs[i]);
 		i++;
 	}
 }
@@ -18,6 +17,7 @@ int	main(int ac, char **av, char **ev)
 	t_shell	shell;
 	char	*line;
 	char	**args;
+	char 	**env;
 
 	ac = 10 + 1;
 	if (ac == 100 && av)
@@ -26,6 +26,9 @@ int	main(int ac, char **av, char **ev)
 	shell.t_env = ft_memalloc(sizeof(t_track));
 	printf("\e[1;1H\e[2J");
 	ft_init_env(&shell, ev);
+	env = ft_lst_to_tab(&shell);
+	ft_track_tab((void **)env, &(shell).t_env);
+	ft_print(env);
 	while (1)
 	{
 		printf("env node: %d ", shell.t_env->len);
@@ -47,6 +50,8 @@ int	main(int ac, char **av, char **ev)
 				printf("\e[1;1H\e[2J");
 			else if (ft_strcmp(args[0], "export") == 0)
 				ft_export(&shell, args);
+			else if (ft_strcmp(args[0], "unset") == 0)
+				ft_unset(&shell, args);
 			ft_track_free_tab(&(shell.t_env), (void **)args);
 		}
 		free(line);
