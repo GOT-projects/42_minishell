@@ -90,14 +90,14 @@ static char	*ft_check_prg_path(t_shell *shell, char **cmd, int *ret)
 	char	**paths;
 	char	*true_path;
 
-	paths = ft_get_env_paths(shell); //TODO
+	paths = ft_get_path(shell);
 	if (!paths)
 	{
 		*ret = errno;
 		return (NULL);
 	}
 	true_path = ft_check_prg_paths(cmd, ret, paths);
-	free_tab(paths); //TODO
+	ft_free_2d(paths);
 	return (true_path);
 }
 
@@ -115,7 +115,7 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
 	pid_t	pid;
 	int		status;
 
-	env = ft_get_env_tab(shell); //TODO
+	env = ft_lst_to_tab(shell);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -133,7 +133,7 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
 		exit(1);
 	}
 	waitpid(pid, &status, 0/*WCONTINUED*/);
-	free_tab(env);
+	ft_free_2d(env);
 	return (ft_error_exit_process(cmd[0], status));
 }
 

@@ -44,6 +44,10 @@ SRC_SIGNAL		=	interactve_mode.c
 
 DIR_SIGNAL		=	srcs/signal
 
+SRC_EXEC		=	exec_cmd.c  exec_prg.c  exec_prg_error.c
+
+DIR_EXEC		=	srcs/exec
+
 SRC_PARSING_SYNTAX	=	check_syntax.c
 
 DIR_PARSING_SYNTAX	=	srcs/parsing/syntax
@@ -87,6 +91,7 @@ LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
 SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
 				$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
 				$(addprefix $(DIR_ENV)/, $(SRC_ENV))			\
+				$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))			\
 				$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))			\
 				$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))	\
 				$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
@@ -96,7 +101,8 @@ SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
 
 DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV) $(DIR_PARSING) \
 				$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) \
-				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE)
+				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) \
+				$(DIR_EXEC)
 
 
 DIR_OBJ		=	obj
