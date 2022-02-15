@@ -1,5 +1,12 @@
 #include "../../../includes/mini_shell.h"
 
+/**
+ * @brief check if a string is empty (empty is a string null or a string with
+ * blanks)
+ * 
+ * @param str the string to check
+ * @return _Bool true if empty, false else
+ */
 _Bool	ft_is_empty(char *str)
 {
 	size_t	i;
@@ -16,6 +23,12 @@ _Bool	ft_is_empty(char *str)
 	return (true);
 }
 
+/**
+ * @brief function demand the pipe (ex: ls |) at the parsing
+ * 
+ * @param shell the shell
+ * @return ** int 0 if success, 1 else
+ */
 int	ft_get_forgot_pipe(t_shell *shell)
 {
 	char	*forgot_pipe;

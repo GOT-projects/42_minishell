@@ -51,6 +51,8 @@ int	main(int ac, char **av, char **ev)
 				}
 				if (ft_parse(&shell, line))
 					printf("oups\n");
+				else
+					debug_tree(shell.operation, 0);
 					//ft_exec_line(shell.operation);
 				ft_track_free_all(&(shell.t_pars));
 			}
@@ -59,6 +61,7 @@ int	main(int ac, char **av, char **ev)
 		line = readline("Minishell > ");
 	}
 	ft_track_free_all(&(shell.t_env));
+	rl_clear_history();
 	printf("exit\n");
 	return (shell.last_exit_status);
 }

@@ -71,6 +71,13 @@ static int	write_split(char **split, char *str, char *to_find,
 	return (ft_split_str_finalise(split, str, index, start));
 }
 
+/**
+ * @brief split a string taking into account the quotes
+ * 
+ * @param s the string to split
+ * @param to_find the separator's string
+ * @return char** the split of s by to_find or NULL if error
+ */
 char	**ft_split_str(char const *s, char *to_find)
 {
 	char	**split;
@@ -80,12 +87,12 @@ char	**ft_split_str(char const *s, char *to_find)
 	if (!s)
 		return (NULL);
 	len_to_find = ft_strlen(to_find);
-	size = ft_nbsplit((char*) s, to_find, len_to_find);
+	size = ft_nbsplit((char *)s, to_find, len_to_find);
 	split = malloc((size + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
 	split[size] = NULL;
-	if (write_split(split, (char*) s, to_find, len_to_find))
+	if (write_split(split, (char *)s, to_find, len_to_find))
 		return (split);
 	return (NULL);
 }
