@@ -47,10 +47,15 @@ int	main(int ac, char **av, char **ev)
 				if (!shell.t_pars)
 				{
 					ft_putstr_fd("parsing allocation problem [track]\n", 2);
+					ft_track_free_all(&(shell.t_env));
+					rl_clear_history();
 					return (1);
 				}
 				if (ft_parse(&shell, line))
-					printf("oups\n");
+				{
+					ft_putstr_fd("oups parsing error\n", 2);
+					shell.last_exit_status = 1;
+				}
 				else
 					debug_tree(shell.operation, 0);
 					//ft_exec_line(shell.operation);
