@@ -36,8 +36,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*str;
 	size_t	i;
 
-	if (!s1 || !s2)
-		return (NULL);
 	size = ft_strlen(s1) + ft_strlen(s2);
 	str = (char *)ft_memalloc(size + 1);
 	if (!str)

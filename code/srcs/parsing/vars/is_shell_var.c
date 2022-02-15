@@ -1,5 +1,11 @@
 #include "../../../includes/mini_shell.h"
 
+/**
+ * @brief check if a string can be a shell var
+ * 
+ * @param var the string
+ * @return _Bool true if it can be a shell var, false else
+ */
 _Bool	ft_is_shell_var(char const *var)
 {
 	size_t	i;

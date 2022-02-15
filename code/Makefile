@@ -30,6 +30,9 @@ RELATIVE_HDS	=	mini_shell.h	\
 SRC_GLOBAL		=	main.c
 DIR_GLOBAL			=	.
 
+SRC_DEBUG		=	tree.c
+DIR_DEBUG			=	debug
+
 SRC_BUILTIN		=	env.c		\
 				export.c	\
 				unset.c		\
@@ -45,9 +48,7 @@ SRC_SIGNAL		=	interactve_mode.c
 
 DIR_SIGNAL		=	srcs/signal
 
-SRC_EXEC		=	exec_cmd.c 			\
-				exec_prg.c  			\
-				exec_prg_error.c
+SRC_EXEC		=	exec_cmd.c  exec_prg.c  exec_prg_error.c exec.c
 
 DIR_EXEC		=	srcs/exec
 
@@ -61,7 +62,8 @@ SRC_PARSING_PROMPT	=	get_pipe.c 			\
 DIR_PARSING_PROMPT	=	srcs/parsing/prompt
 
 SRC_PARSING_TRANSFORM	=	split_str.c			\
-				split_str_utils.c
+							split_str_utils.c	\
+							ft_quote.c
 
 DIR_PARSING_TRANSFORM	=	srcs/parsing/transform
 
@@ -107,21 +109,22 @@ LIBS		=	$(INC_LIB) $(INC_INC) -lreadline -I$(DIR_HDS)
 DIR_LIBFT	= 	libft
 LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
 
-SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))				\
-			$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))				\
-			$(addprefix $(DIR_ENV)/, $(SRC_ENV))					\
-			$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))					\
-			$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))				\
-			$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))				\
-			$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
-			$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))		\
-			$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))			\
-			$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
+SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
+				$(addprefix $(DIR_DEBUG)/, $(SRC_DEBUG))	\
+				$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
+				$(addprefix $(DIR_ENV)/, $(SRC_ENV))			\
+				$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))			\
+				$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))			\
+				$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))	\
+				$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
+				$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))	\
+				$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))	\
+				$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
 
-DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV) 				\
-			$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) 				\
-			$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) 		\
-			$(DIR_EXEC) $(DIR_PARSING)
+DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_DEBUG) $(DIR_BUILTIN) $(DIR_ENV) \
+				$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) \
+				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) \
+				$(DIR_EXEC) $(DIR_PARSING)
 
 
 DIR_OBJ		=	obj

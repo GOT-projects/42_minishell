@@ -44,7 +44,7 @@ char	*ft_create_str_read_line(t_shell *shell, int pars)
 	char	*nb_env;
 	char	*tmp;
 	char	*nb_pars;
-	char	path[PATH_MAX];
+	char	path[_PC_PATH_MAX];
 
 	ft_get_pwd(path);
 	nb_env = ft_itoa(shell->t_env->len);
@@ -113,12 +113,20 @@ int	main(int ac, char **av, char **ev)
 				if (!shell.t_pars)
 				{
 					ft_putstr_fd("parsing allocation problem [track]\n", 2);
+					ft_track_free_all(&(shell.t_env));
+					rl_clear_history();
 					return (1);
 				}
 				if (ft_parse(&shell, line))
-					printf("oups\n");
-					//ft_exec_line(shell.operation);
-				pars = shell.t_pars->len;
+				{
+					ft_putstr_fd("oups parsing error\n", 2);
+					shell.last_exit_status = 1;
+				}
+				else
+				{
+					//debug_tree(shell.operation, 0);
+					ft_exec(&shell, shell.operation);
+				}
 				ft_track_free_all(&(shell.t_pars));
 			}
 		}
@@ -132,6 +140,7 @@ int	main(int ac, char **av, char **ev)
 	free(line);
 	free(buf);
 	ft_track_free_all(&(shell.t_env));
+	rl_clear_history();
 	printf("exit\n");
 	return (shell.last_exit_status);
 }
