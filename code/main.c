@@ -11,11 +11,73 @@ void	ft_print(char **tabs)
 		i++;
 	}
 }
+int	ft_change_path(t_shell *shell, char *path)
+{
+	t_env	*node;
+	int	i;
+	int	j;
+
+	node = ft_get_env_key(shell->env, "USER");
+	if (!node)
+		return (EXIT_FAILURE);
+	i = 0;
+	while (path[i])
+	{
+		j = 0;
+		if (node->value[j] == path[i])
+		{
+			while (node->value[j] == path[i + j])
+				j++;
+			if (node->value[j] == '\0' && path[i + j] == '/')
+			{
+				ft_strcpy(path, path + j + i);
+				return (EXIT_SUCCESS);
+			}
+		}
+		i++;
+	}
+	return ( EXIT_FAILURE);
+}
+char	*ft_create_str_read_line(t_shell *shell, int pars)
+{
+	char	*buf;
+	char	*nb_env;
+	char	*tmp;
+	char	*nb_pars;
+	char	path[PATH_MAX];
+
+	ft_get_pwd(path);
+	nb_env = ft_itoa(shell->t_env->len);
+	nb_pars = ft_itoa(pars);
+	buf = ft_strjoin(nb_pars, " | ");
+	tmp = buf;
+	buf = ft_strjoin(buf, nb_env);
+	free(tmp);
+	tmp = buf;
+	if (!ft_change_path(shell, path))
+		buf = ft_strjoin(buf, " ~");
+	else
+		buf = ft_strjoin(buf, " ");
+	free(tmp);
+	tmp = buf;
+	buf = ft_strjoin(buf, path);
+	free(tmp);
+	tmp = buf;
+	buf = ft_strjoin(buf, "> ");
+	free(tmp);
+	free(nb_env);
+	free(nb_pars);
+	return (buf);
+}
 
 int	main(int ac, char **av, char **ev)
 {
 	t_shell	shell;
 	char	*line;
+	char 	*buf;
+	int	pars;
+	char **path;
+	int i;
 
 	if (ac > 1)
 	{
@@ -28,17 +90,21 @@ int	main(int ac, char **av, char **ev)
 	shell.t_env = ft_memalloc(sizeof(t_track));
 	printf("\e[1;1H\e[2J");
 	ft_init_env(&shell, ev);
+	path = ft_get_path(&shell);
+	i = -1;
+	while (path[++i])
+		printf("%s\n", path[i]);
 	// signal interactive
 	interactive_mode();
-	//printf("env node: %d ", shell.t_env->len);
-	line = readline("Minishell > ");
+	buf = ft_create_str_read_line(&shell, 0);
+	line = readline(buf);
 	while (line)
 	{
-		//printf("env node: %d ", shell.t_env->len);
-		//printf("%s\n", line);
 		if (line && line[0] != '\0')
 		{
 			add_history(line);
+			if (!ft_strcmp(line, "exit"))
+				break;
 			if (ft_check_syntax_prompt(line))
 				shell.last_exit_status = 1;
 			else
@@ -52,12 +118,19 @@ int	main(int ac, char **av, char **ev)
 				if (ft_parse(&shell, line))
 					printf("oups\n");
 					//ft_exec_line(shell.operation);
+				pars = shell.t_pars->len;
 				ft_track_free_all(&(shell.t_pars));
 			}
 		}
+		else
+			pars = 0;
 		free(line);
-		line = readline("Minishell > ");
+		free(buf);
+		buf = ft_create_str_read_line(&shell, pars);
+		line = readline(buf);
 	}
+	free(line);
+	free(buf);
 	ft_track_free_all(&(shell.t_env));
 	printf("exit\n");
 	return (shell.last_exit_status);

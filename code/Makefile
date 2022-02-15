@@ -6,7 +6,7 @@
 #    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/02/08 02:53:27 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/02/14 18:06:13 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,20 +31,23 @@ SRC_GLOBAL		=	main.c
 DIR_GLOBAL			=	.
 
 SRC_BUILTIN		=	env.c		\
-					export.c	\
-					unset.c		\
-					exit.c		\
-					echo.c		\
-					pwd.c		\
-					cd.c		\
-					cd_utils.c
+				export.c	\
+				unset.c		\
+				exit.c		\
+				echo.c		\
+				pwd.c		\
+				cd.c		\
+				cd_utils.c
+
 DIR_BUILTIN		=	srcs/builtin
 
 SRC_SIGNAL		=	interactve_mode.c
 
 DIR_SIGNAL		=	srcs/signal
 
-SRC_EXEC		=	exec_cmd.c  exec_prg.c  exec_prg_error.c
+SRC_EXEC		=	exec_cmd.c 			\
+				exec_prg.c  			\
+				exec_prg_error.c
 
 DIR_EXEC		=	srcs/exec
 
@@ -52,20 +55,27 @@ SRC_PARSING_SYNTAX	=	check_syntax.c
 
 DIR_PARSING_SYNTAX	=	srcs/parsing/syntax
 
-SRC_PARSING_PROMPT	=	get_pipe.c check_syntax.c
+SRC_PARSING_PROMPT	=	get_pipe.c 			\
+				check_syntax.c
 
 DIR_PARSING_PROMPT	=	srcs/parsing/prompt
 
-SRC_PARSING_TRANSFORM	=	split_str.c split_str_utils.c
+SRC_PARSING_TRANSFORM	=	split_str.c			\
+				split_str_utils.c
 
 DIR_PARSING_TRANSFORM	=	srcs/parsing/transform
 
-SRC_PARSING_TREE		=	cmd.c construct_childs.c lst_childs.c \
-							pipe.c redirection.c
-DIR_PARSING_TREE		=	srcs/parsing/tree
+SRC_PARSING_TREE	=	cmd.c				\
+				construct_childs.c		\
+				lst_childs.c 			\
+				pipe.c				\
+				redirection.c
 
-SRC_PARSING		=	parse.c			\
-					utils.c
+DIR_PARSING_TREE	=	srcs/parsing/tree
+
+SRC_PARSING		=	parse.c		\
+				utils.c
+
 DIR_PARSING		=	srcs/parsing
 
 SRC_ENV			=	lst_env.c	\
@@ -74,40 +84,49 @@ SRC_ENV			=	lst_env.c	\
 #					lst_to_tab.c
 DIR_ENV			=	srcs/env
 
-MK				=	Makefile
+MK			=	Makefile
 
 ################################################################################
 ##                       Compilation Environnement                            ##
 ################################################################################
 
 NAME		=	minishell
-CC			=	cc
+CC		=	cc
 CFLAGS		=	-Wall -Werror -Wextra -O3 -g3
 # -fsanitize=address
-LIBS		=	-L/usr/local/lib -I/usr/local/include -lreadline -I$(DIR_HDS)
+UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+		INC_LIB = -L/usr/local/lib
+		INC_INC = -I/usr/local/include
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		INC_LIB = -L ~/.brew/opt/readline/lib
+		INC_INC = -I ~/.brew/opt/readline/include
+	endif
+LIBS		=	$(INC_LIB) $(INC_INC) -lreadline -I$(DIR_HDS)
 DIR_LIBFT	= 	libft
 LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
 
-SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
-				$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
-				$(addprefix $(DIR_ENV)/, $(SRC_ENV))			\
-				$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))			\
-				$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))			\
-				$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))	\
-				$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
-				$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))	\
-				$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))	\
-				$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
+SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))				\
+			$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))				\
+			$(addprefix $(DIR_ENV)/, $(SRC_ENV))					\
+			$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))					\
+			$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))				\
+			$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))				\
+			$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
+			$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))		\
+			$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))			\
+			$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
 
-DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV) $(DIR_PARSING) \
-				$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) \
-				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) \
-				$(DIR_EXEC)
+DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV) 				\
+			$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) 				\
+			$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) 		\
+			$(DIR_EXEC) $(DIR_PARSING)
 
 
 DIR_OBJ		=	obj
 OBJS		=	$(addprefix $(DIR_OBJ)/, $(SRCS:.c=.o))
-HDS			=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
+HDS		=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
 
 DEPENDS		=	$(HDS) $(MK) $(LIBFT_NAME)
 
@@ -121,7 +140,7 @@ define src2obj
 $(DIR_OBJ)/$(1)/%.o:	$(1)/%.c $(2)
 	@mkdir -p $(DIR_OBJ)/$(1)
 	@printf "\r\033[K\tCompilation of $(COLOR_PURPLE)$$< ==> $$@\$(COLOR_NORM)"
-	@$(CC) $(CFLAGS) -c -o $$@ $$<
+	@$(CC) $(CFLAGS) -c -o $$@ $$< $(INC_INC)
 endef
 
 $(foreach dir,$(DIRS_SRC),$(eval $(call src2obj,$(dir), $(DEPENDS))))
