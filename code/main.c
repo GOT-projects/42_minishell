@@ -40,33 +40,24 @@ int	ft_change_path(t_shell *shell, char *path)
 }
 char	*ft_create_str_read_line(t_shell *shell, int pars)
 {
-	char	*buf;
+	char	*buf = NULL;
 	char	*nb_env;
-	char	*tmp;
 	char	*nb_pars;
+	char	*last_ret;
 	char	path[PATH_MAX];
 
+	ft_bzero(path, sizeof(char) * PATH_MAX);
 	ft_get_pwd(path);
 	nb_env = ft_itoa(shell->t_env->len);
 	nb_pars = ft_itoa(pars);
-	buf = ft_strjoin(nb_pars, " | ");
-	tmp = buf;
-	buf = ft_strjoin(buf, nb_env);
-	free(tmp);
-	tmp = buf;
+	last_ret = ft_itoa(shell->last_exit_status);
 	if (!ft_change_path(shell, path))
-		buf = ft_strjoin(buf, " ~");
+		buf = ft_join(" %s | %s | %s | ~%s > ", last_ret, nb_pars, nb_env, path);
 	else
-		buf = ft_strjoin(buf, " ");
-	free(tmp);
-	tmp = buf;
-	buf = ft_strjoin(buf, path);
-	free(tmp);
-	tmp = buf;
-	buf = ft_strjoin(buf, "> ");
-	free(tmp);
+		buf = ft_join(" %s | %s | %s | %s > ", last_ret, nb_pars, nb_env, path);
 	free(nb_env);
 	free(nb_pars);
+	free(last_ret);
 	return (buf);
 }
 
@@ -98,7 +89,7 @@ int	main(int ac, char **av, char **ev)
 		if (line && line[0] != '\0')
 		{
 			add_history(line);
-			if (!ft_strcmp(line, "exit"))
+			if (!ft_strcmp(line, "q"))
 				break;
 			if (ft_check_syntax_prompt(line))
 				shell.last_exit_status = 1;
@@ -119,7 +110,7 @@ int	main(int ac, char **av, char **ev)
 				}
 				else
 				{
-					//debug_tree(shell.operation, 0);
+					debug_tree(shell.operation, 0);
 					ft_exec(&shell, shell.operation);
 				}
 				pars = shell.t_pars->len;
