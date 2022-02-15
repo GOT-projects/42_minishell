@@ -1,5 +1,11 @@
 #include "../../../includes/mini_shell.h"
 
+/**
+ * @brief return a new empty node for the tree (add track on node)
+ * 
+ * @param shell the shell
+ * @return t_operation* the node or null if error
+ */
 t_operation	*ft_get_new_node(t_shell *shell)
 {
 	t_operation	*op;
@@ -10,6 +16,12 @@ t_operation	*ft_get_new_node(t_shell *shell)
 	return (op);
 }
 
+/**
+ * @brief say which operator in the command line have the priority
+ * 
+ * @param line the command line
+ * @return t_priority the genre of the command line
+ */
 t_priority	ft_get_top_priority(char *line)
 {
 	size_t		i;
@@ -25,14 +37,7 @@ t_priority	ft_get_top_priority(char *line)
 		{
 			if (line[i] == '|')
 				return (PIPE);
-			if (ft_str_start_with(line + i, ">>")
-				|| ft_str_start_with(line + i, "<<"))
-			{
-				priority = REDIRECTION;
-				++i;
-			}
-			else if (ft_str_start_with(line + i, ">")
-				|| ft_str_start_with(line + i, "<"))
+			if (line[i] == '<' || line[i] == '>')
 				priority = REDIRECTION;
 		}
 		++i;
@@ -40,36 +45,31 @@ t_priority	ft_get_top_priority(char *line)
 	return (priority);
 }
 
+/**
+ * @brief recursive construction of the tree of execution
+ * 
+ * @param shell the shell
+ * @param current the current node
+ * @return int 0 if success, 1 if an error occurs
+ */
 int	ft_construct_child(t_shell *shell, t_operation *current)
 {
 	t_operation	*node;
 
 	current->genre = ft_get_top_priority(current->to_parse);
-	printf("yolo %d, %d\n", current->genre, REDIRECTION);
-	if (current->genre == PIPE)
-	{
-		current->childs = ft_construct_pipe(shell, current);
-		if (!current->childs)
-			return (1);
-	}
-	else if (current->genre == REDIRECTION)
-	{
-		current->lst_redir = ft_construct_redirection(shell, current);
-		if (!current->lst_redir)
-			return (1);
-		// childs
-	}
-	else if (current->genre == CMD)
-	{
-		if (ft_construct_cmd(shell, current))
-			return (1);
-	}
+	if (current->genre == PIPE && ft_construct_pipe(shell, current))
+		return (1);
+	else if (current->genre == REDIRECTION
+		&& ft_construct_redirection(shell, current))
+		return (1);
+	else if (current->genre == CMD && ft_construct_cmd(shell, current))
+		return (1);
 	ft_track_free(&(shell->t_pars), current->to_parse);
 	current->to_parse = NULL;
 	node = current->childs;
 	while (node)
 	{
-		if(ft_construct_child(shell, node))
+		if (ft_construct_child(shell, node))
 			return (1);
 		node = node->next;
 	}
