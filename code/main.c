@@ -57,8 +57,10 @@ int	main(int ac, char **av, char **ev)
 					shell.last_exit_status = 1;
 				}
 				else
-					debug_tree(shell.operation, 0);
-					//ft_exec_line(shell.operation);
+				{
+					//debug_tree(shell.operation, 0);
+					ft_exec(&shell, shell.operation);
+				}
 				ft_track_free_all(&(shell.t_pars));
 			}
 		}

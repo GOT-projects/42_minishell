@@ -110,6 +110,8 @@ int		ft_pwd(void);
 int		ft_exec_prg(t_shell *shell, char **cmd);
 int		ft_error_exit_process(char *prg_name, int status);
 void	ft_prg_error_research_path(char **cmd, int error_research);
+int		ft_exec_cmd(t_shell *shell, char **cmd);
+int		ft_exec(t_shell *shell, t_operation *op);
 
 /***************************************************************/
 /*                         PARSING                             */

@@ -38,38 +38,40 @@ static char	*ft_check_prg_path_relative(char *cmd, int *ret)
  * @param ret a pointer on an interger that correspond of the exit status of
  * the command
  * @param paths array of path that are in environnement variable
+ * @param true_path array of path (for the norm)
  * @return ** char* -- if the path dosn't exist or if the file is not executable
  * return NULL and the integer ret is set with the error code
  * else if the file exist and is executable return a !!copy!! of the command
  * and set the integer ret is set to 0 (to free)
  */
-static char	*ft_check_prg_paths(char **cmd, int *ret, char **paths)
+static char	*ft_check_prg_paths(char **cmd, int *ret, char **paths,
+	char *true_path[3])
 {
 	size_t	i;
-	char	*true_path;
 
-	true_path = NULL;
 	i = 0;
-	while (!true_path && paths[i])
+	while (!true_path[1] && paths && paths[i])
 	{
-		true_path = ft_strjoin(paths[i++], cmd[0]);
-		if (!true_path)
+		true_path[0] = ft_strjoin(paths[i++], "/");
+		true_path[1] = ft_strjoin(true_path[0], cmd[0]);
+		if (!true_path[0] || !true_path[1])
 		{
-			free(paths);
+			ft_free_2d(true_path);
 			*ret = errno;
 			return (NULL);
 		}
-		if (!access(true_path, F_OK) && !access(true_path, X_OK))
+		free(true_path[0]);
+		if (!access(true_path[1], F_OK) && !access(true_path[1], X_OK))
 			*ret = 0;
-		else if (!access(true_path, F_OK) && access(true_path, X_OK))
-			*ret = ERR_403_EXEC;
 		else
 		{
-			free(true_path);
-			true_path = NULL;
+			if (!access(true_path[1], F_OK) && access(true_path[1], X_OK))
+				*ret = ERR_403_EXEC;
+			free(true_path[1]);
+			true_path[1] = NULL;
 		}
 	}
-	return (true_path);
+	return (true_path[1]);
 }
 
 /**
@@ -88,7 +90,7 @@ static char	*ft_check_prg_paths(char **cmd, int *ret, char **paths)
 static char	*ft_check_prg_path(t_shell *shell, char **cmd, int *ret)
 {
 	char	**paths;
-	char	*true_path;
+	char	*true_path[3];
 
 	paths = ft_get_path(shell);
 	if (!paths)
@@ -96,9 +98,10 @@ static char	*ft_check_prg_path(t_shell *shell, char **cmd, int *ret)
 		*ret = errno;
 		return (NULL);
 	}
-	true_path = ft_check_prg_paths(cmd, ret, paths);
+	ft_bzero(true_path, 3 * sizeof(char *));
+	ft_check_prg_paths(cmd, ret, paths, true_path);
 	ft_free_2d(paths);
-	return (true_path);
+	return (true_path[1]);
 }
 
 /**
@@ -132,7 +135,7 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
 		execve(path_prg, cmd, env);
 		exit(1);
 	}
-	waitpid(pid, &status, 0/*WCONTINUED*/);
+	waitpid(pid, &status, 0 /*WCONTINUED*/);
 	ft_free_2d(env);
 	return (ft_error_exit_process(cmd[0], status));
 }

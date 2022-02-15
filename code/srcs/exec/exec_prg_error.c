@@ -13,9 +13,9 @@ void	ft_prg_error_research_path(char **cmd, int error_research)
 		ft_putstr_fd(cmd[0], 2);
 		if (error_research == ERR_403_EXEC)
 			ft_putstr_fd(": Permission denied\n", 2);
-		if (strchr(cmd[0], '/') && error_research == ERR_404_EXEC)
+		else if (strchr(cmd[0], '/') && error_research == ERR_404_EXEC)
 			ft_putstr_fd(": No such file or directory\n", 2);
-		else if (strchr(cmd[0], '/') && error_research == ERR_403_EXEC)
+		else
 			ft_putstr_fd(": Command not found\n", 2);
 	}
 	else
