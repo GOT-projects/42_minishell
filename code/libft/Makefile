@@ -68,10 +68,12 @@ STR		=	ft_split.c       		\
 			ft_strchr.c	 		\
 			ft_strichr.c	 		\
 			ft_strcpy.c	   		\
+			ft_strncat.c	   		\
 			ft_striteri.c    		\
 			ft_strjoin.c			\
 			ft_strjoin.c	   		\
 			ft_strlcat.c	   		\
+			ft_strcat.c	   		\
 			ft_strlcpy.c    		\
 			ft_strlen.c	   		\
 			ft_strmapi.c    		\
@@ -83,6 +85,7 @@ STR		=	ft_split.c       		\
 			ft_substr.c   			\
 			ft_tolower.c	   		\
 			ft_toupper.c	   		\
+			ft_join.c	   		\
       			ft_strcpy.c
 OBJS_STR	=	$(STR:.c=.o)
 
