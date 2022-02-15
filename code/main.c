@@ -44,7 +44,7 @@ char	*ft_create_str_read_line(t_shell *shell, int pars)
 	char	*nb_env;
 	char	*tmp;
 	char	*nb_pars;
-	char	path[4086];
+	char	path[PATH_MAX];
 
 	ft_get_pwd(path);
 	nb_env = ft_itoa(shell->t_env->len);
@@ -76,7 +76,6 @@ int	main(int ac, char **av, char **ev)
 	char	*line;
 	char 	*buf;
 	int	pars;
-	int i;
 
 	if (ac > 1)
 	{
@@ -89,10 +88,10 @@ int	main(int ac, char **av, char **ev)
 	shell.t_env = ft_memalloc(sizeof(t_track));
 	printf("\e[1;1H\e[2J");
 	ft_init_env(&shell, ev);
-	i = -1;
 	// signal interactive
 	interactive_mode();
-	buf = ft_create_str_read_line(&shell, 0);
+	pars = 0;
+	buf = ft_create_str_read_line(&shell, pars);
 	line = readline(buf);
 	while (line)
 	{

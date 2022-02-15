@@ -55,7 +55,7 @@ static int	ft_cd_postcd(t_shell *shell, t_env *(*var_env)[2], char *path)
 
 int	ft_cd(t_shell *shell, char **paths)
 {
-	char	path[_PC_PATH_MAX];
+	char	path[PATH_MAX];
 	t_env	*var_env[2];
 	int		ret;
 
