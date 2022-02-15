@@ -47,7 +47,7 @@ SRC_SIGNAL		=	interactve_mode.c
 
 DIR_SIGNAL		=	srcs/signal
 
-SRC_EXEC		=	exec_cmd.c  exec_prg.c  exec_prg_error.c
+SRC_EXEC		=	exec_cmd.c  exec_prg.c  exec_prg_error.c exec.c
 
 DIR_EXEC		=	srcs/exec
 
