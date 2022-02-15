@@ -44,7 +44,7 @@ char	*ft_create_str_read_line(t_shell *shell, int pars)
 	char	*nb_env;
 	char	*tmp;
 	char	*nb_pars;
-	char	path[_PC_PATH_MAX];
+	char	path[4086];
 
 	ft_get_pwd(path);
 	nb_env = ft_itoa(shell->t_env->len);
@@ -76,7 +76,6 @@ int	main(int ac, char **av, char **ev)
 	char	*line;
 	char 	*buf;
 	int	pars;
-	char **path;
 	int i;
 
 	if (ac > 1)
@@ -90,10 +89,7 @@ int	main(int ac, char **av, char **ev)
 	shell.t_env = ft_memalloc(sizeof(t_track));
 	printf("\e[1;1H\e[2J");
 	ft_init_env(&shell, ev);
-	path = ft_get_path(&shell);
 	i = -1;
-	while (path[++i])
-		printf("%s\n", path[i]);
 	// signal interactive
 	interactive_mode();
 	buf = ft_create_str_read_line(&shell, 0);
@@ -127,6 +123,7 @@ int	main(int ac, char **av, char **ev)
 					//debug_tree(shell.operation, 0);
 					ft_exec(&shell, shell.operation);
 				}
+				pars = shell.t_pars->len;
 				ft_track_free_all(&(shell.t_pars));
 			}
 		}
@@ -138,7 +135,7 @@ int	main(int ac, char **av, char **ev)
 		line = readline(buf);
 	}
 	free(line);
-	free(buf);
+	/* free(buf); */
 	ft_track_free_all(&(shell.t_env));
 	rl_clear_history();
 	printf("exit\n");
