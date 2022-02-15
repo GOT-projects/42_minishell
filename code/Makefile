@@ -30,6 +30,9 @@ RELATIVE_HDS	=	mini_shell.h	\
 SRC_GLOBAL		=	main.c
 DIR_GLOBAL			=	.
 
+SRC_DEBUG		=	tree.c
+DIR_DEBUG			=	debug
+
 SRC_BUILTIN		=	env.c		\
 					export.c	\
 					unset.c		\
@@ -82,8 +85,7 @@ MK				=	Makefile
 
 NAME		=	minishell
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra -O3 -g3
-# -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	INC_LIB = -L/usr/local/lib
@@ -98,6 +100,7 @@ DIR_LIBFT	= 	libft
 LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
 
 SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
+				$(addprefix $(DIR_DEBUG)/, $(SRC_DEBUG))	\
 				$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
 				$(addprefix $(DIR_ENV)/, $(SRC_ENV))			\
 				$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))			\
@@ -108,7 +111,7 @@ SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
 				$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))	\
 				$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
 
-DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_BUILTIN) $(DIR_ENV) \
+DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_DEBUG) $(DIR_BUILTIN) $(DIR_ENV) \
 				$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) \
 				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) \
 				$(DIR_EXEC) $(DIR_PARSING)
