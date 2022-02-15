@@ -48,10 +48,14 @@
 # define CHECK_RED_INPUT	0b1000000
 # define CHECK_QUOTE		0b10000000
 
+# define DOUBLE_QUOTE	34
+# define SIMPLE_QUOTE   39
+
 /***************************************************************/
 /*                             ENV                             */
 /***************************************************************/
 
+void rl_replace_line (const char *text, int clear_undo);
 /* function in lst_env.c */
 t_env	*ft_create_envp(char *key, char *value, t_track **t);
 t_env	*ft_last(t_env *lst);
@@ -120,9 +124,11 @@ _Bool	ft_str_start_with(char *str, char *to_find);
 int		ft_pars_quote(char c, char *quote);
 void	ft_free_2d(char **array);
 
+// transform
 int		ft_free2d_index(char **split, size_t index);
 char	*create_string(char *str, size_t start, size_t end);
 char	**ft_split_str(char const *s, char *to_find);
+char	*ft_remove_quote(t_shell *shell, char *cmd);
 
 // syntax
 int		ft_check_syntax(char *line);

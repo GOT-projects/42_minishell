@@ -24,7 +24,7 @@ void	ft_init_env(t_shell *shell, char **ev)
 		if (val != NULL)
 			free(val);
 	}
-	/* ft_sort_env(shell->env); */
+	ft_sort_env(shell->env);
 }
 
 char	**ft_get_path(t_shell *shell)
@@ -37,6 +37,20 @@ char	**ft_get_path(t_shell *shell)
 	return (NULL);
 }
 
+static int	ft_len_lst_egal(t_env *elem)
+{
+	int	i;
+
+	i = 0;
+	while (elem)
+	{
+		if (ft_strichr(elem->value, '=') > -1)
+			i++;
+		elem = elem->next;
+	}
+	return (i);
+}
+
 char	**ft_lst_to_tab(t_shell *shell)
 {
 	char	**env;
@@ -45,13 +59,7 @@ char	**ft_lst_to_tab(t_shell *shell)
 
 	i = 0;
 	elem = shell->env;
-	while (elem)
-	{
-		if (ft_strichr(elem->value, '=') > -1)
-			i++;
-		elem = elem->next;
-	}
-	env = (char **)malloc(sizeof(char *) * (i + 1));
+	env = (char **)malloc(sizeof(char *) * (ft_len_lst_egal(shell->env) + 1));
 	if (!env)
 		return (NULL);
 	i = 0;
