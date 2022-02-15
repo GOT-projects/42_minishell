@@ -25,7 +25,8 @@
 # include "struct.h"
 
 # if defined(__linux__) || defined(linux) || defined(__linux)
-#  define MY_SIZE_T_MAX SIZE_MAX
+#  define MY_SIZE_T_MAX	SIZE_MAX
+#  define PATH_MAX		4096
 # else
 #  define MY_SIZE_T_MAX SIZE_T_MAX
 # endif
