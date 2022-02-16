@@ -53,7 +53,5 @@ char	*ft_remove_quote(t_shell *shell, char *cmd)
 			break;
 		i++;
 	}
-	ft_track_free(&(shell)->t_pars, cmd);
-	cmd = n_cmd;
 	return (n_cmd);
 }
