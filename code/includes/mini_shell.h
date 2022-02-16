@@ -53,11 +53,13 @@
 # define DOUBLE_QUOTE	34
 # define SIMPLE_QUOTE   39
 
+# define READ 0
+# define WRITE 1
+
 /***************************************************************/
 /*                             ENV                             */
 /***************************************************************/
 
-void rl_replace_line (const char *text, int clear_undo);
 /* function in lst_env.c */
 t_env	*ft_create_envp(char *key, char *value, t_track **t);
 t_env	*ft_last(t_env *lst);
@@ -119,6 +121,10 @@ void	ft_prg_error_research_path(char **cmd, int error_research);
 int		ft_exec_cmd(t_shell *shell, char **cmd);
 int		ft_exec(t_shell *shell, t_operation *op);
 
+//pipe
+
+int		ft_exec_pipe(t_shell *shell, t_operation *op);
+
 /***************************************************************/
 /*                         PARSING                             */
 /***************************************************************/
@@ -144,6 +150,7 @@ int		ft_get_forgot_pipe(t_shell *shell);
 
 // tree
 void	ft_op_add_back(t_operation **ops, t_operation *node);
+size_t	ft_op_bro_size(t_operation *childs);
 t_operation		*ft_get_new_node(t_shell *shell);
 int		ft_construct_cmd(t_shell *shell, t_operation *current);
 int		ft_construct_pipe(t_shell *shell, t_operation *current);

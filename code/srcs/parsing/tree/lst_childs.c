@@ -20,3 +20,16 @@ void	ft_op_add_back(t_operation **ops, t_operation *node)
 		tmp->next = node;
 	}
 }
+
+size_t	ft_op_bro_size(t_operation *childs)
+{
+	size_t	i;
+
+	i = 0;
+	while (childs)
+	{
+		++i;
+		childs = childs->next;
+	}
+	return (i);
+}
