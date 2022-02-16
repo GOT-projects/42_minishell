@@ -43,7 +43,7 @@ void	*ft_track(void *src, t_track **track)
 	int	i;
 
 	i = 0;
-	if (!ft_error_mal(src, track))
+	if (!src)
 		return (NULL);
 	(*track)->mem = ft_add_malloc(track, 0);
 	while ((*track)->mem[i] != NULL)
@@ -59,7 +59,7 @@ void	**ft_track_tab(void **src, t_track **track)
 
 	i = 0;
 	len = 0;
-	if (!ft_error_malt(src, track))
+	if (!src)
 		return (NULL);
 	while (src[len] != NULL)
 		len++;

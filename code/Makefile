@@ -96,8 +96,7 @@ MK			=	Makefile
 
 NAME		=	minishell
 CC		=	cc
-CFLAGS		=	-Wall -Werror -Wextra -O3 -g3
-# -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
 		INC_LIB = -L/usr/local/lib
