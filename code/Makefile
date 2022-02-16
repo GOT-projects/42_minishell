@@ -58,7 +58,8 @@ SRC_PARSING_SYNTAX	=	check_syntax.c
 DIR_PARSING_SYNTAX	=	srcs/parsing/syntax
 
 SRC_PARSING_PROMPT	=	get_pipe.c 			\
-				check_syntax.c
+						check_syntax.c		\
+						get_heredoc.c
 
 DIR_PARSING_PROMPT	=	srcs/parsing/prompt
 
