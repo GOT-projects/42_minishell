@@ -48,7 +48,8 @@ SRC_SIGNAL		=	interactve_mode.c
 
 DIR_SIGNAL		=	srcs/signal
 
-SRC_EXEC		=	exec_cmd.c  exec_prg.c  exec_prg_error.c exec.c
+SRC_EXEC		=	exec_cmd.c  exec_prg.c  exec_prg_error.c exec.c	\
+					exec_pipe.c
 
 DIR_EXEC		=	srcs/exec
 
@@ -94,8 +95,7 @@ MK			=	Makefile
 
 NAME		=	minishell
 CC		=	cc
-CFLAGS		=	-Wall -Werror -Wextra -O3 -g3
-# -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
 		INC_LIB = -L/usr/local/lib

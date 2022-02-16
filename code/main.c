@@ -134,9 +134,9 @@ int	main(int ac, char **av, char **ev)
 		line = readline(buf);
 	}
 	free(line);
-	/* free(buf); */
 	ft_track_free_all(&(shell.t_env));
 	rl_clear_history();
+	free(buf);
 	printf("exit\n");
 	return (shell.last_exit_status);
 }
