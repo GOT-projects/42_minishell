@@ -36,14 +36,17 @@ static int	ft_get_full_len(va_list *args,const char *str)
 
 static char	*ft_complet_join(va_list *args, const char *str, char *join)
 {
-	int	i;
+	char	*tmp;
+	int		i;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '%' && str[i + 1] == 's')
 		{
-			ft_strcat(join, va_arg(*args, char *));
+			tmp = va_arg(*args, char *);
+			if (tmp)
+				ft_strcat(join, tmp);
 			i++;
 		}
 		else
