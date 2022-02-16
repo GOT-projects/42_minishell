@@ -28,7 +28,8 @@ int	ft_change_path(t_shell *shell, char *path)
 		{
 			while (node->value[j] == path[i + j])
 				j++;
-			if (node->value[j] == '\0' && path[i + j] == '/')
+			if (node->value[j] == '\0' &&
+				(path[i + j] == '/' || path[i + j] == '\0'))
 			{
 				ft_strcpy(path, path + j + i);
 				return (EXIT_SUCCESS);
@@ -38,6 +39,7 @@ int	ft_change_path(t_shell *shell, char *path)
 	}
 	return ( EXIT_FAILURE);
 }
+
 char	*ft_create_str_read_line(t_shell *shell, int pars)
 {
 	char	*buf = NULL;
