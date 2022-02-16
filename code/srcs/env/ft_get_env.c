@@ -44,7 +44,7 @@ static int	ft_len_lst_egal(t_env *elem)
 	i = 0;
 	while (elem)
 	{
-		if (ft_strichr(elem->value, '=') > -1)
+		if (elem->value)
 			i++;
 		elem = elem->next;
 	}
@@ -66,7 +66,7 @@ char	**ft_lst_to_tab(t_shell *shell)
 	elem = shell->env;
 	while (elem)
 	{
-		if (ft_strichr(elem->value, '=') > -1)
+		if (elem->value)
 		{
 			env[i] = ft_strjoin(elem->key, elem->value);
 			i++;
