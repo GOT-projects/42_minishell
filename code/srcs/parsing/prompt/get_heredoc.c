@@ -11,7 +11,6 @@ static int	ft_join_heredoc(char **new_file, char *heredoc)
 			(ft_strlen(*new_file) + ft_strlen(heredoc) + 2) * sizeof(char));
 	if (!(*new_file))
 	{
-		//printf("teste\n");
 		free(tmp);
 		return (1);
 	}
@@ -32,6 +31,7 @@ int	ft_get_heredoc(t_shell *shell, t_operation *redir)
 	char	*heredoc[2];
 	char	*new_file;
 
+	//printf("%s\n", redir->file);
 	new_file = ft_strdup("");
 	redir->file = ft_remove_quote(shell, redir->file);
 	if (!redir->file)

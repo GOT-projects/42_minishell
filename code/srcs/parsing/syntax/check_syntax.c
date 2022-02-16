@@ -76,7 +76,10 @@ static int	ft_check_syntax_algo_with_quote(char *line, size_t *i, char *state,
 	char *quote)
 {
 	if (!(*quote) && (line[*i] == '"' || line[*i] == '\''))
+	{
 		(*quote) = line[*i];
+		*state = CHECK_TEXT;
+	}
 	else if ((*quote) && (*quote) == line[*i])
 		(*quote) = 0;
 	else if (!(*quote))
