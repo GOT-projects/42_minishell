@@ -6,7 +6,7 @@
 #    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/02/14 18:06:13 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/02/16 22:24:10 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,8 +96,7 @@ MK			=	Makefile
 
 NAME		=	minishell
 CC		=	cc
-CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 
-#-fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
 		INC_LIB = -L/usr/local/lib
