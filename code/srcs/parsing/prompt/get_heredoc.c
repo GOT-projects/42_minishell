@@ -50,6 +50,7 @@ int	ft_get_heredoc(t_shell *shell, t_operation *redir)
 		heredoc[1] = readline(heredoc[0]);
 	}
 	free(heredoc[0]);
+	free(heredoc[1]);
 	ft_track_free(&(shell->t_pars), redir->file);
 	redir->file = new_file;
 	ft_track(redir->file, &(shell->t_pars));
