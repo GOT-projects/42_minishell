@@ -23,6 +23,14 @@ typedef struct s_env
 	struct s_env	*prev;
 }		t_env;
 
+typedef struct s_quote
+{
+	t_bool	quote;
+	char	**var_env;
+	int	**v_st;
+	int	*state;
+}	t_quote;
+
 typedef enum e_priority
 {
 	PIPE,
@@ -65,6 +73,7 @@ typedef struct s_shell
 	t_track		*t_env;
 	t_track		*t_pars;
 	t_env		*env;
+	t_quote		*quote;
 	int			last_exit_status;
 	t_operation	*operation;
 }		t_shell;

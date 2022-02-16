@@ -30,7 +30,8 @@
 # else
 #  define MY_SIZE_T_MAX SIZE_T_MAX
 # endif
-
+# define TRUE 1
+# define FALSE 0
 # define ERR_404_EXEC	127
 # define ERR_403_EXEC	126
 
@@ -132,6 +133,7 @@ int		ft_free2d_index(char **split, size_t index);
 char	*create_string(char *str, size_t start, size_t end);
 char	**ft_split_str(char const *s, char *to_find);
 char	*ft_remove_quote(t_shell *shell, char *cmd);
+int	ft_init_quote(t_shell *shell, t_quote *quote, char *cmd);
 
 // syntax
 int		ft_check_syntax(char *line);
