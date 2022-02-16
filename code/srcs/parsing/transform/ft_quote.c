@@ -43,7 +43,7 @@ char	*ft_remove_quote(t_shell *shell, char *cmd)
 	j = 0;
 	n_cmd = ft_init_check_quote(shell, check, cmd);
 	if (!n_cmd)
-		return (n_cmd);
+		return (cmd);
 	while (cmd[i + j])
 	{
 		if (cmd[i + j] == DOUBLE_QUOTE || cmd[i + j] == SIMPLE_QUOTE)
