@@ -64,7 +64,7 @@ static char	*ft_get_redirect_file(char *str, size_t *i)
 			if (str[*i] == '<' || str[*i] == '>' || ft_strchr(SPACES, str[*i]))
 				limit[1] = *i;
 			else if (!str[*i + 1])
-				limit[1] = *i + 1;
+				limit[1] = ++(*i);
 		}
 		if (!limit[1])
 			++(*i);
@@ -133,7 +133,7 @@ static int	ft_redirection_add_redir(t_shell *shell, t_operation *current, size_t
 	else
 		return (1);
 	tmp = ft_create_redir(shell, r, current, i);
-	if (!tmp)
+	if (!tmp || (r == IN_2 && ft_get_heredoc(shell, tmp)))
 		return (1);
 	ft_op_add_back(&(current->lst_redir), tmp);
 	return (0);
