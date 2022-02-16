@@ -25,10 +25,10 @@ typedef struct s_env
 
 typedef struct s_quote
 {
-	t_bool	quote;
+	_Bool	quote;
 	char	**var_env;
-	int	**v_st;
-	int	*state;
+	int		**v_st;
+	int		*state;
 }	t_quote;
 
 typedef enum e_priority
