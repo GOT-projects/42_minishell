@@ -2,19 +2,6 @@
 # define STRUCT_H
 # include "../libft/include/libft.h"
 
-/* struct des pipe et des fdin et fdout */
-/* typedef struct s_pipe */
-/* { */
-/* 	int		o_fdin; */
-/* 	int		o_fdout; */
-/* 	int		fdin; */
-/* 	int		fdout; */
-/* 	int		pfd[2]; */
-/* 	int		pipefd[2]; */
-/* 	pid_t	*pid; */
-/* }		t_pipe; */
-
-/* liste chainé des variable env */
 typedef struct s_env
 {
 	char			*key;
@@ -25,10 +12,9 @@ typedef struct s_env
 
 typedef struct s_quote
 {
-	_Bool	quote;
-	char	**var_env;
-	int		**v_st;
-	int		*state;
+	size_t	*pos;
+	size_t	*p_bool;
+	size_t	len;
 }	t_quote;
 
 typedef enum e_priority

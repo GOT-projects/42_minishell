@@ -14,13 +14,18 @@
 
 static int	ft_check_track(t_track **track, void *mem, int *check)
 {
+	int	i;
+
+	i = 0;
+	if (!mem)
+		return (0);
 	*check = 0;
 	if ((*track)->len == 2)
 	{
 		ft_track_free_all(track);
 		return (-1);
 	}
-	while ((*track)->mem[*check] != mem)
+	while ((*track)->mem[*check] != mem && i++ < (*track)->len)
 		(*check)++;
 	return (0);
 }
