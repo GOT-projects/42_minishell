@@ -8,9 +8,9 @@ static size_t	ft_get_len_var(char *cmd, size_t state)
 	i = 0;
 	while (cmd[i])
 	{
-		if (!state && (cmd[i] == ' '))
+		if (!state && (cmd[i] == ' ' || cmd[i] == '$'))
 			return (i);
-		else if (state && ((int)state == cmd[i]))
+		else if (state && ((int)state == cmd[i] || cmd[i] == '$'))
 			return (i);
 		i++;
 	}
@@ -50,11 +50,11 @@ static size_t	ft_get_nb_var(char *cmd)
 	return (len);
 }
 
-static char	**ft_get_var_in_tab(t_var *var, char *cmd, size_t **st)
+static char	**ft_get_var_in_tab(t_var *var, char *cmd)
 {
 	size_t	i;
 	size_t	j;
-	int	index;
+	size_t	index;
 	int	state;
 
 	i = 0;
@@ -69,11 +69,10 @@ static char	**ft_get_var_in_tab(t_var *var, char *cmd, size_t **st)
 			state = 0;
 		if (cmd[i] == '$')
 		{
-			index = ft_get_len_var(cmd + i, state);
-			var->t_var[j] = ft_strndup(cmd + 1, index);
-			printf("var   | %s\n", var->t_var[j]);
-			st[j][0] = i;
-			st[j++][i] = index;
+			index = ft_get_len_var(cmd + i + 1, state);
+			var->t_var[j] = ft_strndup(cmd + i + 1, index);
+			printf("var add  | %s\n", var->t_var[j]);
+			j++;
 		}
 		i++;
 	}
@@ -94,17 +93,17 @@ static void	ft_check_quote(t_var *var, char *cmd)
 	{
 		if ((cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE) && !state)
 			state = cmd[i];
-		if ((cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE) && state == cmd[i])
+		else if ((cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE) && state == cmd[i])
 			state = 0;
-		if ((!state || state == DOUBLE_QUOTE) && cmd[i] == '$')
+		else if ((!state || state == DOUBLE_QUOTE) && cmd[i] == '$')
 			var->p_bool[j++] = 1;
-		if (state == SIMPLE_QUOTE && cmd[i] == '$')
+		else if (state == SIMPLE_QUOTE && cmd[i] == '$')
 			var->p_bool[j++] = 0;
 		i++;
 	}
 }
 
-static void	ft_completed_var_in_cmd(t_shell *shell, t_var *var, char *cmd)
+static void	ft_completed_var_in_cmd(t_shell *shell, t_var *var, char *cmd, size_t **st)
 {
 	size_t	i;
 	size_t	j;
@@ -115,27 +114,37 @@ static void	ft_completed_var_in_cmd(t_shell *shell, t_var *var, char *cmd)
 	i = 0;
 	j = 0;
 	k = 0;
-	l = 0;
 	while (cmd[i])
 	{
+		l = 0;
 		if (cmd[i] == '$' && var->p_bool[j])
 		{
 			tmp = ft_get_env_val(ft_get_env_key(shell->env, var->t_var[j]));
 			if (tmp)
 			{
 				var->n_cmd = ft_strcat(var->n_cmd, tmp);
-				while (var->t_var[j][l])
-					l++;
+				st[j][0] = k;
+				st[j][1] = ft_strlen(tmp) + k;
+				i += ft_strlen(var->t_var[j]);
 				j++;
 			}
-			i += l;
-		}
-		else
-		{
+			else
+			{
+				st[j][0] = 100000000;
+				st[j][1] = 100000000;
+				i += ft_strlen(var->t_var[j++]);
+			}
 			while (var->n_cmd[k])
 				k++;
-			var->n_cmd[k] = cmd[i];
 		}
+		else if (!var->p_bool)
+			while (var->t_var[l])
+			{
+				i++;
+				l++;
+			}
+		else
+			var->n_cmd[k++] = cmd[i];
 		i++;
 	}
 }
@@ -156,11 +165,17 @@ size_t	**ft_replace_var(t_shell *shell, char **cmd)
 	if (!st_pos || !var->t_var || !var->p_bool)
 		return (NULL);
 	ft_track_tab((void **)st_pos, &(shell)->t_pars);
-	ft_get_var_in_tab(var, *cmd, st_pos);
+	ft_get_var_in_tab(var, *cmd);
 	var->l_full = ft_get_full_len_var(shell, var) + ft_strlen(*cmd) + 1;
 	var->n_cmd = ft_track((char *)ft_memalloc(sizeof(char) * var->l_full), &(shell)->t_pars);
 	ft_check_quote(var, *cmd);
-	ft_completed_var_in_cmd(shell, var, *cmd);
+	ft_completed_var_in_cmd(shell, var, *cmd, st_pos);
+	size_t i = 0;
+	while (i < var->l_var)
+	{
+		printf("|%lu|%lu|%d|\n", st_pos[i][0],st_pos[i][1], var->p_bool[i]);
+		i++;
+	}
 	*cmd = var->n_cmd;
 	return (st_pos);
 }
