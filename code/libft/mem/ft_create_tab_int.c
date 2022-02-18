@@ -23,7 +23,7 @@ size_t	**ft_create_tab_size_t(size_t nb_all, size_t size_all)
 		return (NULL);
 	while (i <= nb_all)
 	{
-		tab[i] = (size_t *)malloc(sizeof(size_t) * size_all);
+		tab[i] = (size_t *)ft_memalloc(sizeof(size_t) * size_all);
 		if (!tab[i])
 			return (NULL);
 		ft_bzero(tab[i], sizeof(int) * size_all);
