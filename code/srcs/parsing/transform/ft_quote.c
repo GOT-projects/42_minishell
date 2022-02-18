@@ -156,10 +156,8 @@ static char	*ft_replace_cmd_without_state(t_shell *shell, t_quote *quote, char *
 
 static int	ft_gen_quote_pos(t_shell *shell, t_quote *quote, char *cmd, size_t **states)
 {
-	size_t	i;
 	size_t	len;
 
-	i = 0;
 	if (ft_strichr(cmd, DOUBLE_QUOTE) == -1 && ft_strichr(cmd, SIMPLE_QUOTE) == -1)
 		return (0);
 	len = ft_len_quote(cmd, states);
