@@ -38,9 +38,11 @@ int	ft_get_heredoc(t_shell *shell, t_operation *redir)
 {
 	char	*heredoc[2];
 	char	*new_file;
+	size_t	**st_pos;
 
 	new_file = NULL;
-	redir->file = ft_remove_quote(shell, redir->file, NULL);
+	st_pos = ft_replace_var(shell, &redir->file);
+	redir->file = ft_remove_quote(shell, redir->file, st_pos);
 	if (!redir->file)
 		return (1);
 	heredoc[0] = ft_join("heredoc %s > ", redir->file);

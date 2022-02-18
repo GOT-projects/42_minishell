@@ -47,6 +47,7 @@ OBJS_ISA	=	$(ISA:.c=.o)
 
 MEM		=	ft_bzero.c	   		\
 			ft_calloc.c      		\
+			ft_create_tab_int.c		\
 			ft_strdup.c	   		\
 			ft_strndup.c	   		\
 			ft_strdupcat.c			\
