@@ -71,6 +71,7 @@ static char	**ft_get_var_in_tab(t_var *var, char *cmd, size_t **st)
 		{
 			index = ft_get_len_var(cmd + i, state);
 			var->t_var[j] = ft_strndup(cmd + 1, index);
+			printf("var   | %s\n", var->t_var[j]);
 			st[j][0] = i;
 			st[j++][i] = index;
 		}
@@ -144,6 +145,7 @@ size_t	**ft_replace_var(t_shell *shell, char **cmd)
 	t_var	*var;
 	size_t	**st_pos;
 
+	printf("cmd entry %s\n",*cmd);
 	if (ft_strichr(*cmd, '$') == -1)
 		return (NULL);
 	var = ft_track(ft_memalloc(sizeof(t_var)), &(shell)->t_pars);

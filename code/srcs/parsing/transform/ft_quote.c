@@ -162,7 +162,6 @@ static int	ft_gen_quote_pos(t_shell *shell, t_quote *quote, char *cmd, size_t **
 	ft_track_quote(quote, quote->len);
 	if (states)
 		ft_check_stat(quote, cmd, states);
-	printf("%s track\n", cmd);
 	return (1);
 }
 
