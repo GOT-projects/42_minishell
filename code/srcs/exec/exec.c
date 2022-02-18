@@ -9,5 +9,11 @@ int	ft_exec(t_shell *shell, t_operation *op)
 		shell->last_exit_status = ft_exec_pipe(shell, op);
 		return (shell->last_exit_status);
 	}
+	if (op->genre == REDIRECTION)
+	{
+		// check error code redirection
+		shell->last_exit_status = ft_exec_redir(shell, op);
+		return (shell->last_exit_status);
+	}
 	return (1);
 }
