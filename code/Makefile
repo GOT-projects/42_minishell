@@ -6,7 +6,7 @@
 #    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/02/16 22:24:10 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/02/17 23:47:35 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,8 @@ SRC_SIGNAL		=	interactve_mode.c
 
 DIR_SIGNAL		=	srcs/signal
 
-SRC_EXEC		=	exec_cmd.c  exec_prg.c  exec_prg_error.c exec.c	\
-					exec_pipe.c
+SRC_EXEC		=	exec_cmd.c exec_prg.c exec_prg_error.c exec.c	\
+					exec_pipe.c exec_redirection.c redir_utils.c
 
 DIR_EXEC		=	srcs/exec
 

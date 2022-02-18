@@ -125,6 +125,11 @@ int		ft_exec(t_shell *shell, t_operation *op);
 
 int		ft_exec_pipe(t_shell *shell, t_operation *op);
 
+// redir
+
+int		ft_exec_redir(t_shell *shell, t_operation *op);
+int		ft_apply_output_redirection(t_operation *redir);
+
 /***************************************************************/
 /*                         PARSING                             */
 /***************************************************************/
