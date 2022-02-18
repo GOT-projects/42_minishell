@@ -19,6 +19,8 @@ char	*ft_strcat(char *dest, const char *src)
 
 	i = 0;
 	j = 0;
+	if (!src)
+		return (dest);
 	while (dest[i])
 		i++;
 	while (src[j])

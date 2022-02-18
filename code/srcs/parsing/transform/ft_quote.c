@@ -1,50 +1,18 @@
 #include "../../../includes/mini_shell.h"
 
-static size_t	ft_len_quote_with_states(char *cmd, size_t **states)
+static size_t	ft_len_quote(char *cmd)
 {
 	size_t	i;
-	size_t	j;
 	size_t	len;
 
 	i = 0;
-	j = 0;
 	len = 0;
 	while (cmd[i])
 	{
-		if ((states[j]) && (cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE)
-			&& i < states[j][0])
+		if (cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE)
 			len++;
-		if ((!states[j]) && (cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE))
-			len++;
-		if (!states[j] && i >= states[j][0])
-		{
-			while (i < states[j][1])
-				i++;
-			j++;
-		}
 		i++;
 	}
-	return (len);
-}
-
-static size_t	ft_len_quote(char *cmd, size_t **states)
-{
-	size_t	i;
-	size_t	len;
-
-	i = 0;
-	len = 0;
-	if (!states)
-	{
-		while (cmd[i])
-		{
-			if (cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE)
-				len++;
-			i++;
-		}
-	}
-	else
-		len = ft_len_quote_with_states(cmd, states);
 	return len;
 }
 
@@ -148,28 +116,52 @@ static char	*ft_replace_cmd_without_state(t_shell *shell, t_quote *quote, char *
 		}
 		else if ((cmd[dc[0]] == DOUBLE_QUOTE || cmd[dc[0]] == SIMPLE_QUOTE) && quote->p_bool[dc[1]] == 0)
 			dc[1]++;
-		printf("n_cmd %s\n", n_cmd);
 		dc[0]++;
 	}
 	return (n_cmd);
 }
 
-static int	ft_gen_quote_pos(t_shell *shell, t_quote *quote, char *cmd, size_t **states)
+static void	ft_check_stat(t_quote *quote, char *cmd, size_t **st)
 {
 	size_t	i;
-	size_t	len;
+	size_t	j;
+	size_t	k;
 
 	i = 0;
+	j = 0;
+	k = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE)
+		{
+			if (i >= st[j][0] && i <= st[j][1])
+			{
+				quote->p_bool[k++] = 1;
+				while (i++ <= st[j][1])
+					if (cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE)
+						quote->p_bool[k++] = 1;
+				j++;
+			}
+			else
+				k++;
+		}
+		i++;
+	}
+}
+
+static int	ft_gen_quote_pos(t_shell *shell, t_quote *quote, char *cmd, size_t **states)
+{
 	if (ft_strichr(cmd, DOUBLE_QUOTE) == -1 && ft_strichr(cmd, SIMPLE_QUOTE) == -1)
 		return (0);
-	len = ft_len_quote(cmd, states);
-	quote->len = len;
-	quote->pos = ft_track((size_t *)ft_memalloc(sizeof(size_t) * len), &(shell)->t_pars);
-	quote->p_bool = ft_track((size_t *)ft_memalloc(sizeof(size_t) * len), &(shell)->t_pars);
+	quote->len = ft_len_quote(cmd);
+	quote->pos = ft_track((size_t *)ft_memalloc(sizeof(size_t) * quote->len), &(shell)->t_pars);
+	quote->p_bool = ft_track((size_t *)ft_memalloc(sizeof(size_t) * quote->len), &(shell)->t_pars);
 	if (!quote->p_bool || !quote->pos)
 		return (0);
 	ft_complete_tab_quote(quote, cmd, states);
-	ft_track_quote(quote, len);
+	ft_track_quote(quote, quote->len);
+	if (states)
+		ft_check_stat(quote, cmd, states);
 	printf("%s track\n", cmd);
 	return (1);
 }
@@ -177,7 +169,7 @@ static int	ft_gen_quote_pos(t_shell *shell, t_quote *quote, char *cmd, size_t **
 /* @function remove quote of the string */ 
 /* @char *cmd */
 /* @return (int) */
-char	*ft_remove_quote(t_shell *shell, char *cmd, int **states)
+char	*ft_remove_quote(t_shell *shell, char *cmd, size_t **states)
 {
 	t_quote	*quote;
 	char	*n_cmd = NULL;

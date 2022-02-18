@@ -138,8 +138,9 @@ void	ft_free_2d(char **array);
 int		ft_free2d_index(char **split, size_t index);
 char	*create_string(char *str, size_t start, size_t end);
 char	**ft_split_str(char const *s, char *to_find);
-char	*ft_remove_quote(t_shell *shell, char *cmd, int **states);
+char	*ft_remove_quote(t_shell *shell, char *cmd, size_t **states);
 int		ft_init_quote(t_shell *shell, t_quote *quote, char *cmd);
+size_t		**ft_replace_var(t_shell *shell, char **cmd);
 
 // syntax
 int		ft_check_syntax(char *line);

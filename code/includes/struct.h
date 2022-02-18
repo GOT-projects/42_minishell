@@ -17,6 +17,15 @@ typedef struct s_quote
 	size_t	len;
 }	t_quote;
 
+typedef struct s_var
+{
+	size_t	l_var;
+	size_t	l_full;
+	char	*n_cmd;
+	char	**t_var;
+	int		*p_bool;
+}	t_var;
+
 typedef enum e_priority
 {
 	PIPE,
