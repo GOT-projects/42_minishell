@@ -129,6 +129,7 @@ int		ft_exec_pipe(t_shell *shell, t_operation *op);
 
 int		ft_exec_redir(t_shell *shell, t_operation *op);
 int		ft_apply_output_redirection(t_operation *redir);
+int		ft_apply_input_redirection(t_operation *redir);
 
 /***************************************************************/
 /*                         PARSING                             */
@@ -176,6 +177,8 @@ Ctrl+C - SIGINT Interruption (ctrl-C)	Terminaison
 Ctrl+\ - SIGQUIT 	Interruption forte (ctrl-\)	Terminaison + core dump
 */
 
+void	exec_mode_sub_process(void);
+void	exec_mode(void);
 void	interactive_mode(void);
 
 /***************************************************************/

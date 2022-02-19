@@ -33,7 +33,6 @@ int	ft_error_exit_process(char *prg_name, int status)
 {
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	//printf("%s\n", prg_name);
 	if (WIFSIGNALED(status))
 	{
 		ft_putstr_fd(prg_name, 2);

@@ -1,6 +1,6 @@
 #include "../../includes/mini_shell.h"
 
-void	ft_free_pipes(int ***pipes, size_t nb_pipes)
+static void	ft_free_pipes(int ***pipes, size_t nb_pipes)
 {
 	size_t	i;
 
@@ -11,7 +11,7 @@ void	ft_free_pipes(int ***pipes, size_t nb_pipes)
 	pipes = NULL;
 }
 
-int	ft_set_pipes(int **pipes, size_t nb_pipes)
+static int	ft_set_pipes(int **pipes, size_t nb_pipes)
 {
 	size_t	i;
 
@@ -33,7 +33,7 @@ int	ft_set_pipes(int **pipes, size_t nb_pipes)
 	return (0);
 }
 
-int	**ft_get_pipes(size_t nb_pipes)
+static int	**ft_get_pipes(size_t nb_pipes)
 {
 	size_t	i;
 	int		**pipes;
@@ -58,6 +58,28 @@ int	**ft_get_pipes(size_t nb_pipes)
 	if (ft_set_pipes(pipes, nb_pipes))
 		ft_free_pipes(&pipes, nb_pipes);
 	return (pipes);
+}
+
+static void	ft_exec_pipe_fork(t_shell *shell, t_operation *op, int *pipes[2],
+	int i)
+{
+	int	status;
+
+	exec_mode_sub_process();
+	if (pipes[i])
+	{
+		dup2(pipes[i][READ], READ);
+		close(pipes[i][READ]);
+		close(pipes[i][WRITE]);
+	}
+	if (pipes[i + 1])
+	{
+		dup2(pipes[i + 1][WRITE], WRITE);
+		close(pipes[i + 1][WRITE]);
+		close(pipes[i + 1][READ]);
+	}
+	status = ft_exec(shell, op);
+	exit(status);
 }
 
 int	ft_exec_pipe(t_shell *shell, t_operation *op)
@@ -93,22 +115,7 @@ int	ft_exec_pipe(t_shell *shell, t_operation *op)
 			return (1);
 		}
 		else if (pids[i] == 0)
-		{
-			if (pipes[i])
-			{
-				dup2(pipes[i][READ], READ);
-				close(pipes[i][READ]);
-				close(pipes[i][WRITE]);
-			}
-			if (pipes[i + 1])
-			{
-				dup2(pipes[i + 1][WRITE], WRITE);
-				close(pipes[i + 1][WRITE]);
-				close(pipes[i + 1][READ]);
-			}
-			status = ft_exec(shell, op);
-			exit(status);
-		}
+			ft_exec_pipe_fork(shell, op, pipes, i);
 		if (pipes[i])
 		{
 			close(pipes[i][READ]);
