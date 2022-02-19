@@ -127,6 +127,7 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
 	}
 	else if (pid == 0)
 	{
+		exec_mode_sub_process();
 		if (!env && shell->env)
 		{
 			ft_putstr_fd("No space available\n", 2);
@@ -135,7 +136,7 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
 		execve(path_prg, cmd, env);
 		exit(1);
 	}
-	waitpid(pid, &status, 0 /*WCONTINUED*/);
+	waitpid(pid, &status, 0);
 	ft_free_2d(env);
 	return (ft_error_exit_process(cmd[0], status));
 }
