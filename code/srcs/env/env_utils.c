@@ -10,7 +10,7 @@ t_env	*ft_get_env_key(t_env *lst, const char *key)
 	elem = lst;
 	while (elem)
 	{
-		if (!ft_strncmp(elem->key, key, ft_strlen(key)))
+		if (!ft_strcmp(elem->key, key))
 			return (elem);
 		elem = elem->next;
 	}
