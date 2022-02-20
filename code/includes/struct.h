@@ -12,15 +12,15 @@ typedef struct s_env
 
 typedef struct s_quote
 {
-	size_t	*pos;
-	size_t	*p_bool;
-	size_t	len;
+	int	*pos;
+	int	*p_bool;
+	int	len;
 }	t_quote;
 
 typedef struct s_var
 {
-	size_t	l_var;
-	size_t	l_full;
+	int	l_var;
+	int	l_full;
 	char	*n_cmd;
 	char	**t_var;
 	int		*p_bool;

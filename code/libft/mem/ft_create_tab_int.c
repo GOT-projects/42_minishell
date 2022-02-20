@@ -12,18 +12,18 @@
 
 #include "../include/libft.h"
  
-size_t	**ft_create_tab_size_t(size_t nb_all, size_t size_all)
+int	**ft_create_tab_int(int nb_all, int size_all)
 {
-	size_t	**tab;
-	size_t	i;
+	int	**tab;
+	int	i;
 
 	i = 0;
-	tab = (size_t **)malloc(sizeof(size_t *) * (nb_all + 1));
+	tab = (int **)malloc(sizeof(int *) * (nb_all + 1));
 	if (!tab)
 		return (NULL);
 	while (i <= nb_all)
 	{
-		tab[i] = (size_t *)ft_memalloc(sizeof(size_t) * size_all);
+		tab[i] = (int *)ft_memalloc(sizeof(int) * size_all);
 		if (!tab[i])
 			return (NULL);
 		ft_bzero(tab[i], sizeof(int) * size_all);

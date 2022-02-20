@@ -2,8 +2,8 @@
 
 int	ft_prepare_cmd(t_shell *shell, t_operation *op)
 {
-	size_t	i;
-	size_t	**var;
+	int	i;
+	int	**var;
 
 	i = 0;
 	while (op->cmd[i])

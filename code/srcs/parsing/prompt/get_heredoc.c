@@ -38,7 +38,7 @@ int	ft_get_heredoc(t_shell *shell, t_operation *redir)
 {
 	char	*heredoc[2];
 	char	*new_file;
-	size_t	**st_pos;
+	int	**st_pos;
 
 	new_file = NULL;
 	st_pos = ft_replace_var(shell, &redir->file);

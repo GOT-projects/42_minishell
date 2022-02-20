@@ -22,7 +22,7 @@ int	ft_exec_cmd(t_shell *shell, char **cmd)
 	else if (!strcmp("pwd", cmd[0]))
 		shell->last_exit_status = ft_pwd();
 	else if (!strcmp("export", cmd[0]))
-		shell->last_exit_status = ft_export(shell, &(cmd[1]));
+		shell->last_exit_status = ft_export(shell, cmd);
 	else if (!strcmp("env", cmd[0]))
 		shell->last_exit_status = ft_env(shell);
 	else if (!strcmp("unset", cmd[0]))
