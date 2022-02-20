@@ -1,14 +1,20 @@
 #include "../../includes/mini_shell.h"
 
-static void	ft_free_pipes(int ***pipes, size_t nb_pipes)
+static pid_t	*ft_get_pids(size_t nb_childs, int ***pipes)
 {
-	size_t	i;
+	pid_t	*pids;
 
-	i = 0;
-	while (i < nb_pipes)
-		free((*pipes)[i++]);
-	free((*pipes));
-	pipes = NULL;
+	if (*pipes)
+	{
+		pids = malloc(nb_childs * sizeof(pid_t));
+		if (!pids)
+		{
+			ft_free_pipes(pipes, nb_childs + 1);
+			return (NULL);
+		}
+		return (pids);
+	}
+	return (NULL);
 }
 
 static int	ft_set_pipes(int **pipes, size_t nb_pipes)
@@ -88,47 +94,25 @@ int	ft_exec_pipe(t_shell *shell, t_operation *op)
 	size_t	nb_childs;
 	int		**pipes;
 	pid_t	*pids;
-	int		status;
 
 	nb_childs = ft_op_bro_size(op->childs);
 	pipes = ft_get_pipes(nb_childs + 1);
-	if (!pipes)
+	pids = ft_get_pids(nb_childs, &pipes);
+	if (!pipes || !pids)
 		return (1);
-	pids = malloc(nb_childs * sizeof(pid_t));
-	if (!pids)
-	{
-		ft_free_pipes(&pipes, nb_childs + 1);
-		return (1);
-	}
 	i = 0;
 	op = op->childs;
 	while (op)
 	{
 		pids[i] = fork();
 		if (pids[i] < 0)
-		{
-			perror("fork of pipe");
-			while (i > 0)
-				kill(pids[--i], SIGKILL);
-			ft_free_pipes(&pipes, nb_childs + 1);
-			free(pids);
-			return (1);
-		}
+			return (ft_error_fork_of_pipe(pids, i, &pipes, nb_childs));
 		else if (pids[i] == 0)
 			ft_exec_pipe_fork(shell, op, pipes, i);
 		if (pipes[i])
-		{
-			close(pipes[i][READ]);
-			close(pipes[i][WRITE]);
-		}
+			ft_close_pipe(pipes[i]);
 		++i;
 		op = op->next;
 	}
-	i = 0;
-	while (i < nb_childs - 1)
-		waitpid(pids[i++], &status, 0);
-	waitpid(pids[i], &status, 0);
-	ft_free_pipes(&pipes, nb_childs + 1);
-	free(pids);
-	return (ft_error_exit_process("pipe", status));
+	return (ft_end_of_pipe(shell, pids, &pipes, nb_childs));
 }

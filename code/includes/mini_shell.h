@@ -123,6 +123,11 @@ int		ft_exec(t_shell *shell, t_operation *op);
 
 //pipe
 
+void	ft_free_pipes(int ***pipes, size_t nb_pipes);
+int		ft_error_fork_of_pipe(pid_t *pids, size_t i, int ***pipes,
+	size_t nb_childs);
+int		ft_end_of_pipe(t_shell *shell, pid_t *pids, int ***pipes,
+	size_t nb_childs);
 int		ft_exec_pipe(t_shell *shell, t_operation *op);
 
 // redir
@@ -130,6 +135,7 @@ int		ft_exec_pipe(t_shell *shell, t_operation *op);
 int		ft_exec_redir(t_shell *shell, t_operation *op);
 int		ft_apply_output_redirection(t_operation *redir);
 int		ft_apply_input_redirection(t_operation *redir);
+void	ft_close_pipe(int pipes[2]);
 
 /***************************************************************/
 /*                         PARSING                             */
@@ -147,6 +153,7 @@ char	**ft_split_str(char const *s, char *to_find);
 char	*ft_remove_quote(t_shell *shell, char *cmd, size_t **states);
 int		ft_init_quote(t_shell *shell, t_quote *quote, char *cmd);
 size_t		**ft_replace_var(t_shell *shell, char **cmd);
+_Bool	ft_is_shell_var(char const *var);
 
 // syntax
 int		ft_check_syntax(char *line);

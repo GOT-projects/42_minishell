@@ -111,7 +111,7 @@ int	main(int ac, char **av, char **ev)
 				}
 				else
 				{
-					//debug_tree(shell.operation, 0);
+					debug_tree(shell.operation, 0);
 					exec_mode();
 					ft_exec(&shell, shell.operation);
 					interactive_mode();

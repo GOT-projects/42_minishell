@@ -58,6 +58,10 @@ SRC_PARSING_SYNTAX	=	check_syntax.c
 
 DIR_PARSING_SYNTAX	=	srcs/parsing/syntax
 
+SRC_PARSING_VARS	=	is_shell_var.c
+
+DIR_PARSING_VARS	=	srcs/parsing/vars
+
 SRC_PARSING_PROMPT	=	get_pipe.c 			\
 						check_syntax.c		\
 						get_heredoc.c
@@ -112,20 +116,22 @@ LIBS		=	$(INC_LIB) $(INC_INC) -lreadline -I$(DIR_HDS)
 DIR_LIBFT	= 	libft
 LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
 
-SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
-				$(addprefix $(DIR_DEBUG)/, $(SRC_DEBUG))	\
-				$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
-				$(addprefix $(DIR_ENV)/, $(SRC_ENV))			\
-				$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))			\
-				$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))			\
-				$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))	\
-				$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
-				$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))	\
-				$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))	\
-				$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
+SRCS	=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
+			$(addprefix $(DIR_DEBUG)/, $(SRC_DEBUG))	\
+			$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
+			$(addprefix $(DIR_ENV)/, $(SRC_ENV))			\
+			$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))			\
+			$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))			\
+			$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))	\
+			$(addprefix $(DIR_PARSING_VARS)/, $(SRC_PARSING_VARS))	\
+			$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
+			$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))	\
+			$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))	\
+			$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
 
 DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_DEBUG) $(DIR_BUILTIN) $(DIR_ENV) \
 				$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) \
+				$(DIR_PARSING_VARS) \
 				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) \
 				$(DIR_EXEC) $(DIR_PARSING)
 
