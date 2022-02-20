@@ -24,7 +24,7 @@ static void	ft_unset_node(t_shell *shell, t_env *prev, t_env *curr, t_env *next)
 int	ft_unset(t_shell *shell, char **unset)
 {
 	t_env	*node;
-	int	i;
+	int		i;
 
 	i = -1;
 	while (unset[++i])

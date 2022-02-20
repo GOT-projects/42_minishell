@@ -27,13 +27,9 @@ int	ft_exec(t_shell *shell, t_operation *op)
 		return (ft_exec_cmd(shell, op->cmd));
 	}
 	else if (op->genre == PIPE)
-	{
-		shell->last_exit_status = ft_exec_pipe(shell, op);
-		return (shell->last_exit_status);
-	}
+		return (ft_exec_pipe(shell, op));
 	else if (op->genre == REDIRECTION)
 	{
-		// check error code redirection
 		shell->last_exit_status = ft_exec_redir(shell, op);
 		return (shell->last_exit_status);
 	}

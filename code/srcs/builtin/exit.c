@@ -16,6 +16,7 @@ void	ft_free_minishell(t_shell *shell)
 	if (shell)
 	{
 		// TO_ADD_ALL_TRACKS
+		ft_track_free_all(&(shell->t_pars));
 		ft_track_free_all(&(shell->t_env));
 	}
 }

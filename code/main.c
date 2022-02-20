@@ -76,13 +76,12 @@ int	main(int ac, char **av, char **ev)
 		ft_putstr_fd("to many arguments\n", 2);
 		return (1);
 	}
+	interactive_mode();
 	ft_bzero(&shell, sizeof(t_shell));
 	line = NULL;
 	shell.t_env = ft_memalloc(sizeof(t_track));
 	printf("\e[1;1H\e[2J");
 	ft_init_env(&shell, ev);
-	// signal interactive
-	interactive_mode();
 	pars = 0;
 	buf = ft_create_str_read_line(&shell, pars);
 	line = readline(buf);
@@ -113,7 +112,9 @@ int	main(int ac, char **av, char **ev)
 				else
 				{
 					debug_tree(shell.operation, 0);
+					exec_mode();
 					ft_exec(&shell, shell.operation);
+					interactive_mode();
 				}
 				pars = shell.t_pars->len;
 				ft_track_free_all(&(shell.t_pars));

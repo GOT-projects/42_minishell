@@ -123,12 +123,19 @@ int		ft_exec(t_shell *shell, t_operation *op);
 
 //pipe
 
+void	ft_free_pipes(int ***pipes, size_t nb_pipes);
+int		ft_error_fork_of_pipe(pid_t *pids, size_t i, int ***pipes,
+	size_t nb_childs);
+int		ft_end_of_pipe(t_shell *shell, pid_t *pids, int ***pipes,
+	size_t nb_childs);
 int		ft_exec_pipe(t_shell *shell, t_operation *op);
 
 // redir
 
 int		ft_exec_redir(t_shell *shell, t_operation *op);
 int		ft_apply_output_redirection(t_operation *redir);
+int		ft_apply_input_redirection(t_operation *redir);
+void	ft_close_pipe(int pipes[2]);
 
 /***************************************************************/
 /*                         PARSING                             */
@@ -139,6 +146,7 @@ _Bool	ft_is_shell_var(char const *var);
 _Bool	ft_str_start_with(char *str, char *to_find);
 int		ft_pars_quote(char c, char *quote);
 void	ft_free_2d(char **array);
+_Bool	ft_is_shell_var(char const *var);
 
 // transform
 int		ft_free2d_index(char **split, size_t index);
@@ -177,6 +185,8 @@ Ctrl+C - SIGINT Interruption (ctrl-C)	Terminaison
 Ctrl+\ - SIGQUIT 	Interruption forte (ctrl-\)	Terminaison + core dump
 */
 
+void	exec_mode_sub_process(void);
+void	exec_mode(void);
 void	interactive_mode(void);
 
 /***************************************************************/

@@ -13,7 +13,7 @@ static size_t	ft_nbsplit(char *s, char *to_find, size_t len_to_find)
 	quote = 0;
 	while (s[i])
 	{
-		if (!quote && (s[i] == '"' || s[i] == '\"'))
+		if (!quote && (s[i] == '"' || s[i] == '\''))
 			quote = s[i];
 		else if (quote == s[i])
 			quote = 0;
