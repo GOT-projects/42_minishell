@@ -1,6 +1,6 @@
 #include "../../includes/mini_shell.h"
 
-static void	ft_close_pipe(int pipes[2])
+void	ft_close_pipe(int pipes[2])
 {
 	close(pipes[READ]);
 	close(pipes[WRITE]);

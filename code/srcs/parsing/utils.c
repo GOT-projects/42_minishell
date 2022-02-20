@@ -30,7 +30,7 @@ _Bool	ft_str_start_with(char *str, char *to_find)
  */
 int	ft_pars_quote(char c, char *quote)
 {
-	if (!(*quote) && (c == '"' || c == '\"'))
+	if (!(*quote) && (c == '"' || c == '\''))
 	{
 		(*quote) = c;
 		return (1);
