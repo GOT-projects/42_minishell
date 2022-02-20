@@ -135,6 +135,7 @@ int		ft_apply_output_redirection(t_operation *redir);
 /***************************************************************/
 
 // utils
+_Bool	ft_is_shell_var(char const *var);
 _Bool	ft_str_start_with(char *str, char *to_find);
 int		ft_pars_quote(char c, char *quote);
 void	ft_free_2d(char **array);
@@ -143,9 +144,9 @@ void	ft_free_2d(char **array);
 int		ft_free2d_index(char **split, size_t index);
 char	*create_string(char *str, size_t start, size_t end);
 char	**ft_split_str(char const *s, char *to_find);
-char	*ft_remove_quote(t_shell *shell, char *cmd, size_t **states);
+char	*ft_remove_quote(t_shell *shell, char *cmd, int **states);
 int		ft_init_quote(t_shell *shell, t_quote *quote, char *cmd);
-size_t		**ft_replace_var(t_shell *shell, char **cmd);
+int		**ft_replace_var(t_shell *shell, char **cmd);
 
 // syntax
 int		ft_check_syntax(char *line);
