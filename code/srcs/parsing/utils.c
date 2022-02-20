@@ -30,7 +30,7 @@ _Bool	ft_str_start_with(char *str, char *to_find)
  */
 int	ft_pars_quote(char c, char *quote)
 {
-	if (!(*quote) && (c == '"' || c == '\"'))
+	if (!(*quote) && (c == '"' || c == '\''))
 	{
 		(*quote) = c;
 		return (1);
@@ -58,4 +58,28 @@ void	ft_free_2d(char **array)
 	while (array[i])
 		free(array[i++]);
 	free(array);
+}
+
+/**
+ * @brief check if a string can be a shell var
+ * 
+ * @param var the string
+ * @return _Bool true if it can be a shell var, false else
+ */
+_Bool	ft_is_shell_var(char const *var)
+{
+	size_t	i;
+
+	i = 0;
+	while (var[i] && i < MY_SIZE_T_MAX)
+	{
+		if (i == 0 && !(ft_isalpha((int)var[i]) || var[i] == '_'))
+			return (false);
+		if (!(ft_isalnum((int)var[i]) || var[i] == '_'))
+			return (false);
+		++i;
+	}
+	if (var[i] && i == MY_SIZE_T_MAX)
+		return (false);
+	return (true);
 }

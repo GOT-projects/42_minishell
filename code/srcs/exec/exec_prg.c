@@ -56,8 +56,8 @@ static char	*ft_check_prg_paths(char **cmd, int *ret, char **paths,
 		true_path[1] = ft_strjoin(true_path[0], cmd[0]);
 		if (!true_path[0] || !true_path[1])
 		{
-			ft_free_2d(true_path);
 			*ret = errno;
+			ft_free_2d(true_path);
 			return (NULL);
 		}
 		free(true_path[0]);
@@ -95,7 +95,7 @@ static char	*ft_check_prg_path(t_shell *shell, char **cmd, int *ret)
 	paths = ft_get_path(shell);
 	if (!paths)
 	{
-		*ret = errno;
+		*ret = ERR_404_EXEC;
 		return (NULL);
 	}
 	ft_bzero(true_path, 3 * sizeof(char *));
@@ -127,6 +127,7 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
 	}
 	else if (pid == 0)
 	{
+		exec_mode_sub_process();
 		if (!env && shell->env)
 		{
 			ft_putstr_fd("No space available\n", 2);
@@ -135,7 +136,7 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
 		execve(path_prg, cmd, env);
 		exit(1);
 	}
-	waitpid(pid, &status, 0 /*WCONTINUED*/);
+	waitpid(pid, &status, 0);
 	ft_free_2d(env);
 	return (ft_error_exit_process(cmd[0], status));
 }

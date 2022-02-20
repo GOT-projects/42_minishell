@@ -101,23 +101,6 @@ static void	ft_check_quote(t_var *var, char *cmd)
 		i++;
 	}
 }
-_Bool	ft_is_shell_var(char const *var)
-{
-	size_t	i;
-
-	i = 0;
-	while (var[i] && i < MY_SIZE_T_MAX)
-	{
-		if (i == 0 && !(ft_isalpha((int)var[i]) || var[i] == '_'))
-			return (false);
-		if (!(ft_isalnum((int)var[i]) || var[i] == '_'))
-			return (false);
-		++i;
-	}
-	if (var[i] && i == MY_SIZE_T_MAX)
-		return (false);
-	return (true);
-}
 
 static void	ft_completed_var_in_cmd(t_shell *shell, t_var *var, char *cmd, int **st)
 {

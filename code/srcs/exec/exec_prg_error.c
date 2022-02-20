@@ -8,6 +8,7 @@
  */
 void	ft_prg_error_research_path(char **cmd, int error_research)
 {
+	printf("%d\n", errno);
 	if (error_research == ERR_403_EXEC || error_research == ERR_404_EXEC)
 	{
 		ft_putstr_fd(cmd[0], 2);
@@ -33,7 +34,6 @@ int	ft_error_exit_process(char *prg_name, int status)
 {
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	//printf("%s\n", prg_name);
 	if (WIFSIGNALED(status))
 	{
 		ft_putstr_fd(prg_name, 2);
