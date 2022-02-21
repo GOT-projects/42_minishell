@@ -4,8 +4,8 @@ void	ft_init_env(t_shell *shell, char **ev)
 {
 	char	*key;
 	char	*val;
-	int	i;
-	int	index;
+	int		i;
+	int		index;
 
 	i = -1;
 	val = NULL;
@@ -101,4 +101,3 @@ void	ft_sort_env(t_env *lst)
 		lst = lst->next;
 	}
 }
-

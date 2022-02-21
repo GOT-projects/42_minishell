@@ -1,5 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 19:29:44 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 19:41:34 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_shell.h"
 
+/**
+ * @brief check if a string is a number
+ * 
+ * @param str the string
+ * @return _Bool true if it's a number, else false
+ */
 _Bool	ft_is_numeric_str(char *str)
 {
 	size_t	i;
@@ -11,6 +29,11 @@ _Bool	ft_is_numeric_str(char *str)
 	return (true);
 }
 
+/**
+ * @brief free all the allocation of the minishel
+ * 
+ * @param shell the shell
+ */
 void	ft_free_minishell(t_shell *shell)
 {
 	if (shell)
@@ -27,7 +50,7 @@ void	ft_free_minishell(t_shell *shell)
  * @param shell if set, the function will free the environnement of the
  * minishell
  * @param status exit code of the process
- * @return ** void
+ * @return ** int if a problem occurs an error is return
  */
 int	ft_exit(t_shell *shell, char **status)
 {

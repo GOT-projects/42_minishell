@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   construct_childs.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 20:44:52 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 20:44:53 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mini_shell.h"
 
 /**
  * @brief return a new empty node for the tree (add track on node)
  * 
  * @param shell the shell
- * @return t_operation* the node or null if error
+ * @return t_node* the node or null if error
  */
-t_operation	*ft_get_new_node(t_shell *shell)
+t_node	*ft_get_new_node(t_shell *shell)
 {
-	t_operation	*op;
+	t_node	*op;
 
-	op = ft_track(malloc(sizeof(t_operation)), &(shell->t_pars));
+	op = ft_track(malloc(sizeof(t_node)), &(shell->t_pars));
 	if (op)
-		ft_bzero(op, sizeof(t_operation));
+		ft_bzero(op, sizeof(t_node));
 	return (op);
 }
 
@@ -52,9 +64,9 @@ t_priority	ft_get_top_priority(char *line)
  * @param current the current node
  * @return int 0 if success, 1 if an error occurs
  */
-int	ft_construct_child(t_shell *shell, t_operation *current)
+int	ft_construct_child(t_shell *shell, t_node *current)
 {
-	t_operation	*node;
+	t_node	*node;
 
 	current->genre = ft_get_top_priority(current->to_parse);
 	if (current->genre == PIPE && ft_construct_pipe(shell, current))

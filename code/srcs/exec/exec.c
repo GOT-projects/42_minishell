@@ -1,5 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 19:56:01 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 19:56:02 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_shell.h"
 
+/**
+ * @brief convert a string in a lower case string
+ * 
+ * @param str the string to convert
+ */
 void	ft_tolower_str(char *str)
 {
 	size_t	i;
@@ -12,7 +29,14 @@ void	ft_tolower_str(char *str)
 	}
 }
 
-int	ft_prepare_cmd(t_shell *shell, t_operation *op)
+/**
+ * @brief prepare the command
+ * 
+ * @param shell the shell
+ * @param op the node of the command
+ * @return int 0 at success, else > 0
+ */
+int	ft_prepare_cmd(t_shell *shell, t_node *op)
 {
 	size_t	i;
 	int		**var;
@@ -31,7 +55,15 @@ int	ft_prepare_cmd(t_shell *shell, t_operation *op)
 	return (0);
 }
 
-int	ft_exec(t_shell *shell, t_operation *op)
+/**
+ * @brief generic function to execute a node of the tree
+ * 
+ * @param shell the shell
+ * @param op the node
+ * @return int 0 if success, else the code error of the command or shell
+ * manipulation
+ */
+int	ft_exec(t_shell *shell, t_node *op)
 {
 	if (op->genre == CMD)
 	{

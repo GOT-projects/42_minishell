@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 20:43:40 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 20:43:41 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mini_shell.h"
 
 /**
@@ -7,11 +19,11 @@
  * @param current the current node of the pipe
  * @return int 1 if error, 0 else
  */
-int	ft_construct_pipe(t_shell *shell, t_operation *current)
+int	ft_construct_pipe(t_shell *shell, t_node *current)
 {
-	t_operation	*tmp;
-	char		**split;
-	size_t		i;
+	t_node	*tmp;
+	char	**split;
+	size_t	i;
 
 	split = ft_split_str(current->to_parse, "|");
 	if (!split)

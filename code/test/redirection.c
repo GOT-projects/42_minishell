@@ -34,10 +34,10 @@ char	*ft_get_redirect_file(char *str, size_t *offset)
 	return (ft_strndup(str + limit[0], limit[1] - limit[0]));
 }
 
-t_operation	*ft_get_redirection(t_shell *shell, t_redirection r, char *redir,
+t_node	*ft_get_redirection(t_shell *shell, t_redirection r, char *redir,
 	size_t *offset)
 {
-	t_operation	*new_redir;
+	t_node	*new_redir;
 
 	new_redir = ft_get_new_node(shell);
 	if (!new_redir)
@@ -72,13 +72,13 @@ char	*ft_strjoin_free_1_index_2(char *s1, char *s2, size_t size_2)
 	return (ret);
 }
 
-t_operation	*ft_construct_redirection(t_shell *shell, t_operation *current)
+t_node	*ft_construct_redirection(t_shell *shell, t_node *current)
 {
 	size_t	i;
 	size_t	pos[2];
 	char	quote;
-	t_operation	*op;
-	t_operation	*tmp;
+	t_node	*op;
+	t_node	*tmp;
 
 	i = 0;
 	ft_bzero(pos, 2 * sizeof(size_t));

@@ -1,4 +1,3 @@
-
 #include "../../includes/mini_shell.h"
 
 t_env	*ft_get_env_key(t_env *lst, const char *key)
@@ -40,7 +39,7 @@ t_env	*ft_replace_node(t_env *node, char *value, t_track **t)
  * @param2 char	*key
  * @param3 char	*new_val
  * @return (stack)*/
-int		ft_export_add(t_shell *shell, char *key, char *new_val)
+int	ft_export_add(t_shell *shell, char *key, char *new_val)
 {
 	t_env	*node;
 	char	*m_val;
@@ -49,13 +48,13 @@ int		ft_export_add(t_shell *shell, char *key, char *new_val)
 	if (!node)
 	{
 		ft_add_back(&(shell->env), ft_create_envp(key, new_val,
-			&(shell->t_env)));
+				&(shell->t_env)));
 		return (EXIT_SUCCESS);
 	}
 	if (new_val != NULL)
 	{
-		m_val = ft_track((char *)ft_memalloc(sizeof(char) *
-			(ft_strlen(new_val) + 1)), &(shell->t_env));
+		m_val = ft_track((char *)ft_memalloc(sizeof(char)
+					* (ft_strlen(new_val) + 1)), &(shell->t_env));
 		ft_strcpy(m_val, new_val);
 		ft_replace_node(node, m_val, &(shell)->t_env);
 		return (EXIT_SUCCESS);

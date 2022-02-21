@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/02/19 00:59:05 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/02/21 20:13:11 by aartiges &       ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRC_PARSING_SYNTAX	=	check_syntax.c
 
 DIR_PARSING_SYNTAX	=	srcs/parsing/syntax
 
-SRC_PARSING_PROMPT	=	get_pipe.c 			\
+SRC_PARSING_PROMPT	=	get_forgot.c 			\
 						check_syntax.c		\
 						get_heredoc.c
 

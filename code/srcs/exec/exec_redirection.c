@@ -1,5 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_redirection.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 19:52:32 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 19:52:33 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_shell.h"
 
+/**
+ * @brief function that save the stdin and the stdout int the array std
+ * 
+ * @param std the array that contain a duplicat of the original stdin/stdout
+ * @return int 0 at success, else > 0
+ */
 static int	ft_save_stdin_stdout(int std[2])
 {
 	std[READ] = dup(READ);
@@ -18,6 +36,12 @@ static int	ft_save_stdin_stdout(int std[2])
 	return (0);
 }
 
+/**
+ * @brief function that restore the stdin and the stdout (like at the start)
+ * 
+ * @param std the array that contain a duplicat of the original stdin/stdout
+ * @return int 0 at success, else > 0
+ */
 static int	ft_restore_stdin_stdout(int std[2])
 {
 	if (dup2(std[READ], READ) == -1)
@@ -33,7 +57,13 @@ static int	ft_restore_stdin_stdout(int std[2])
 	return (0);
 }
 
-static int	ft_apply_redirections(t_operation *redir)
+/**
+ * @brief apply all type of redirection
+ * 
+ * @param redir the actual redirection
+ * @return ** int 0 at success, else > 0
+ */
+static int	ft_apply_redirections(t_node *redir)
 {
 	while (redir)
 	{
@@ -53,7 +83,14 @@ static int	ft_apply_redirections(t_operation *redir)
 	return (0);
 }
 
-int	ft_exec_redir(t_shell *shell, t_operation *op)
+/**
+ * @brief apply all the redirections
+ * 
+ * @param shell the shell
+ * @param op the node of redirection
+ * @return int 0 at success, else > 0
+ */
+int	ft_exec_redir(t_shell *shell, t_node *op)
 {
 	int	std[2];
 

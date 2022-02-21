@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 20:44:37 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 20:44:39 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mini_shell.h"
 
 /**
@@ -10,7 +22,7 @@
  * to_parse of the child
  * @return int 0 if success, 1 if error
  */
-static int	ft_redirection_add_child(t_shell *shell, t_operation *current,
+static int	ft_redirection_add_child(t_shell *shell, t_node *current,
 	size_t limits[2])
 {
 	char	*tmp;
@@ -82,13 +94,13 @@ static char	*ft_get_redirect_file(char *str, size_t *i)
  * @param r the type of the redirection
  * @param current the current node of the redirection
  * @param i a pointer on the index where we start to apply what we need to do
- * @return t_operation* NULL if error, the redirection to add to the list of
+ * @return t_node* NULL if error, the redirection to add to the list of
  * redirection if success
  */
-static t_operation	*ft_create_redir(t_shell *shell, t_redirection	r,
-	t_operation *current, size_t *i)
+static t_node	*ft_create_redir(t_shell *shell, t_redirection	r,
+	t_node *current, size_t *i)
 {
-	t_operation		*tmp;
+	t_node	*tmp;
 
 	tmp = ft_get_new_node(shell);
 	if (!tmp)
@@ -117,10 +129,10 @@ static t_operation	*ft_create_redir(t_shell *shell, t_redirection	r,
  * @param i a pointer on the index where we start to apply what we need to do
  * @return int 0 if success, 1 else
  */
-static int	ft_redirection_add_redir(t_shell *shell, t_operation *current, size_t *i)
+static int	ft_redirection_add_redir(t_shell *shell, t_node *current, size_t *i)
 {
 	t_redirection	r;
-	t_operation		*tmp;
+	t_node			*tmp;
 
 	if (ft_str_start_with(current->to_parse + *i, ">>"))
 		r = OUT_2;
@@ -146,7 +158,7 @@ static int	ft_redirection_add_redir(t_shell *shell, t_operation *current, size_t
  * @param current the current node in the tree
  * @return int 0 if success, 1 else
  */
-int	ft_construct_redirection(t_shell *shell, t_operation *current)
+int	ft_construct_redirection(t_shell *shell, t_node *current)
 {
 	size_t	i;
 	size_t	pos[2];

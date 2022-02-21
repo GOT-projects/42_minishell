@@ -1,10 +1,10 @@
 #include "../includes/mini_shell.h"
 
-void	debug_tree(t_operation *op, int level)
+void	debug_tree(t_node *op, int level)
 {
 	int			i;
 	int			j;
-	t_operation	*redir;
+	t_node	*redir;
 
 	while (op)
 	{

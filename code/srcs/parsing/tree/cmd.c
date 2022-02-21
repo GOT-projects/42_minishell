@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 20:43:51 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 20:43:53 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mini_shell.h"
 
 /**
@@ -7,7 +19,7 @@
  * @param current the current node of the tree
  * @return int 0 if success, 1 else
  */
-int	ft_construct_cmd(t_shell *shell, t_operation *current)
+int	ft_construct_cmd(t_shell *shell, t_node *current)
 {
 	char		**split;
 
