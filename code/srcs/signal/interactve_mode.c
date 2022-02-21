@@ -2,13 +2,15 @@
 
 void	handler_interative(int signum)
 {
-	if (signum == SIGINT || signum == SIGQUIT)
+	if (signum == SIGINT)
 	{
 		ft_putchar_fd('\n', 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	else if (signum == SIGQUIT)
+		return ;
 }
 
 void	interactive_mode(void)
