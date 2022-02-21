@@ -15,7 +15,7 @@ static void	ft_heredoc_fork(int pipes[2], t_operation *redir)
 		perror("redirection: input file: redirection");
 		exit(1);
 	}
-	write(pipes[WRITE], redir->file, ft_strlen(redir->file));
+	ft_putstr_fd(redir->file, pipes[WRITE]);
 	close(pipes[WRITE]);
 	exit(0);
 }
