@@ -1,6 +1,8 @@
 #ifndef MINI_SHELL_H
 
 # define MINI_SHELL_H
+///////////////////////////////////////////////////////////////////////////////////////////
+# define BONUS
 
 # include "includes.h"
 # include "define_common.h"
