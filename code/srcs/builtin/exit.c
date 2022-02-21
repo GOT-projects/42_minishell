@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:29:44 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 19:41:34 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 22:00:37 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_free_minishell(t_shell *shell)
 {
 	if (shell)
 	{
-		// TO_ADD_ALL_TRACKS
 		ft_track_free_all(&(shell->t_pars));
 		ft_track_free_all(&(shell->t_env));
 	}
@@ -55,10 +54,12 @@ void	ft_free_minishell(t_shell *shell)
 int	ft_exit(t_shell *shell, char **status)
 {
 	size_t	size;
+	int		ret;
 
 	size = 0;
 	while (status[size])
 		++size;
+	status[0] = ft_track(ft_strtrim(status[0], SPACES), &(shell->t_pars));
 	if (size > 0 && !ft_is_numeric_str(status[0]))
 	{
 		ft_putstr_fd("exit: numeric argument required\n", 2);
@@ -72,8 +73,9 @@ int	ft_exit(t_shell *shell, char **status)
 		return (1);
 	}
 	ft_putstr_fd("exit\n", 1);
+	ret = ft_atoi(status[0]);
 	ft_free_minishell(shell);
 	if (!size)
 		exit(shell->last_exit_status);
-	exit(ft_atoi(status[0]));
+	exit(ret);
 }
