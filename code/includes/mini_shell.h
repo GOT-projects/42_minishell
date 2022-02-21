@@ -159,6 +159,10 @@ int		**ft_replace_var(t_shell *shell, char **cmd);
 int		ft_len_quote(char *cmd);
 void	ft_complete_tab_quote(t_quote *quote, char *cmd);
 void	ft_while_quote(t_quote *quote, int *d, int **st, char *cmd);
+void	ft_set_quote(t_quote *quote, int *d);
+int		ft_get_len_var(char *cmd);
+int		ft_get_full_len_var(t_shell *shell, t_var *var);
+int		ft_get_full_len_var(t_shell *shell, t_var *var);
 
 // syntax
 int		ft_check_syntax(char *line);

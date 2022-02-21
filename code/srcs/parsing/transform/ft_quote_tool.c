@@ -13,7 +13,7 @@ int	ft_len_quote(char *cmd)
 			len++;
 		i++;
 	}
-	return len;
+	return (len);
 }
 
 void	ft_complete_tab_quote(t_quote *quote, char *cmd)
@@ -23,15 +23,15 @@ void	ft_complete_tab_quote(t_quote *quote, char *cmd)
 
 	i = 0;
 	j = 0;
-       while (cmd[i])
-       {
+	while (cmd[i])
+	{
 		if (ft_c_quote(cmd[i]))
 		{
 			quote->pos[j] = cmd[i];
 			j++;
 		}
-       	i++;
-       }
+	i++;
+	}
 }
 
 void	ft_while_quote(t_quote *quote, int *d, int **st, char *cmd)
@@ -43,4 +43,10 @@ void	ft_while_quote(t_quote *quote, int *d, int **st, char *cmd)
 		d[0] += 1;
 	}
 	d[2] += 1;
+}
+
+void	ft_set_quote(t_quote *quote, int *d)
+{
+	quote->p_bool[d[1]++] = 0;
+	d[3] = 0;
 }
