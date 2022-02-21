@@ -1,54 +1,4 @@
-
 #include "../../../includes/mini_shell.h"
-
-static int	ft_get_len_var(char *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == ' ' || cmd[i] == '$')
-			return (i);
-		else if (cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE)
-			return (i);
-		i++;
-	}
-	return (i);
-}
-
-static int	ft_get_full_len_var(t_shell *shell, t_var *var)
-{
-	char	*value;
-	int	i;
-	int	len;
-
-	i = 0;
-	len = 0;
-	while (var->t_var[i])
-	{
-		value = ft_get_env_val(ft_get_env_key(shell->env, var->t_var[i]));
-		len += ft_strlen(value);
-		i++;
-	}
-	return (len);
-}
-
-static int	ft_get_nb_var(char *cmd)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == '$')
-			len++;
-		i++;
-	}
-	return (len);
-}
 
 static char	**ft_get_var_in_tab(t_var *var, char *cmd)
 {
@@ -83,16 +33,16 @@ static void	ft_check_quote(t_var *var, char *cmd)
 {
 	int	i;
 	int	j;
-	int		state;
+	int	state;
 
 	i = 0;
 	j = 0;
 	state = 0;
 	while (cmd[i])
 	{
-		if ((cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE) && !state)
+		if (ft_c_quote(cmd[i]) && !state)
 			state = cmd[i];
-		else if ((cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE) && state == cmd[i])
+		else if (ft_c_quote(cmd[i]) && state == cmd[i])
 			state = 0;
 		else if ((!state || state == DOUBLE_QUOTE) && cmd[i] == '$')
 			var->p_bool[j++] = 1;
@@ -104,10 +54,10 @@ static void	ft_check_quote(t_var *var, char *cmd)
 
 static void	ft_completed_var_in_cmd(t_shell *shell, t_var *var, char *cmd, int **st)
 {
-	int	i;
-	int	j;
-	int	k;
 	char	*tmp;
+	int		i;
+	int		j;
+	int		k;
 
 	i = -1;
 	j = 0;

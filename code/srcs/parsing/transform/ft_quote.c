@@ -21,17 +21,18 @@ static void	ft_track_quote(t_quote *quote, int len)
 		}
 		if (state)
 			while (quote->pos[j] != state)
-				quote->p_bool[j++] = 1;	
+				quote->p_bool[j++] = 1;
 	}
 }
 
-static char	*ft_replace_cmd_without_state(t_shell *shell, t_quote *quote, char *cmd)
+static char	*ft_replace_cmd_state(t_shell *shell, t_quote *quote, char *cmd)
 {
 	char	*n_cmd;
-	int	dc[3];
+	int		dc[3];
 
 	ft_bzero(dc, sizeof(int) * 3);
-	n_cmd = ft_track((char *)ft_memalloc(sizeof(char) * ft_strlen(cmd)), &(shell)->t_pars);
+	n_cmd = ft_track((char *)ft_memalloc(sizeof(char)
+				* ft_strlen(cmd)), &(shell)->t_pars);
 	if (! n_cmd)
 		return (NULL);
 	while (cmd[dc[0]])
@@ -58,44 +59,36 @@ static void	ft_track_quote_states(t_quote *quote, char *cmd, int **st)
 	while (cmd[d[0]])
 	{
 		if (d[0] >= st[d[2]][0] && d[0] <= st[d[2]][0])
-		{
 			ft_while_quote(quote, d, st, cmd);
-			/* while (d[0] < st[d[2]][1]) */
-			/* { */
-			/* 	if (ft_c_quote(cmd[d[0]])) */
-			/* 		quote->p_bool[d[1]++] = 1; */
-			/* 	d[0]++; */
-			/* } */
-			/* d[2]++; */
-		}
-		if (d[3] && d[3] == quote->pos[d[1]] && (st[d[2]][0] < d[0] || st[d[2]][1] > d[0]) 
+		if (d[3] && d[3] == quote->pos[d[1]]
+			&& (st[d[2]][0] < d[0] || st[d[2]][1] > d[0])
 			&& ft_c_quote(cmd[d[0]]))
 		{
 			quote->p_bool[d[1]++] = 0;
 			d[3] = 0;
 		}
-		else if (!d[3] && (st[d[2]][0] < d[0] || st[d[2]][1] > d[0]) 
+		else if (!d[3] && (st[d[2]][0] < d[0] || st[d[2]][1] > d[0])
 			&& ft_c_quote(cmd[d[0]]))
-		{
-			d[3] = quote->pos[d[1]];
-			quote->p_bool[d[1]++] = 0;
-		}
+			ft_set_quote(quote, d);
 		else if (d[3] && (st[d[2]][0] < d[0] || st[d[2]][1] > d[0])
-			&&  ft_c_quote(cmd[d[0]]))
-			quote->p_bool[d[1]++] = 1;	
+			&& ft_c_quote(cmd[d[0]]))
+			quote->p_bool[d[1]++] = 1;
 		d[0]++;
 	}
 }
 
-static int	ft_gen_quote_pos(t_shell *shell, t_quote *quote, char *cmd, int **states)
+static int	ft_gen_pos(t_shell *shell, t_quote *quote, char *cmd, int **states)
 {
-	if (ft_strichr(cmd, DOUBLE_QUOTE) == -1 && ft_strichr(cmd, SIMPLE_QUOTE) == -1)
+	if (ft_strichr(cmd, DOUBLE_QUOTE) == -1
+		&& ft_strichr(cmd, SIMPLE_QUOTE) == -1)
 		return (0);
 	quote->len = ft_len_quote(cmd);
 	if (quote->len == 1)
 		return (0);
-	quote->pos = ft_track((int *)ft_memalloc(sizeof(int) * quote->len), &(shell)->t_pars);
-	quote->p_bool = ft_track((int *)ft_memalloc(sizeof(int) * quote->len), &(shell)->t_pars);
+	quote->pos = ft_track((int *)ft_memalloc(sizeof(int)
+				* quote->len), &(shell)->t_pars);
+	quote->p_bool = ft_track((int *)ft_memalloc(sizeof(int)
+				* quote->len), &(shell)->t_pars);
 	if (!quote->p_bool || !quote->pos)
 		return (0);
 	ft_complete_tab_quote(quote, cmd);
@@ -106,18 +99,18 @@ static int	ft_gen_quote_pos(t_shell *shell, t_quote *quote, char *cmd, int **sta
 	return (1);
 }
 
-/* @function remove quote of the string */ 
+/* @function remove quote of the string */
 /* @char *cmd */
 /* @return (int) */
 char	*ft_remove_quote(t_shell *shell, char *cmd, int **states)
 {
 	t_quote	*quote;
-	char	*n_cmd = NULL;
+	char	*n_cmd;
 
 	quote = ft_track(ft_memalloc(sizeof(t_quote)), &(shell)->t_pars);
-	if (!ft_gen_quote_pos(shell, quote, cmd, states))
+	if (!ft_gen_pos(shell, quote, cmd, states))
 		return (cmd);
-	n_cmd = ft_replace_cmd_without_state(shell, quote, cmd);
+	n_cmd = ft_replace_cmd_state(shell, quote, cmd);
 	ft_track_free(&(shell)->t_pars, cmd);
 	return (n_cmd);
 }
