@@ -90,17 +90,18 @@ int	ft_export(t_shell *shell, char **exp)
 	int	index;
 
 	i = 0;
-	if (!exp[1])
+	if (!exp[0])
 	{
 		ft_print_exp(shell->env);
 		return (EXIT_SUCCESS);
 	}
-	while (exp[++i])
+	while (exp[i])
 	{
 		if (ft_error_export(exp[i]))
 			return (1);
 		index = ft_strichr(exp[i], '=');
 		ft_add_export(shell, index, exp[i]);
+		i++;
 	}
 	ft_sort_env(shell->env);
 	return (EXIT_SUCCESS);
