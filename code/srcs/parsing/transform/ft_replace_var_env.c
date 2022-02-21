@@ -123,7 +123,7 @@ static void	ft_completed_var_in_cmd(t_shell *shell, t_var *var, char *cmd, int *
 			{
 				var->n_cmd = ft_strcat(var->n_cmd, tmp);
 				st[j][0] = k;
-				st[j][1] = ft_strlen(var->t_var[j]) + k;
+				st[j][1] = ft_strlen(tmp) + k;
 				i += ft_strlen(var->t_var[j]);
 				j++;
 			}
@@ -144,6 +144,8 @@ static void	ft_completed_var_in_cmd(t_shell *shell, t_var *var, char *cmd, int *
 		if (cmd[i] == '$' && !ft_is_shell_var(var->t_var[j]))
 			j++;
 	}
+	st[j][0] = -1;
+	st[j][1] = -1;
 
 }
 
@@ -173,6 +175,7 @@ int	**ft_replace_var(t_shell *shell, char **cmd)
 		printf("pos[0]|pos[1]|p_ool|%d|%d|%d|\n", st_pos[i][0],st_pos[i][1], var->p_bool[i]);
 		i++;
 	}
+	printf("%d %d   end pos\n", st_pos[i][0], st_pos[i][1]);
 	*cmd = var->n_cmd;
 	return (st_pos);
 }

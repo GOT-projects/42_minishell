@@ -67,6 +67,8 @@ DIR_PARSING_PROMPT	=	srcs/parsing/prompt
 SRC_PARSING_TRANSFORM	=	split_str.c		\
 				split_str_utils.c	\
 				ft_replace_var_env.c	\
+				ft_replace_var_tool.c	\
+				ft_quote_tool.c		\
 				ft_quote.c
 
 DIR_PARSING_TRANSFORM	=	srcs/parsing/transform
