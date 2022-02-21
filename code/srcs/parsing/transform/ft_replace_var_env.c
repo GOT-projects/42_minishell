@@ -2,30 +2,28 @@
 
 static char	**ft_get_var_in_tab(t_var *var, char *cmd)
 {
-	int	i;
-	int	j;
+	int	d[3];
 	int	index;
 	int	state;
 
-	i = 0;
-	j = 0;
 	state = 0;
 	index = 0;
-	while (cmd[i])
+	ft_bzero(d, sizeof(int) * 3);
+	while (cmd[d[0]])
 	{
-		if (!state && (cmd[i] == SIMPLE_QUOTE || cmd[i] == DOUBLE_QUOTE))
-			state = cmd[i];
-		else if (state && cmd[i] == state)
+		if (!state && ft_c_quote(cmd[d[0]]))
+			state = cmd[d[0]];
+		else if (state && cmd[d[0]] == state)
 			state = 0;
-		if (cmd[i] == '$')
+		if (cmd[d[0]] == '$')
 		{
-			index = ft_get_len_var(cmd + i + 1);
-			var->t_var[j] = ft_strndup(cmd + i + 1, index);
-			j++;
+			index = ft_get_len_var(cmd + d[0] + 1);
+			var->t_var[d[1]] = ft_strndup(cmd + d[0] + 1, index);
+			d[1]++;
 		}
-		i++;
+		d[0]++;
 	}
-	var->t_var[j] = NULL;
+	var->t_var[d[1]] = NULL;
 	return (var->t_var);
 }
 
@@ -52,57 +50,55 @@ static void	ft_check_quote(t_var *var, char *cmd)
 	}
 }
 
-static void	ft_completed_var_in_cmd(t_shell *shell, t_var *var, char *cmd, int **st)
+static void	ft_check_tmp(t_var *var, int *d, int **st, t_shell *shell)
 {
 	char	*tmp;
-	int		i;
-	int		j;
-	int		k;
 
-	i = -1;
-	j = 0;
-	k = 0;
-	while (cmd[++i])
+	tmp = ft_get_env_val(ft_get_env_key(shell->env, var->t_var[d[1]]));
+	if (tmp)
 	{
-		while (var->n_cmd[k])
-			k++;
-		if (var->p_bool[j] && cmd[i] == '$' && ft_is_shell_var(var->t_var[j]))
-		{
-			tmp = ft_get_env_val(ft_get_env_key(shell->env, var->t_var[j]));
-			if (tmp)
-			{
-				var->n_cmd = ft_strcat(var->n_cmd, tmp);
-				st[j][0] = k;
-				st[j][1] = ft_strlen(tmp) + k;
-				i += ft_strlen(var->t_var[j]);
-				j++;
-			}
-			else
-			{
-				st[j][0] = -1;
-				st[j][1] = -1;
-				i += ft_strlen(var->t_var[j]);
-				j++;
-			}
-		}
+		var->n_cmd = ft_strcat(var->n_cmd, tmp);
+		st[d[1]][0] = d[2];
+		st[d[1]][1] = ft_strlen(tmp) + d[2];
+		d[0] += ft_strlen(var->t_var[d[1]]);
+		d[1]++;
+	}
+	else
+	{
+		ft_set_st(st, d[1]);
+		d[0] += ft_strlen(var->t_var[d[1]]);
+		d[1]++;
+	}
+}
+
+static void	ft_completed_var(t_shell *shell, t_var *var, char *cmd, int **st)
+{
+	int		d[3];
+
+	ft_bzero(d, sizeof(int) * 3);
+	d[0] = -1;
+	while (cmd[++d[0]])
+	{
+		while (var->n_cmd[d[2]])
+			d[2]++;
+		if (var->p_bool[d[1]] && cmd[d[0]] == '$'
+			&& ft_is_shell_var(var->t_var[d[1]]))
+			ft_check_tmp(var, d, st, shell);
 		else
 		{
-			var->n_cmd[k] = cmd[i];
-			st[j][0] = -1;
-			st[j][1] = -1;
+			var->n_cmd[d[2]] = cmd[d[0]];
+			ft_set_st(st, d[1]);
 		}
-		if (cmd[i] == '$' && !ft_is_shell_var(var->t_var[j]))
-			j++;
+		if (cmd[d[0]] == '$' && !ft_is_shell_var(var->t_var[d[1]]))
+			d[1]++;
 	}
-	st[j][0] = -1;
-	st[j][1] = -1;
-
+	ft_set_st(st, d[1]);
 }
 
 int	**ft_replace_var(t_shell *shell, char **cmd)
 {
 	t_var	*var;
-	int	**st_pos;
+	int		**st_pos;
 
 	if (ft_strichr(*cmd, '$') == -1)
 		return (NULL);
@@ -110,22 +106,17 @@ int	**ft_replace_var(t_shell *shell, char **cmd)
 	var->l_var = ft_get_nb_var(*cmd);
 	var->t_var = (char **)malloc(sizeof(char *) * (var->l_var + 1));
 	st_pos = ft_create_tab_int(var->l_var + 1, 2);
-	var->p_bool = ft_track((int *)ft_memalloc(sizeof(int) * (var->l_var + 1)), &(shell)->t_pars);
+	var->p_bool = ft_track((int *)ft_memalloc(sizeof(int)
+			* (var->l_var + 1)), &(shell)->t_pars);
 	if (!st_pos || !var->t_var || !var->p_bool)
 		return (NULL);
 	ft_track_tab((void **)st_pos, &(shell)->t_pars);
 	ft_get_var_in_tab(var, *cmd);
 	var->l_full = ft_get_full_len_var(shell, var) + ft_strlen(*cmd) + 1;
-	var->n_cmd = ft_track((char *)ft_memalloc(sizeof(char) * var->l_full), &(shell)->t_pars);
+	var->n_cmd = ft_track((char *)ft_memalloc(sizeof(char)
+				* var->l_full), &(shell)->t_pars);
 	ft_check_quote(var, *cmd);
-	ft_completed_var_in_cmd(shell, var, *cmd, st_pos);
-	int i = 0;
-	while (i < var->l_var)
-	{
-		printf("pos[0]|pos[1]|p_ool|%d|%d|%d|\n", st_pos[i][0],st_pos[i][1], var->p_bool[i]);
-		i++;
-	}
-	printf("%d %d   end pos\n", st_pos[i][0], st_pos[i][1]);
+	ft_completed_var(shell, var, *cmd, st_pos);
 	*cmd = var->n_cmd;
 	return (st_pos);
 }
