@@ -2,69 +2,13 @@
 
 # define MINI_SHELL_H
 
-# include <errno.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <signal.h>
-# include <dirent.h>
-# include <termios.h>
-# include <curses.h>
-# include <term.h>
-# include <sys/types.h>
-# include <sys/ioctl.h>
-# include <sys/uio.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <limits.h>
-# include "../libft/include/libft.h"
-# include "struct.h"
-
-# if defined(__linux__) || defined(linux) || defined(__linux)
-#  define MY_SIZE_T_MAX	SIZE_MAX
-#  define PATH_MAX		4096
+# include "includes.h"
+# include "define_common.h"
+# ifdef BONUS
+#  include "struct_bonus.h"
 # else
-#  define MY_SIZE_T_MAX SIZE_T_MAX
+#  include "struct.h"
 # endif
-# define TRUE 1
-# define FALSE 0
-# define ERR_404_EXEC	127
-# define ERR_403_EXEC	126
-
-# define ENV_PWD		"PWD"
-# define ENV_PWD_OLD	"OLDPWD"
-
-# define SPACES			" \t\n\r\v\f"
-
-# define CHECK_OK			0
-
-# define EMPTY				0b1
-# define CHECK_TEXT			0b10
-# define CHECK_PIPE			0b100
-# define CHECK_RED_APPEND	0b1000
-# define CHECK_RED_CREATE	0b10000
-# define CHECK_RED_HR_DOC	0b100000
-# define CHECK_RED_INPUT	0b1000000
-# define CHECK_QUOTE		0b10000000
-
-# define CHECK_AND			0b100000000
-# define CHECK_OR			0b1000000000
-# define CHECK_SUB_OPEN		0b10000000000
-# define CHECK_SUB_CLOSE	0b100000000000
-
-# define CHECK_REDIRECTION	0b1111000
-# define CHECK_SEPARATOR	0b011101111101
-# define CHECK_SEPARATOR2	0b100011111010
-
-# define DOUBLE_QUOTE	34
-# define SIMPLE_QUOTE   39
-
-# define READ 0
-# define WRITE 1
 
 /***************************************************************/
 /*                             ENV                             */
@@ -129,22 +73,22 @@ int		ft_exec_prg(t_shell *shell, char **cmd);
 int		ft_error_exit_process(char *prg_name, int status);
 void	ft_prg_error_research_path(char **cmd, int error_research);
 int		ft_exec_cmd(t_shell *shell, char **cmd);
-int		ft_exec(t_shell *shell, t_operation *op);
+int		ft_exec(t_shell *shell, t_node *op);
 
 //pipe
 
 void	ft_free_pipes(int ***pipes, size_t nb_pipes);
 int		ft_error_fork_of_pipe(pid_t *pids, size_t i, int ***pipes,
-	size_t nb_childs);
+			size_t nb_childs);
 int		ft_end_of_pipe(t_shell *shell, pid_t *pids, int ***pipes,
-	size_t nb_childs);
-int		ft_exec_pipe(t_shell *shell, t_operation *op);
+			size_t nb_childs);
+int		ft_exec_pipe(t_shell *shell, t_node *op);
 
 // redir
 
-int		ft_exec_redir(t_shell *shell, t_operation *op);
-int		ft_apply_output_redirection(t_operation *redir);
-int		ft_apply_input_redirection(t_operation *redir);
+int		ft_exec_redir(t_shell *shell, t_node *op);
+int		ft_apply_output_redirection(t_node *redir);
+int		ft_apply_input_redirection(t_node *redir);
 void	ft_close_pipe(int pipes[2]);
 
 /***************************************************************/
@@ -181,17 +125,17 @@ int		ft_check_syntax(char *line);
 int		ft_check_syntax_prompt(char *line);
 
 // PROMPT
-int		ft_get_forgot_pipe(t_shell *shell);
-int		ft_get_heredoc(t_shell *shell, t_operation *redir);
+int		ft_get_forgot_cmd(t_shell *shell);
+int		ft_get_heredoc(t_shell *shell, t_node *redir);
 
 // tree
-void	ft_op_add_back(t_operation **ops, t_operation *node);
-size_t	ft_op_bro_size(t_operation *childs);
-t_operation		*ft_get_new_node(t_shell *shell);
-int		ft_construct_cmd(t_shell *shell, t_operation *current);
-int		ft_construct_pipe(t_shell *shell, t_operation *current);
-int		ft_construct_redirection(t_shell *shell, t_operation *current);
-int		ft_construct_child(t_shell *shell, t_operation *current);
+void	ft_op_add_back(t_node **ops, t_node *node);
+size_t	ft_op_bro_size(t_node *childs);
+t_node	*ft_get_new_node(t_shell *shell);
+int		ft_construct_cmd(t_shell *shell, t_node *current);
+int		ft_construct_pipe(t_shell *shell, t_node *current);
+int		ft_construct_redirection(t_shell *shell, t_node *current);
+int		ft_construct_child(t_shell *shell, t_node *current);
 
 //parsing
 int		ft_parse(t_shell *shell, char *line);
@@ -213,6 +157,6 @@ void	interactive_mode(void);
 /*                           DEBUG                             */
 /***************************************************************/
 
-void	debug_tree(t_operation *op, int level);
+void	debug_tree(t_node *op, int level);
 
 #endif

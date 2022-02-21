@@ -1,5 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 19:28:25 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 19:36:43 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_shell.h"
 
+/**
+ * @brief function that apply the changement of directory
+ * 
+ * @param path the new path
+ * @return int 0 if sucess, else > 0 number
+ */
 static int	ft_cd_pwd_path(char *path)
 {
 	if (chdir(path) == -1)
@@ -11,6 +29,14 @@ static int	ft_cd_pwd_path(char *path)
 	return (0);
 }
 
+/**
+ * @brief function that change the current directory, with the new path that
+ * correspond to an environnement variable
+ * 
+ * @param shell the shell
+ * @param key_env the name of the variable in the env
+ * @return int 0 if success, else > 0
+ */
 static int	ft_cd_with_env(t_shell *shell, const char *key_env)
 {
 	char	*true_path;
@@ -31,6 +57,15 @@ static int	ft_cd_with_env(t_shell *shell, const char *key_env)
 	return (errno);
 }
 
+/**
+ * @brief take a save of PWD and OLDPWD env var for the execution
+ * 
+ * @param shell the shell
+ * @param var_env pointer on array that will contain PWD and OLDPWD
+ * @param path a pointer on a string -- at the end of function, if necessary
+ * contain the futur OLDPWD
+ * @return int 0 if success, else > 0
+ */
 static int	ft_cd_precd(t_shell *shell, t_env *(*var_env)[2], char *path)
 {
 	(*var_env)[0] = ft_get_env_key(shell->env, "PWD");
@@ -43,6 +78,14 @@ static int	ft_cd_precd(t_shell *shell, t_env *(*var_env)[2], char *path)
 	return (0);
 }
 
+/**
+ * @brief funtion that update PWD and OLDPWD var at the end of the cd
+ * 
+ * @param shell the shell
+ * @param var_env the nodes of PWD and OLDPWD
+ * @param path the new OLDPWD
+ * @return int 0 if success, else > 0
+ */
 static int	ft_cd_postcd(t_shell *shell, t_env *(*var_env)[2], char *path)
 {
 	if ((*var_env)[1])
@@ -53,6 +96,13 @@ static int	ft_cd_postcd(t_shell *shell, t_env *(*var_env)[2], char *path)
 	return (0);
 }
 
+/**
+ * @brief cd builtin
+ * 
+ * @param shell the shell
+ * @param paths the args of the command
+ * @return int 0 if success, else > 0
+ */
 int	ft_cd(t_shell *shell, char **paths)
 {
 	char	path[PATH_MAX];

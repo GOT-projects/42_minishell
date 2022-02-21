@@ -1,5 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_pipe.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 20:08:25 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 20:08:27 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_shell.h"
 
+/**
+ * @brief allocation of the pids
+ * 
+ * @param nb_childs the number of the pids that will be create
+ * @param pipes the pipes
+ * @return pid_t* array of pids (not fork)
+ */
 static pid_t	*ft_get_pids(size_t nb_childs, int ***pipes)
 {
 	pid_t	*pids;
@@ -17,6 +36,13 @@ static pid_t	*ft_get_pids(size_t nb_childs, int ***pipes)
 	return (NULL);
 }
 
+/**
+ * @brief take an array of pipes and the number of pipes and create pipes
+ * 
+ * @param pipes the array of int that will be a pipes
+ * @param nb_pipes nomber of pipes + 2 (start with first and last pipe at NULL)
+ * @return int 0 at success, else > 0
+ */
 static int	ft_set_pipes(int **pipes, size_t nb_pipes)
 {
 	size_t	i;
@@ -39,6 +65,12 @@ static int	ft_set_pipes(int **pipes, size_t nb_pipes)
 	return (0);
 }
 
+/**
+ * @brief allocation of the pipes
+ * 
+ * @param nb_pipes the number of pipes
+ * @return int** the pipes
+ */
 static int	**ft_get_pipes(size_t nb_pipes)
 {
 	size_t	i;
@@ -66,7 +98,15 @@ static int	**ft_get_pipes(size_t nb_pipes)
 	return (pipes);
 }
 
-static void	ft_exec_pipe_fork(t_shell *shell, t_operation *op, int *pipes[2],
+/**
+ * @brief the code of the child process
+ * 
+ * @param shell the shell
+ * @param op the child node
+ * @param pipes the pipes
+ * @param i the number of the process
+ */
+static void	ft_exec_pipe_fork(t_shell *shell, t_node *op, int *pipes[2],
 	int i)
 {
 	int	status;
@@ -88,7 +128,14 @@ static void	ft_exec_pipe_fork(t_shell *shell, t_operation *op, int *pipes[2],
 	exit(status);
 }
 
-int	ft_exec_pipe(t_shell *shell, t_operation *op)
+/**
+ * @brief function that execute the pipe
+ * 
+ * @param shell the shell
+ * @param op the node of the pipe
+ * @return int 0 at success, else > 0
+ */
+int	ft_exec_pipe(t_shell *shell, t_node *op)
 {
 	size_t	i;
 	size_t	nb_childs;

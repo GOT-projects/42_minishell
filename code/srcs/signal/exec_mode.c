@@ -2,10 +2,11 @@
 
 void	handler_exec_main(int signum)
 {
-	if (signum == SIGINT)
+	if (signum == SIGINT || signum == SIGQUIT)
+	{
+		ft_putstr_fd("\n", 1);
 		return ;
-	else if (signum == SIGQUIT)
-		return ;
+	}
 }
 
 void	exec_mode(void)

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 19:13:38 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 19:13:47 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_H
 # define STRUCT_H
-# include "../libft/include/libft.h"
+# include "includes.h"
 
 typedef struct s_env
 {
@@ -19,8 +31,8 @@ typedef struct s_quote
 
 typedef struct s_var
 {
-	int	l_var;
-	int	l_full;
+	int		l_var;
+	int		l_full;
 	char	*n_cmd;
 	char	**t_var;
 	int		*p_bool;
@@ -28,10 +40,8 @@ typedef struct s_var
 
 typedef enum e_priority
 {
-	BOOL,
 	PIPE,
 	REDIRECTION,
-	SUB_SHELL,
 	CMD
 }	t_priority;
 
@@ -43,36 +53,27 @@ typedef enum e_redirection
 	IN_2
 }	t_redirection;
 
-typedef enum e_bool
+typedef struct s_node
 {
-	NONE,
-	AND,
-	OR
-}	t_bool;
+	_Bool			root;
+	t_priority		genre;
+	t_redirection	type_redirection;
+	char			**cmd;
+	char			*to_parse;
+	char			*file;
+	struct s_node	*childs;
+	struct s_node	*next;
+	struct s_node	*lst_redir;
+}	t_node;
 
-typedef struct s_operation
-{
-	_Bool				root;
-	t_priority			genre;
-	t_redirection		type_redirection;
-	t_bool				type_bool;
-	char				**cmd;
-	char				*to_parse;
-	char				*file;
-	struct s_operation	*childs;
-	struct s_operation	*next;
-	struct s_operation	*lst_redir;
-}	t_operation;
-
-/* structure generale */
 typedef struct s_shell
 {
-	t_track		*t_env;
-	t_track		*t_pars;
-	t_env		*env;
-	t_quote		*quote;
-	int			last_exit_status;
-	t_operation	*operation;
+	t_track	*t_env;
+	t_track	*t_pars;
+	t_env	*env;
+	t_quote	*quote;
+	int		last_exit_status;
+	t_node	*operation;
 }		t_shell;
 
 #endif

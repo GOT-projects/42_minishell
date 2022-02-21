@@ -1,12 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_redir_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 19:47:37 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/02/21 19:47:39 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_shell.h"
 
+/**
+ * @brief close the 2 fildes of the pipe
+ * 
+ * @param pipes the pipe
+ */
 void	ft_close_pipe(int pipes[2])
 {
 	close(pipes[READ]);
 	close(pipes[WRITE]);
 }
 
-static void	ft_heredoc_fork(int pipes[2], t_operation *redir)
+/**
+ * @brief the code of the sub process that write the heredoc in the pipe
+ * 
+ * @param pipes the pipe
+ * @param redir the redirection that contain the string to pipe
+ */
+static void	ft_heredoc_fork(int pipes[2], t_node *redir)
 {
 	exec_mode_sub_process();
 	close(pipes[READ]);
@@ -20,7 +43,13 @@ static void	ft_heredoc_fork(int pipes[2], t_operation *redir)
 	exit(0);
 }
 
-static int	ft_apply_heredoc(t_operation *redir)
+/**
+ * @brief function that create the process to do the redirection heredoc
+ * 
+ * @param redir the redirection
+ * @return int 0 at success, else > 0
+ */
+static int	ft_apply_heredoc(t_node *redir)
 {
 	pid_t	pid;
 	int		pipes[2];
@@ -49,7 +78,13 @@ static int	ft_apply_heredoc(t_operation *redir)
 	return (0);
 }
 
-int	ft_apply_input_redirection(t_operation *redir)
+/**
+ * @brief function that apply the redirection (in input ex:< <<)
+ * 
+ * @param redir the redirection
+ * @return int 0 if success, else > 0
+ */
+int	ft_apply_input_redirection(t_node *redir)
 {
 	int		fd;
 
@@ -76,7 +111,13 @@ int	ft_apply_input_redirection(t_operation *redir)
 	return (0);
 }
 
-int	ft_apply_output_redirection(t_operation *redir)
+/**
+ * @brief function that apply the redirection (in output ex:< <<)
+ * 
+ * @param redir the redirection
+ * @return int 0 if success, else > 0
+ */
+int	ft_apply_output_redirection(t_node *redir)
 {
 	int	fd;
 

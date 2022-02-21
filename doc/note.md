@@ -1,6 +1,11 @@
 (echo 1 && sleep 3 && echo 2) | cat -e
 grep yes << o
 
+# TODO
+
+trim exec
+check signal ctl \
+
 t_envp	*ft_get_env_key(t_envp *env, char *key); //TODO
 char	*ft_get_env_val(t_envp *var_env); //TODO
 int		ft_export_replace(char *key, char *new_val);
@@ -80,9 +85,9 @@ typedef struct  s_operation
 	char				**cmd;
 	struct s_operation	*son1;
 	struct s_operation	*son2;
-}	t_operation;
+}	t_node;
 
-void	justdoit(t_shell *shell, t_operation *tree)
+void	justdoit(t_shell *shell, t_node *tree)
 {
 	if (tree->op == OP_CMD)
 		exec(cmd)
