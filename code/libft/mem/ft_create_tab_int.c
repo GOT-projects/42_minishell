@@ -21,12 +21,11 @@ int	**ft_create_tab_int(int nb_all, int size_all)
 	tab = (int **)malloc(sizeof(int *) * (nb_all + 1));
 	if (!tab)
 		return (NULL);
-	while (i <= nb_all)
+	while (i < nb_all)
 	{
-		tab[i] = (int *)ft_memalloc(sizeof(int) * size_all);
+		tab[i] = (int *)ft_memalloc(sizeof(int) * (size_all + 1));
 		if (!tab[i])
 			return (NULL);
-		ft_bzero(tab[i], sizeof(int) * size_all);
 		i++;
 	}
 	tab[i] = NULL;
