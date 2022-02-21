@@ -56,4 +56,8 @@ int	ft_get_nb_var(char *cmd)
 	return (len);
 }
 
-
+void	ft_set_st(int **st, int j)
+{
+	st[j][0] = -1;
+	st[j][1] = -1;
+}
