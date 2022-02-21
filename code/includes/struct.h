@@ -28,8 +28,10 @@ typedef struct s_var
 
 typedef enum e_priority
 {
+	BOOL,
 	PIPE,
 	REDIRECTION,
+	SUB_SHELL,
 	CMD
 }	t_priority;
 
