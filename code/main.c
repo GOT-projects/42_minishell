@@ -11,6 +11,7 @@ void	ft_print(char **tabs)
 		i++;
 	}
 }
+
 int	ft_change_path(t_shell *shell, char *path)
 {
 	t_env	*node;

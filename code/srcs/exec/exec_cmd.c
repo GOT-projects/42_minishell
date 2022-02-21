@@ -27,6 +27,8 @@ int	ft_exec_cmd(t_shell *shell, char **cmd)
 		shell->last_exit_status = ft_env(shell);
 	else if (!strcmp("unset", cmd[0]))
 		shell->last_exit_status = ft_unset(shell, &(cmd[1]));
+	else if (!strcmp("echo", cmd[0]))
+		shell->last_exit_status = ft_echo(&(cmd[1]));
 	else
 		shell->last_exit_status = ft_exec_prg(shell, cmd);
 	return (shell->last_exit_status);

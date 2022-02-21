@@ -1,9 +1,21 @@
 #include "../../includes/mini_shell.h"
 
+void	ft_tolower_str(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		str[i] = ft_tolower(str[i]);
+		++i;
+	}
+}
+
 int	ft_prepare_cmd(t_shell *shell, t_operation *op)
 {
-	int	i;
-	int	**var;
+	size_t	i;
+	int		**var;
 
 	i = 0;
 	while (op->cmd[i])
@@ -12,6 +24,8 @@ int	ft_prepare_cmd(t_shell *shell, t_operation *op)
 		op->cmd[i] = ft_remove_quote(shell, op->cmd[i], var);
 		if (!(op->cmd[i]))
 			return (1);
+		if (!i)
+			ft_tolower_str(op->cmd[0]);
 		++i;
 	}
 	return (0);
