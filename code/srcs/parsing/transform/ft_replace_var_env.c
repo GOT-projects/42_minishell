@@ -118,5 +118,6 @@ int	**ft_replace_var(t_shell *shell, char **cmd)
 	ft_check_quote(var, *cmd);
 	ft_completed_var(shell, var, *cmd, st_pos);
 	*cmd = var->n_cmd;
+	ft_free_2d(var->t_var);
 	return (st_pos);
 }
