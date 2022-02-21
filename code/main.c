@@ -27,7 +27,7 @@ int	ft_change_path(t_shell *shell, char *path)
 		j = 0;
 		if (node->value[j] == path[i])
 		{
-			while (node->value[j] == path[i + j])
+			while (node->value[j] == path[i + j] && node->value[j])
 				j++;
 			if (node->value[j] == '\0' &&
 				(path[i + j] == '/' || path[i + j] == '\0'))
@@ -55,9 +55,9 @@ char	*ft_create_str_read_line(t_shell *shell, int pars)
 	nb_pars = ft_itoa(pars);
 	last_ret = ft_itoa(shell->last_exit_status);
 	if (!ft_change_path(shell, path))
-		buf = ft_join(" %s | %s | %s | ~%s > ", last_ret, nb_pars, nb_env, path);
+		buf = ft_join(" %s | %s | %s | ~%s/ > ", last_ret, nb_pars, nb_env, path);
 	else
-		buf = ft_join(" %s | %s | %s | %s > ", last_ret, nb_pars, nb_env, path);
+		buf = ft_join(" %s | %s | %s | %s/ > ", last_ret, nb_pars, nb_env, path);
 	free(nb_env);
 	free(nb_pars);
 	free(last_ret);

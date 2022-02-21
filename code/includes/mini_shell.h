@@ -163,8 +163,18 @@ int		ft_free2d_index(char **split, size_t index);
 char	*create_string(char *str, size_t start, size_t end);
 char	**ft_split_str(char const *s, char *to_find);
 char	*ft_remove_quote(t_shell *shell, char *cmd, int **states);
-int		ft_init_quote(t_shell *shell, t_quote *quote, char *cmd);
+int		ft_c_quote(int c);
+/* int		ft_init_quote(t_shell *shell, t_quote *quote, char *cmd); */
 int		**ft_replace_var(t_shell *shell, char **cmd);
+int		ft_len_quote(char *cmd);
+void	ft_complete_tab_quote(t_quote *quote, char *cmd);
+void	ft_while_quote(t_quote *quote, int *d, int **st, char *cmd);
+void	ft_set_quote(t_quote *quote, int *d);
+void	ft_set_st(int **st, int j);
+int		ft_get_len_var(char *cmd);
+int		ft_get_nb_var(char *cmd);
+int		ft_get_full_len_var(t_shell *shell, t_var *var);
+int		ft_get_full_len_var(t_shell *shell, t_var *var);
 
 // syntax
 int		ft_check_syntax(char *line);
