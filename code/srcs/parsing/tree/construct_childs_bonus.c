@@ -33,7 +33,7 @@ _Bool	ft_priority_on_parentheses(char *line)
 				++tmp;
 			else if (line[i] == ')')
 				--tmp;
-			if (!ft_strchr(SPACES, line[i]) && tmp == 0)
+			else if (!ft_strchr(SPACES, line[i]) && tmp == 0)
 				return (false);
 		}
 		++i;
@@ -95,6 +95,10 @@ int	ft_construct_child(t_shell *shell, t_node *current)
 		&& ft_construct_redirection(shell, current))
 		return (1);
 	else if (current->genre == CMD && ft_construct_cmd(shell, current))
+		return (1);
+	else if (current->genre == BOOL && ft_construct_bool(shell, current))
+		return (1);
+	else if (current->genre == SUB_SHELL && ft_construct_subshell(shell, current))
 		return (1);
 	ft_track_free(&(shell->t_pars), current->to_parse);
 	current->to_parse = NULL;

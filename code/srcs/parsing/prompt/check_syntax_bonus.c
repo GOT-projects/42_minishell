@@ -7,7 +7,7 @@
  * @param state the state of the check of the syntax
  * @return int CHECK_OK if success, else error
  */
-static int	ft_check_syntax_algo_no_quote(char *line, char *state)
+static int	ft_check_syntax_algo_no_quote(char *line, int *state)
 {
 	if ((*state & (CHECK_SEPARATOR)) && ft_str_start_with(line, "&&"))
 		return (CHECK_AND);
@@ -37,9 +37,13 @@ static int	ft_check_syntax_algo_no_quote(char *line, char *state)
  * @param line the command line
  * @param state the state of the check syntax
  * @param i the index of the line
+ * @return int 1 if the state have change
  */
-static void	ft_check_syntax_apply_algo(char *line, char *state, size_t *i)
+static int	ft_check_syntax_apply_algo(char *line, int *state, size_t *i)
 {
+	int	old;
+
+	old = *state;
 	if (ft_str_start_with(line + *i, "&&"))
 		*state = CHECK_AND;
 	else if (ft_str_start_with(line + *i, "||"))
@@ -60,6 +64,7 @@ static void	ft_check_syntax_apply_algo(char *line, char *state, size_t *i)
 		*state = CHECK_SUB_CLOSE;
 	else if (line[*i] != ' ')
 		*state = CHECK_TEXT;
+	return (old != *state);
 }
 
 /**
@@ -72,7 +77,7 @@ static void	ft_check_syntax_apply_algo(char *line, char *state, size_t *i)
  * 0 else
  * @return int the error code of the syntax, CHECK_OK else
  */
-static int	ft_check_syntax_algo_with_quote(char *line, size_t *i, char *state,
+static int	ft_check_syntax_algo_with_quote(char *line, size_t *i, int *state,
 	char *quote)
 {
 	if (!(*quote) && (line[*i] == '"' || line[*i] == '\''))
@@ -86,9 +91,8 @@ static int	ft_check_syntax_algo_with_quote(char *line, size_t *i, char *state,
 	{
 		if (ft_check_syntax_algo_no_quote(line + *i, state) != CHECK_OK)
 			return (ft_check_syntax_algo_no_quote(line + *i, state));
-		ft_check_syntax_apply_algo(line, state, i);
-		if (*state & (CHECK_AND | CHECK_OR | CHECK_RED_APPEND
-				| CHECK_RED_HR_DOC))
+		if (ft_check_syntax_apply_algo(line, state, i) && *state
+				& (CHECK_AND | CHECK_OR | CHECK_RED_APPEND | CHECK_RED_HR_DOC))
 			++(*i);
 	}
 	else if (line[*i] != ' ')
@@ -107,7 +111,7 @@ static int	ft_check_syntax_algo_with_quote(char *line, size_t *i, char *state,
 static int	ft_check_syntax_algo(char *line)
 {
 	size_t	i;
-	char	state;
+	int		state;
 	char	quote;
 	int		ret;
 
@@ -115,7 +119,7 @@ static int	ft_check_syntax_algo(char *line)
 	quote = 0;
 	i = 0;
 	if (!ft_check_parenthese_pre_pars(line))
-		return (CHECK_SUB_CLOSE);
+		return (CHECK_SUB_OPEN);
 	while (line[i])
 	{
 		ret = ft_check_syntax_algo_with_quote(line, &i, &state, &quote);
@@ -124,7 +128,8 @@ static int	ft_check_syntax_algo(char *line)
 	}
 	if (quote)
 		return (CHECK_QUOTE);
-	if (state & (CHECK_TEXT | CHECK_PIPE | CHECK_AND | CHECK_OR))
+	if (state & (CHECK_TEXT | CHECK_PIPE | CHECK_AND | CHECK_OR
+			| CHECK_SUB_CLOSE))
 		return (CHECK_OK);
 	return (state);
 }
