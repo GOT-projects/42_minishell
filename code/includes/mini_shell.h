@@ -6,10 +6,21 @@
 
 # include "includes.h"
 # include "define_common.h"
-# ifdef BONUS
-#  include "struct_bonus.h"
-# else
+# ifndef BONUS
 #  include "struct.h"
+# else
+#  include "struct_bonus.h"
+
+_Bool	ft_check_parenthese_pre_pars(char *line);
+_Bool	ft_check_parenthese_post_pars(char *line);
+void	ft_syntax_error_bonus(int state);
+int		ft_pars_parenthese(char c, int *parenthese);
+
+int		ft_construct_subshell(t_shell *shell, t_node *current);
+int		ft_construct_bool(t_shell *shell, t_node *current);
+
+int		ft_exec_sub_shell(t_shell *shell, t_node *op);
+int		ft_exec_bool(t_shell *shell, t_node *op);
 # endif
 
 /***************************************************************/
