@@ -56,23 +56,20 @@ static void	ft_track_quote_states(t_quote *quote, char *cmd, int **st)
 	int	d[4];
 
 	ft_bzero(d, sizeof(int) * 4);
+	printf("%d %d \n", st[0][0], st[0][1]);
 	while (cmd[d[0]])
 	{
-		if (d[0] >= st[d[2]][0] && d[0] <= st[d[2]][0])
+		if (d[0] >= st[d[2]][0] && d[0] < st[d[2]][1])
 			ft_while_quote(quote, d, st, cmd);
-		if (d[3] && d[3] == quote->pos[d[1]]
-			&& (st[d[2]][0] < d[0] || st[d[2]][1] > d[0])
-			&& ft_c_quote(cmd[d[0]]))
-		{
-			quote->p_bool[d[1]++] = 0;
-			d[3] = 0;
-		}
-		else if (!d[3] && (st[d[2]][0] < d[0] || st[d[2]][1] > d[0])
-			&& ft_c_quote(cmd[d[0]]))
-			ft_set_quote(quote, d);
-		else if (d[3] && (st[d[2]][0] < d[0] || st[d[2]][1] > d[0])
-			&& ft_c_quote(cmd[d[0]]))
+		else if (!d[3] && ft_c_quote(cmd[d[0]]))
+			ft_set_quote(quote, d, cmd[d[0]]);
+		else if (d[3] && ft_c_quote(cmd[d[0]]) && d[3] != cmd[d[0]])
 			quote->p_bool[d[1]++] = 1;
+		else if (d[3] && ft_c_quote(cmd[d[0]]) && d[3] == cmd[d[0]])
+		{
+			d[3] = 0;
+			quote->p_bool[d[1]++] = 0;
+		}
 		d[0]++;
 	}
 }

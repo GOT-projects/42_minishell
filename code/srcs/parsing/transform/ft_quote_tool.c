@@ -36,7 +36,7 @@ void	ft_complete_tab_quote(t_quote *quote, char *cmd)
 
 void	ft_while_quote(t_quote *quote, int *d, int **st, char *cmd)
 {
-	while (d[0] < st[d[2]][1])
+	while (d[0] < st[d[2]][1] - 1)
 	{
 		if (ft_c_quote(cmd[d[0]]))
 			quote->p_bool[d[1]++] = 1;
@@ -45,8 +45,8 @@ void	ft_while_quote(t_quote *quote, int *d, int **st, char *cmd)
 	d[2] += 1;
 }
 
-void	ft_set_quote(t_quote *quote, int *d)
+void	ft_set_quote(t_quote *quote, int *d, int c)
 {
 	quote->p_bool[d[1]++] = 0;
-	d[3] = 0;
+	d[3] = c;
 }

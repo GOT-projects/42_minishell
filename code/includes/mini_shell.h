@@ -113,7 +113,7 @@ int		**ft_replace_var(t_shell *shell, char **cmd);
 int		ft_len_quote(char *cmd);
 void	ft_complete_tab_quote(t_quote *quote, char *cmd);
 void	ft_while_quote(t_quote *quote, int *d, int **st, char *cmd);
-void	ft_set_quote(t_quote *quote, int *d);
+void	ft_set_quote(t_quote *quote, int *d, int c);
 void	ft_set_st(int **st, int j);
 int		ft_get_len_var(char *cmd);
 int		ft_get_nb_var(char *cmd);
