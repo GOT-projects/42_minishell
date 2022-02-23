@@ -1,24 +1,25 @@
+
 #include "../../../includes/mini_shell.h"
 
 static char	**ft_get_var_in_tab(t_var *var, char *cmd)
 {
-	int	d[3];
-	int	index;
-	int	state;
+	int	d[5];
 
-	state = 0;
-	index = 0;
-	ft_bzero(d, sizeof(int) * 3);
+	ft_bzero(d, sizeof(int) * 5);
 	while (cmd[d[0]])
 	{
-		if (!state && ft_c_quote(cmd[d[0]]))
-			state = cmd[d[0]];
-		else if (state && cmd[d[0]] == state)
-			state = 0;
+		if (!d[4] && ft_c_quote(cmd[d[0]]))
+			d[4] = cmd[d[0]];
+		else if (d[4] && cmd[d[0]] == d[4])
+			d[4] = 0;
 		if (cmd[d[0]] == '$')
 		{
-			index = ft_get_len_var(cmd + d[0] + 1);
-			var->t_var[d[1]] = ft_strndup(cmd + d[0] + 1, index);
+			d[3] = ft_get_len_var(cmd + d[0] + 1);
+			if (d[3] > 0)
+				var->t_var[d[1]] = ft_strndup(cmd + d[0] + 1, d[3]);
+			else
+				var->t_var[d[1]] = ft_strndup(cmd + d[0], 1);
+
 			d[1]++;
 		}
 		d[0]++;
@@ -54,6 +55,17 @@ static void	ft_check_tmp(t_var *var, int *d, int **st, t_shell *shell)
 {
 	char	*tmp;
 
+	if (!ft_strcmp("?", var->t_var[d[1]]))
+	{
+		tmp = ft_itoa(shell->last_exit_status);
+		var->n_cmd = ft_strcat(var->n_cmd, tmp);
+		st[d[1]][0] = d[2];
+		st[d[1]][1] = ft_strlen(tmp) + d[2];
+		d[0] += ft_strlen(var->t_var[d[1]]);
+		d[1]++;
+		free(tmp);
+		return ;
+	}
 	tmp = ft_get_env_val(ft_get_env_key(shell->env, var->t_var[d[1]]));
 	if (tmp)
 	{
@@ -81,8 +93,8 @@ static void	ft_completed_var(t_shell *shell, t_var *var, char *cmd, int **st)
 	{
 		while (var->n_cmd[d[2]])
 			d[2]++;
-		if (var->t_var[d[1]][0]  && var->p_bool[d[1]] && cmd[d[0]] == '$'
-			&& ft_is_shell_var(var->t_var[d[1]]))
+		if (var->p_bool[d[1]] && cmd[d[0]] == '$'
+			&& ft_is_var(var->t_var[d[1]]))
 			ft_check_tmp(var, d, st, shell);
 		else
 		{

@@ -1,3 +1,4 @@
+
 #include "../../../includes/mini_shell.h"
 
 static void	ft_track_quote(t_quote *quote, int len)
@@ -56,7 +57,6 @@ static void	ft_track_quote_states(t_quote *quote, char *cmd, int **st)
 	int	d[4];
 
 	ft_bzero(d, sizeof(int) * 4);
-	printf("%d %d \n", st[0][0], st[0][1]);
 	while (cmd[d[0]])
 	{
 		if (d[0] >= st[d[2]][0] && d[0] < st[d[2]][1])

@@ -42,7 +42,10 @@ int	ft_echo(char **args)
 		++i;
 	}
 	while (args && args[i])
+	{
 		ft_putstr_fd(args[i++], 1);
+		ft_putchar_fd(' ', 1);
+	}
 	if (nl)
 		ft_putstr_fd("\n", 1);
 	return (EXIT_SUCCESS);

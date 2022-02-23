@@ -73,7 +73,8 @@ int	ft_exit(t_shell *shell, char **status)
 		return (1);
 	}
 	ft_putstr_fd("exit\n", 1);
-	ret = ft_atoi(status[0]);
+	if (status[0])
+		ret = ft_atoi(status[0]);
 	ft_free_minishell(shell);
 	if (!size)
 		exit(shell->last_exit_status);

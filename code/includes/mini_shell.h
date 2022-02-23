@@ -113,7 +113,7 @@ _Bool	ft_is_shell_var(char const *var);
 _Bool	ft_str_start_with(char *str, char *to_find);
 int		ft_pars_quote(char c, char *quote);
 void	ft_free_2d(char **array);
-_Bool	ft_is_shell_var(char const *var);
+_Bool	ft_is_var(char const *var);
 
 // transform
 int		ft_free2d_index(char **split, size_t index);

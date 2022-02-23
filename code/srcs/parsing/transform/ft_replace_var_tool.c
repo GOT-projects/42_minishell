@@ -33,8 +33,20 @@ int	ft_get_full_len_var(t_shell *shell, t_var *var)
 	len = 0;
 	while (var->t_var[i])
 	{
-		value = ft_get_env_val(ft_get_env_key(shell->env, var->t_var[i]));
-		len += ft_strlen(value);
+		if (!ft_strcmp("?", var->t_var[i]))
+		{
+			value = ft_itoa(shell->last_exit_status);
+			len += ft_strlen(value);
+			free(value);
+		}
+		else
+		{
+			value = ft_get_env_val(ft_get_env_key(shell->env, var->t_var[i]));
+			if (!ft_strlen(value))
+				len += 1;
+			else
+				len += ft_strlen(value);
+		}
 		i++;
 	}
 	return (len);
@@ -61,3 +73,4 @@ void	ft_set_st(int **st, int j)
 	st[j][0] = -1;
 	st[j][1] = -1;
 }
+
