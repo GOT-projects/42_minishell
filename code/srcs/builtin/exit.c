@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:29:44 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 22:00:37 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/01 00:01:23 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	ft_exit(t_shell *shell, char **status)
 		return (1);
 	}
 	ft_putstr_fd("exit\n", 1);
+	ret = 0;
 	if (status[0])
 		ret = ft_atoi(status[0]);
 	ft_free_minishell(shell);
