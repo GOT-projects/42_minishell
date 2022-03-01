@@ -1,8 +1,6 @@
 #ifndef MINI_SHELL_H
 
 # define MINI_SHELL_H
-///////////////////////////////////////////////////////////////////////////////////////////
-# define BONUS
 
 # include "includes.h"
 # include "define_common.h"
@@ -21,6 +19,18 @@ int		ft_construct_bool(t_shell *shell, t_node *current);
 
 int		ft_exec_sub_shell(t_shell *shell, t_node *op);
 int		ft_exec_bool(t_shell *shell, t_node *op);
+int		ft_get_wildcard(char *wild, char *cmd);
+void	ft_add_wild(t_wild *wd, char *cmd);
+int		ft_get_len_p_bool(t_wild *wd);
+char	**ft_wild_to_cmd(t_wild *wd, char **cmd, int *id);
+void	ft_get_wild(t_shell *shell, t_wild *wd, char **cmd);
+int		ft_check_wildcard(char **cmd);
+int		ft_init_wild(t_shell *shell, t_wild *wild, int len);
+int		ft_len_dir(char *p_dir);
+void	ft_get_dir(t_wild *wild, char *p_dir);
+void	ft_get_len_wild(t_wild *wd, char **cmd);
+char	**ft_wildcard(t_shell *shell, char **cmd);
+
 # endif
 
 /***************************************************************/

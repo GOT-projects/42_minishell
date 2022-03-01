@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+         #
+#    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/02/22 02:30:07 by aartiges &       ###   ########lyon.fr    #
+#    Updated: 2022/03/01 23:14:21 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ COLOR_PURPLE	=	\033[35m
 ##                               SRCS                                         ##
 ################################################################################
 
-DIR_HDS			=	includes/
+DIR_HDS			=	includes
 
 RELATIVE_HDS	=	mini_shell.h	\
 					struct.h		\
@@ -76,6 +76,7 @@ SRC_PARSING_PROMPT	=	get_forgot.c 			\
 						get_heredoc.c
 SRC_PARSING_PROMPT_BONUS	=	get_forgot.c 			\
 						check_syntax_bonus.c		\
+						prompt.c		\
 						check_syntax_utils_bonus.c		\
 						get_heredoc.c
 DIR_PARSING_PROMPT	=	srcs/parsing/prompt
@@ -91,7 +92,8 @@ SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c		\
 				ft_replace_var_env.c	\
 				ft_replace_var_tool.c	\
 				ft_quote_tool.c		\
-				ft_quote.c
+				ft_quote.c	\
+				wildcard_bonus.c	wildcard_tools_bonus.c
 DIR_PARSING_TRANSFORM	=	srcs/parsing/transform
 
 SRC_PARSING_TREE	=	cmd.c				\
@@ -130,6 +132,9 @@ NAME		=	minishell
 CC		=	cc
 CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 
 #-fsanitize=address
+ifeq ($(MAKECMDGOALS), bonus)
+CFLAGS	+= -DBONUS=1
+endif
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
 		INC_LIB = -L/usr/local/lib
@@ -174,19 +179,24 @@ DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_DEBUG) $(DIR_BUILTIN) $(DIR_ENV) \
 
 
 DIR_OBJ		=	obj
-OBJS		=	$(addprefix $(DIR_OBJ)/, $(SRCS:.c=.o))
-OBJS_BONUS	=	$(addprefix $(DIR_OBJ)/, $(SRCS_BONUS:.c=.o))
-HDS			=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
-HDS_BONUS	=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS_BONUS))
 
-DEPENDS			=	$(HDS) $(MK) $(LIBFT_NAME)
-DEPENDS_BONUS	=	$(HDS_BONUS) $(MK) $(LIBFT_NAME)
+ifeq ($(MAKECMDGOALS), bonus)
+CFLAGS	+= -DBONUS=1
+HDS	=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS_BONUS))
+OBJS	=	$(addprefix $(DIR_OBJ)/, $(SRCS_BONUS:.c=.o))
+else
+HDS			=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
+OBJS		=	$(addprefix $(DIR_OBJ)/, $(SRCS:.c=.o))
+endif
+
+DEPENDS	=	$(HDS) $(MK) $(LIBFT_NAME)
 
 ################################################################################
 ##                                 Règles                                     ##
 ################################################################################
 
 all	:	$(NAME)
+bonus	:	$(NAME)
 
 define src2obj
 $(DIR_OBJ)/$(1)/%.o:	$(1)/%.c $(2)
@@ -194,22 +204,15 @@ $(DIR_OBJ)/$(1)/%.o:	$(1)/%.c $(2)
 	@printf "\r\033[K\tCompilation of $(COLOR_PURPLE)$$< ==> $$@\$(COLOR_NORM)"
 	@$(CC) $(CFLAGS) -c -o $$@ $$< $(INC_INC)
 endef
-ifeq ($(@), bonus)
-$(foreach dir,$(DIRS_SRC),$(eval $(call src2obj,$(dir), $(DEPENDS_BONUS))))
-else
+
 $(foreach dir,$(DIRS_SRC),$(eval $(call src2obj,$(dir), $(DEPENDS))))
-endif
+
+$(LIBFT_NAME)	:
+	@make -C $(DIR_LIBFT)
 
 $(NAME)	: $(DEPENDS) $(OBJS)
 	@printf "\n\tCompilation of $(COLOR_PURPLE)$(NAME)\$(COLOR_NORM)\n"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_NAME) $(LIBS)
-
-bonus: $(DEPENDS_BONUS) $(OBJS_BONUS)
-	@printf "\n\tCompilation of $(COLOR_PURPLE)$(NAME)\$(COLOR_NORM)\n"
-	@$(CC) $(CFLAGS) -DBONUS -o $(NAME) $(OBJS_BONUS) $(LIBFT_NAME) $(LIBS)
-
-$(LIBFT_NAME)	:
-	@make -C $(DIR_LIBFT)
 
 l_clean:
 	@printf "\tDelete $(COLOR_RED)$(DIR_OBJ)/$(COLOR_NORM) of $(NAME)\n"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prg.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:42:40 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 19:42:42 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/01 21:59:36 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,11 +141,11 @@ static int	ft_exec_prg_final(t_shell *shell, char *path_prg, char **cmd)
 	{
 		exec_mode_sub_process();
 		if (!env && shell->env)
-		{
 			ft_putstr_fd("No space available\n", 2);
+		if (!env && shell->env)
 			return (1);
-		}
 		execve(path_prg, cmd, env);
+		perror(path_prg);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);

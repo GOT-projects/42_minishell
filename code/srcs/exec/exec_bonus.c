@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:56:01 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 23:19:08 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/01 23:23:18 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	ft_prepare_cmd(t_shell *shell, t_node *op)
 			ft_tolower_str(op->cmd[0]);
 		++i;
 	}
+	op->cmd = ft_wildcard(shell, op->cmd);
 	return (0);
 }
 
