@@ -14,6 +14,7 @@
 # define STRUCT_H
 # include "includes.h"
 
+
 typedef struct s_env
 {
 	char			*key;

@@ -1,5 +1,12 @@
 #include "../../includes/mini_shell.h"
-
+/**
+* @brief function found key in list of env
+* and return the node found or NULL
+* 
+* @param t_env	lst 
+* @param1 char *key
+* @return  Return(node/NULL)
+*/
 t_env	*ft_get_env_key(t_env *lst, const char *key)
 {
 	t_env	*elem;
@@ -16,6 +23,12 @@ t_env	*ft_get_env_key(t_env *lst, const char *key)
 	return (NULL);
 }
 
+/**
+* @brief function return the value of the key
+* 
+* @param t_env *node
+* @return  Return (char value);
+*/
 char	*ft_get_env_val(t_env *node_var)
 {
 	if (!node_var)
@@ -23,6 +36,14 @@ char	*ft_get_env_val(t_env *node_var)
 	return (node_var->value);
 }
 
+/**
+* @brief function replace de valur of the node
+* 
+* @param t_env *node
+* @param1 char *value
+* @param2 t_env *node
+* @return  Return (node);
+*/
 t_env	*ft_replace_node(t_env *node, char *value, t_track **t)
 {
 	if (!node)

@@ -58,4 +58,11 @@
 # define CHECK_SEPARATOR	0b011101111101
 # define CHECK_SEPARATOR2	0b100011111010
 
+# define BLUE "\033[0;34m"
+# define C_NONE "\033[0;37m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
+
 #endif

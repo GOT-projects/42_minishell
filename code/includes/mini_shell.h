@@ -140,6 +140,7 @@ int		ft_check_syntax_prompt(char *line);
 // PROMPT
 int		ft_get_forgot_cmd(t_shell *shell);
 int		ft_get_heredoc(t_shell *shell, t_node *redir);
+char	*ft_create_str_read_line(t_shell *shell);
 
 // tree
 void	ft_op_add_back(t_node **ops, t_node *node);

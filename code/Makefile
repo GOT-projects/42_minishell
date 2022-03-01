@@ -72,6 +72,7 @@ DIR_PARSING_SYNTAX			=	srcs/parsing/syntax
 
 SRC_PARSING_PROMPT	=	get_forgot.c 			\
 						check_syntax.c		\
+						prompt.c		\
 						get_heredoc.c
 SRC_PARSING_PROMPT_BONUS	=	get_forgot.c 			\
 						check_syntax_bonus.c		\
@@ -127,7 +128,8 @@ MK			=	Makefile
 
 NAME		=	minishell
 CC		=	cc
-CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 
+#-fsanitize=address
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
 		INC_LIB = -L/usr/local/lib

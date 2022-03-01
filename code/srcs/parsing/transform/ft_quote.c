@@ -97,6 +97,7 @@ static int	ft_gen_pos(t_shell *shell, t_quote *quote, char *cmd, int **states)
 }
 
 /* @function remove quote of the string */
+/* with change the quote the var */
 /* @char *cmd */
 /* @return (int) */
 char	*ft_remove_quote(t_shell *shell, char *cmd, int **states)

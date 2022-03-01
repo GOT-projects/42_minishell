@@ -107,6 +107,15 @@ static void	ft_completed_var(t_shell *shell, t_var *var, char *cmd, int **st)
 	ft_set_st(st, d[1]);
 }
 
+/**
+* @brief function replace the $ by the var of env lst
+* return **tab with th position of var and len 
+* for not modify the quote inside the var 
+* 
+* @param t_shell *shell
+* @param char **cmd
+* @return  Return (**tab)
+*/
 int	**ft_replace_var(t_shell *shell, char **cmd)
 {
 	t_var	*var;

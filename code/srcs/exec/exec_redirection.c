@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/mini_shell.h"
-
 /**
  * @brief function that save the stdin and the stdout int the array std
  * 

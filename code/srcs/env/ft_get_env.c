@@ -1,5 +1,11 @@
 #include "../../includes/mini_shell.h"
-
+/**
+* @brief function add all env to list
+* 
+* @param t_shell *shell
+* @param char **ev
+* @return  Return (void)
+*/
 void	ft_init_env(t_shell *shell, char **ev)
 {
 	char	*key;
@@ -27,6 +33,12 @@ void	ft_init_env(t_shell *shell, char **ev)
 	ft_sort_env(shell->env);
 }
 
+/**
+* @brief function get path from lst
+* 
+* @param t_shell *shell
+* @return  Return (path/NULL)
+*/
 char	**ft_get_path(t_shell *shell)
 {
 	t_env	*node;
@@ -51,6 +63,14 @@ static int	ft_len_lst_egal(t_env *elem)
 	return (i);
 }
 
+/**
+* @brief function convert lst to tab
+* for use execve 
+* /!\ return tab not  track
+* 
+* @param Param
+* @return  Return (tab of lst env)
+*/
 char	**ft_lst_to_tab(t_shell *shell)
 {
 	char	**env;
@@ -77,6 +97,12 @@ char	**ft_lst_to_tab(t_shell *shell)
 	return (env);
 }
 
+/**
+* @brief function sort alpha lst
+* 
+* @param t_env *lst
+* @return  Return (void)
+*/
 void	ft_sort_env(t_env *lst)
 {
 	t_env	*elem;
