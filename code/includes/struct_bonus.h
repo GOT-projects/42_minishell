@@ -16,6 +16,16 @@
 
 # include "includes.h"
 
+typedef struct s_wild
+{
+	int	len;
+	int	len_cmd;
+	int	len_full;
+	int	len_wild;
+	char	**full_dir;
+	int	*p_bool;
+}	t_wild;
+
 typedef struct s_env
 {
 	char			*key;
