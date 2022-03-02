@@ -13,7 +13,6 @@ static int	ft_change_path(t_shell *shell, char *path)
 	while (path[i])
 	{
 		j = 0;
-		printf("path[i] = '%c'\n", path[i]);
 		if (node->value[j] == path[i])
 		{
 			while (node->value[j] == path[i + j] && node->value[j])
