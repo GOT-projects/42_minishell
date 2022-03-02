@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_env.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 22:47:31 by aartiges          #+#    #+#             */
+/*   Updated: 2022/03/02 22:50:03 by aartiges         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_shell.h"
 
 void	ft_init_oldpwd(t_shell *shell)
@@ -10,6 +22,7 @@ void	ft_init_oldpwd(t_shell *shell)
 	free(cmd[0]);
 	free(cmd);
 }
+
 /**
 * @brief function add all env to list
 * 
@@ -42,22 +55,6 @@ void	ft_init_env(t_shell *shell, char **ev)
 			free(val);
 	}
 	ft_sort_env(shell->env);
-}
-
-/**
-* @brief function get path from lst
-* 
-* @param t_shell *shell
-* @return  Return (path/NULL)
-*/
-char	**ft_get_path(t_shell *shell)
-{
-	t_env	*node;
-
-	node = ft_get_env_key(shell->env, "PATH");
-	if (node)
-		return (ft_strsplit(node->value, ':'));
-	return (NULL);
 }
 
 static int	ft_len_lst_egal(t_env *elem)
