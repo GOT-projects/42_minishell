@@ -13,6 +13,7 @@ static int	ft_change_path(t_shell *shell, char *path)
 	while (path[i])
 	{
 		j = 0;
+		printf("path[i] = '%c'\n", path[i]);
 		if (node->value[j] == path[i])
 		{
 			while (node->value[j] == path[i + j] && node->value[j])
@@ -26,7 +27,7 @@ static int	ft_change_path(t_shell *shell, char *path)
 		}
 		i++;
 	}
-	return ( EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }
 
 static char	*ft_add_logname(t_shell *shell)
@@ -46,7 +47,7 @@ static char	*ft_add_logname(t_shell *shell)
 */
 char	*ft_create_str_read_line(t_shell *shell)
 {
-	char	*buf;
+	char	*buf = NULL;
 	char	*log_name;
 	char	*last_ret;
 	char	path[PATH_MAX];
@@ -55,11 +56,21 @@ char	*ft_create_str_read_line(t_shell *shell)
 	ft_get_pwd(path);
 	last_ret = ft_itoa(shell->last_exit_status);
 	log_name = ft_add_logname(shell);
-	ft_change_path(shell, path);
-	if (shell->last_exit_status == 0)
-		buf = ft_join("%s %s %s [-%s %s %s-] %s~%s/ > %s",PURPLE, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+	;
+	if (!ft_change_path(shell, path))
+	{
+		if (shell->last_exit_status == 0)
+			buf = ft_join("%s %s %s [-%s %s %s-] %s~%s/ > %s",PURPLE, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+		else
+			buf = ft_join("%s %s %s [-%s %s %s-] %s~%s/ > %s",RED, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+	}
 	else
-		buf = ft_join("%s %s %s [-%s %s %s-] %s~%s/ > %s",RED, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+	{
+		if (shell->last_exit_status == 0)
+			buf = ft_join("%s %s %s [-%s %s %s-] %s %s/ > %s",PURPLE, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+		else
+			buf = ft_join("%s %s %s [-%s %s %s-] %s %s/ > %s",RED, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+	}
 	free(last_ret);
 	return (buf);
 }
