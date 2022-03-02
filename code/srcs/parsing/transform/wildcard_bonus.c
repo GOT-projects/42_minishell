@@ -148,6 +148,7 @@ char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd)
 	i = 0;
 	while (cmd[i])
 	{
+		tmp = NULL;
 		if (ft_strichr(cmd[i], '*') > -1)
 		{
 			ft_add_wild(wd, cmd[i]);
@@ -161,7 +162,6 @@ char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd)
 		}
 		i++;
 	}
-	cmd[i] = NULL;
 	return (cmd);
 }
 
@@ -189,5 +189,7 @@ char	**ft_wildcard(t_shell *shell, char **cmd)
 	ft_get_dir(wild, ".");
 	ft_track_tab((void **)wild->full_dir, &(shell)->t_pars);
 	cmd = ft_get_wild(shell, wild, cmd);
+	ft_track_free(&(shell)->t_pars, wild->p_bool);
+	ft_track_free_tab(&(shell)->t_pars, (void **)wild->full_dir);
 	return (cmd);
 }

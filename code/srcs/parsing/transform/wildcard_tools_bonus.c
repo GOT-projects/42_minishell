@@ -84,6 +84,7 @@ void	ft_get_dir(t_wild *wild, char *p_dir)
 		}
 	}
 	wild->full_dir[i++] = NULL;
+	closedir(d);
 }
 
 /**
