@@ -6,7 +6,7 @@
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:42:24 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/02 00:31:14 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 23:25:04 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ int	ft_error_exit_process(char *prg_name, int status)
 {
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	// rm signal print
 	if (WIFSIGNALED(status))
 	{
 		ft_putstr_fd(prg_name, 2);
-		ft_putstr_fd(": process terminated due to receipt of signal ", 2);
+		ft_putstr_fd(" : process terminated due to receipt of signal ", 2);
 		ft_putnbr_fd(WTERMSIG(status), 2);
 		ft_putstr_fd("\n", 2);
 	}

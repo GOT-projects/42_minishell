@@ -6,7 +6,7 @@
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 20:37:57 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/02/08 02:02:28 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 23:09:34 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 long int	ft_atol(const char *str);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
-int		**ft_create_tab_int(int nb_all, int size_all);
+int			**ft_create_tab_int(int nb_all, int size_all);
 size_t		ft_strlen(const char *str);
 t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));

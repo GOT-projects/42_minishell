@@ -1,30 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompt.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 23:42:03 by aartiges          #+#    #+#             */
+/*   Updated: 2022/03/02 23:42:05 by aartiges         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mini_shell.h"
 
 static int	ft_change_path(t_shell *shell, char *path)
 {
 	t_env	*node;
-	int	i;
-	int	j;
+	int		j;
 
-	node = ft_get_env_key(shell->env, "USER");
+	node = ft_get_env_key(shell->env, "HOME");
 	if (!node || !node->value)
 		return (EXIT_FAILURE);
-	i = 0;
-	while (path[i])
+	j = 0;
+	if (node->value[j] == path[0])
 	{
-		j = 0;
-		if (node->value[j] == path[i])
+		while (node->value[j] == path[j] && node->value[j])
+			j++;
+		if (node->value[j] == '\0' &&
+			(path[j] == '/' || path[j] == '\0'))
 		{
-			while (node->value[j] == path[i + j] && node->value[j])
-				j++;
-			if (node->value[j] == '\0' &&
-				(path[i + j] == '/' || path[i + j] == '\0'))
-			{
-				ft_strcpy(path, path + j + i);
-				return (EXIT_SUCCESS);
-			}
+			ft_strcpy(path, path + j);
+			return (EXIT_SUCCESS);
 		}
-		i++;
 	}
 	return (EXIT_FAILURE);
 }
@@ -59,16 +65,16 @@ char	*ft_create_str_read_line(t_shell *shell)
 	if (!ft_change_path(shell, path))
 	{
 		if (shell->last_exit_status == 0)
-			buf = ft_join("%s %s %s [-%s %s %s-] %s~%s/ > %s",PURPLE, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+			buf = ft_join("%s %s %s [-%s %s %s-] %s~%s > %s",PURPLE, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
 		else
-			buf = ft_join("%s %s %s [-%s %s %s-] %s~%s/ > %s",RED, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+			buf = ft_join("%s %s %s [-%s %s %s-] %s~%s > %s",RED, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
 	}
 	else
 	{
 		if (shell->last_exit_status == 0)
-			buf = ft_join("%s %s %s [-%s %s %s-] %s %s/ > %s",PURPLE, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+			buf = ft_join("%s %s %s [-%s %s %s-] %s %s > %s",PURPLE, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
 		else
-			buf = ft_join("%s %s %s [-%s %s %s-] %s %s/ > %s",RED, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
+			buf = ft_join("%s %s %s [-%s %s %s-] %s %s > %s",RED, last_ret,C_NONE, BLUE, log_name, C_NONE, CYAN, path, C_NONE);
 	}
 	free(last_ret);
 	return (buf);

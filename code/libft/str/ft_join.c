@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_join.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <jmilas@student.42lyon.fr>         +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:13:31 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/02/04 20:25:18 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 23:11:02 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include <stdarg.h>
 
-static int	ft_get_full_len(va_list *args,const char *str)
+static int	ft_get_full_len(va_list *args, const char *str)
 {
 	int	i;
 	int	len;
@@ -58,14 +58,14 @@ static char	*ft_complet_join(va_list *args, const char *str, char *join)
 
 /* @function join str and add va_list %s */
 /* @exemple ft_join("%s | %s", arg1, arg2); */
-/* @arg1 const char * str */ 
+/* @arg1 const char * str */
 /* @arg2 .. */
 /* @return (join) */
 char	*ft_join(const char *str, ...)
 {
 	va_list	args;
 	char	*join;
-	int	len;
+	int		len;
 
 	if (!str)
 		return (NULL);

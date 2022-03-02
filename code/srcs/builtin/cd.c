@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:28:25 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 19:36:43 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 23:56:03 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,14 @@ static int	ft_cd_with_env(t_shell *shell, const char *key_env)
  * 
  * @param shell the shell
  * @param var_env pointer on array that will contain PWD and OLDPWD
- * @param path a pointer on a string -- at the end of function, if necessary
- * contain the futur OLDPWD
  * @return int 0 if success, else > 0
  */
-static int	ft_cd_precd(t_shell *shell, t_env *(*var_env)[2], char *path)
+static int	ft_cd_precd(t_shell *shell, t_env *(*var_env)[2])
 {
 	(*var_env)[0] = ft_get_env_key(shell->env, "PWD");
 	if ((*var_env)[0])
 	{
 		(*var_env)[1] = ft_get_env_key(shell->env, "OLDPWD");
-		if ((*var_env)[1] && ft_get_pwd(path))
-			return (errno);
 	}
 	return (0);
 }
@@ -89,7 +85,7 @@ static int	ft_cd_precd(t_shell *shell, t_env *(*var_env)[2], char *path)
 static int	ft_cd_postcd(t_shell *shell, t_env *(*var_env)[2], char *path)
 {
 	if ((*var_env)[1])
-		ft_export_add(shell, "OLDPWD", path);
+		ft_export_add(shell, "OLDPWD", ((*var_env)[0])->value);
 	if (ft_get_pwd(path))
 		return (errno);
 	ft_export_add(shell, "PWD", path);
@@ -116,7 +112,7 @@ int	ft_cd(t_shell *shell, char **paths)
 		return (1);
 	}
 	var_env[1] = NULL;
-	ret = ft_cd_precd(shell, &var_env, path);
+	ret = ft_cd_precd(shell, &var_env);
 	if (!ret && !paths[0])
 		ret = ft_cd_with_env(shell, "HOME");
 	else if (!ret && !ft_strcmp(paths[0], "-"))
