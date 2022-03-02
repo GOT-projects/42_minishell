@@ -18,6 +18,41 @@ int	main(int ac, char **av, char **ev)
 	shell.t_env = ft_memalloc(sizeof(t_track));
 	printf("\e[1;1H\e[2J");
 	ft_init_env(&shell, ev);
+	/*
+	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
+	{
+		int exit_status = ft_launch_minishell(argv[2]);
+
+		if (ft_check_syntax_prompt(line))
+			shell.last_exit_status = 1;
+		else
+		{
+			shell.t_pars = ft_memalloc(sizeof(t_track));
+			if (!shell.t_pars)
+			{
+				ft_putstr_fd("parsing allocation problem [track]\n", 2);
+				ft_track_free_all(&(shell.t_env));
+				rl_clear_history();
+				return (1);
+			}
+			if (ft_parse(&shell, line))
+			{
+				ft_putstr_fd("oups parsing error\n", 2);
+				shell.last_exit_status = 1;
+			}
+			else
+			{
+				//debug_tree(shell.operation, 0);
+				exec_mode();
+				ft_exec(&shell, shell.operation);
+				interactive_mode();
+			}
+			ft_track_free_all(&(shell.t_pars));
+		}
+		exit(shell.last_exit_status);
+	}
+	exit(1);
+*/
 	buf = ft_create_str_read_line(&shell);
 	line = readline(buf);
 	while (line)
@@ -46,7 +81,7 @@ int	main(int ac, char **av, char **ev)
 				}
 				else
 				{
-					debug_tree(shell.operation, 0);
+					//debug_tree(shell.operation, 0);
 					exec_mode();
 					ft_exec(&shell, shell.operation);
 					interactive_mode();

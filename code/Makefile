@@ -6,7 +6,7 @@
 #    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/03/01 23:14:21 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/03/02 00:18:33 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,11 +130,7 @@ MK			=	Makefile
 
 NAME		=	minishell
 CC		=	cc
-CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 
-#-fsanitize=address
-ifeq ($(MAKECMDGOALS), bonus)
-CFLAGS	+= -DBONUS=1
-endif
+CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
 		INC_LIB = -L/usr/local/lib
@@ -226,8 +222,11 @@ fclean:	l_clean
 	@printf "\tDelete $(COLOR_RED)$(NAME)$(COLOR_NORM)\n"
 	@rm -rf $(NAME)
 
+xclean:
+	@rm -rf $(NAME)
+
 re:	fclean all
 
 norm:
 	@make -C $(DIR_LIBFT) norm || true
-	@norminette	$(HDS)	$(SRCS) || true
+	@norminette	$(HDS) $(SRCS) $(SRCS_BONUS) || true

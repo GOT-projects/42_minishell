@@ -1,5 +1,14 @@
 mini_shell
 
+# TODO
+
+fix path ~
+wildcard
+
+cat /dev/urandom | head -c 10
+
+var _ unset au deb et set pour exec
+
 # git
 
 - merge master

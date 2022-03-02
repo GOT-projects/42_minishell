@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prg_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:42:24 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 19:42:25 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 00:31:14 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
  */
 void	ft_prg_error_research_path(char **cmd, int error_research)
 {
-	printf("%d\n", errno);
 	if (error_research == ERR_403_EXEC || error_research == ERR_404_EXEC)
 	{
 		ft_putstr_fd(cmd[0], 2);

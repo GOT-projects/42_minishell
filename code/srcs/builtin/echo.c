@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:28:37 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 19:28:38 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 02:17:52 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,7 @@ int	ft_echo(char **args)
 	_Bool	nl;
 	size_t	i;
 
-	i = 0;
 	nl = true;
-	while (args && args[i])
-	{
-		if (i == MY_SIZE_T_MAX)
-		{
-			ft_putstr_fd("echo: too many arguments\n", 2);
-			return (EXIT_FAILURE);
-		}
-		++i;
-	}
 	i = 0;
 	while (args && args[i] && !ft_strcmp(args[i], "-n"))
 	{
@@ -43,8 +33,9 @@ int	ft_echo(char **args)
 	}
 	while (args && args[i])
 	{
+		if (i)
+			ft_putchar_fd(' ', 1);
 		ft_putstr_fd(args[i++], 1);
-		ft_putchar_fd(' ', 1);
 	}
 	if (nl)
 		ft_putstr_fd("\n", 1);
