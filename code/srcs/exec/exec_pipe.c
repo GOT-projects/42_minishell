@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 20:08:25 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 20:08:27 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 03:38:31 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static int	**ft_get_pipes(size_t nb_pipes)
  * @param i the number of the process
  */
 static void	ft_exec_pipe_fork(t_shell *shell, t_node *op, int *pipes[2],
-	int i)
+	size_t i, size_t nb)
 {
 	int	status;
 
@@ -124,6 +124,9 @@ static void	ft_exec_pipe_fork(t_shell *shell, t_node *op, int *pipes[2],
 		close(pipes[i + 1][WRITE]);
 		close(pipes[i + 1][READ]);
 	}
+	i = 1;
+	while (i < nb)
+		ft_close_pipe(pipes[i++]);
 	status = ft_exec(shell, op);
 	exit(status);
 }
@@ -155,7 +158,7 @@ int	ft_exec_pipe(t_shell *shell, t_node *op)
 		if (pids[i] < 0)
 			return (ft_error_fork_of_pipe(pids, i, &pipes, nb_childs));
 		else if (pids[i] == 0)
-			ft_exec_pipe_fork(shell, op, pipes, i);
+			ft_exec_pipe_fork(shell, op, pipes, i, nb_childs);
 		if (pipes[i])
 			ft_close_pipe(pipes[i]);
 		++i;

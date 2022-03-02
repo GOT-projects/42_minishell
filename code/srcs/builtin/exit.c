@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:29:44 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/01 00:01:23 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 01:54:37 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ _Bool	ft_is_numeric_str(char *str)
 	size_t	i;
 
 	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		++i;
 	while (str[i])
 		if (!ft_isdigit(str[i++]))
 			return (false);
@@ -62,13 +64,13 @@ int	ft_exit(t_shell *shell, char **status)
 	status[0] = ft_track(ft_strtrim(status[0], SPACES), &(shell->t_pars));
 	if (size > 0 && !ft_is_numeric_str(status[0]))
 	{
-		ft_putstr_fd("exit: numeric argument required\n", 2);
+		ft_putstr_fd("error\nexit: numeric argument required\n", 2);
 		ft_free_minishell(shell);
 		exit(255);
 	}
 	if (size > 1)
 	{
-		ft_putstr_fd("exit: too many arguments\n", 2);
+		ft_putstr_fd("error\nexit: too many arguments\n", 2);
 		shell->last_exit_status = 1;
 		return (1);
 	}

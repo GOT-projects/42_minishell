@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:47:37 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 19:47:39 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 03:32:07 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
  */
 void	ft_close_pipe(int pipes[2])
 {
-	close(pipes[READ]);
-	close(pipes[WRITE]);
+	if (pipes)
+	{
+		close(pipes[READ]);
+		close(pipes[WRITE]);
+	}
 }
 
 /**
