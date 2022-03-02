@@ -15,11 +15,13 @@ int	ft_get_wildcard(char *wild, char *cmd)
 
 	i = 0;
 	j = 0;
+	if (wild[i] == '*' && wild[i + 1] == '\0')
+		return (1);
 	while (wild[i])
 	{
 		if (!cmd[j])
 			return (0);
-		if (wild[i] == cmd[i])
+		if (wild[i] == '*' && wild[i + 1] == '*')
 		{
 			i++;
 			j++;
@@ -27,12 +29,16 @@ int	ft_get_wildcard(char *wild, char *cmd)
 		else if (wild[i] == '*')
 		{
 			i++;
-			if (wild[i] == '*')
+			while (cmd[j] && cmd[j] != wild[i])
 				j++;
-			while (cmd[j] != wild[i] && wild[i] != '*')
-				i++;
+		}
+		else if (wild[i] == cmd[j])
+		{
+			i++;
 			j++;
 		}
+		else
+			return (0);
 	}
 	if (wild[i] != cmd[j])
 		return (0);
@@ -98,27 +104,30 @@ char	**ft_wild_to_cmd(t_wild *wd, char **cmd, int *id)
 	char	**n_cmd;
 	int	i;
 	int	j;
+	int	k;
 
 	i = 0;
 	j = 0;
+	k = 0;
 	ft_get_len_wild(wd, cmd);
-	n_cmd = ft_memalloc(sizeof(char *) * (wd->len_cmd + wd->len_wild + 1));
+	n_cmd = (char **)ft_memalloc(sizeof(char *) * (wd->len_cmd + wd->len_wild + 1));
 	if (!n_cmd)
 		return (NULL);
-	while (cmd[i])
+	while ((i < wd->len_cmd + wd->len_wild + 1) && cmd[k])
 	{
 		if (i == *id)
 		{
-			while (j < wd->len)
+			while (wd->full_dir[j])
 			{
 				if (wd->p_bool[j] == 1)
-					n_cmd[i + j] = wd->full_dir[j];
-				j++;
+					n_cmd[i++] = ft_strdup(wd->full_dir[j++]);
+				else
+					j++;
 			}
+			k++;
 		}
 		else
-			n_cmd[i + j] = cmd[i];
-		i++;
+			n_cmd[i++] = ft_strdup(cmd[k++]);
 	}
 	return (n_cmd);
 }
@@ -131,7 +140,7 @@ char	**ft_wild_to_cmd(t_wild *wd, char **cmd, int *id)
 * @param char **cmd
 * @return  Return void
 */
-void	ft_get_wild(t_shell *shell, t_wild *wd, char **cmd)
+char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd)
 {
 	char	**tmp;
 	int		i;
@@ -144,7 +153,7 @@ void	ft_get_wild(t_shell *shell, t_wild *wd, char **cmd)
 			ft_add_wild(wd, cmd[i]);
 			tmp = ft_wild_to_cmd(wd, cmd, &i);
 			if (!tmp)
-				return ;
+				return NULL;
 			ft_track_free_tab(&(shell->t_pars), (void **)cmd);
 			ft_track_tab((void **)tmp, &(shell)->t_pars);
 			cmd = tmp;
@@ -152,6 +161,8 @@ void	ft_get_wild(t_shell *shell, t_wild *wd, char **cmd)
 		}
 		i++;
 	}
+	cmd[i] = NULL;
+	return (cmd);
 }
 
 /**
@@ -177,6 +188,6 @@ char	**ft_wildcard(t_shell *shell, char **cmd)
 	ft_init_wild(shell, wild, wild->len);
 	ft_get_dir(wild, ".");
 	ft_track_tab((void **)wild->full_dir, &(shell)->t_pars);
-	ft_get_wild(shell, wild, cmd);
+	cmd = ft_get_wild(shell, wild, cmd);
 	return (cmd);
 }
