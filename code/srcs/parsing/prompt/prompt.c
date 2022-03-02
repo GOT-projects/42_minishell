@@ -7,7 +7,7 @@ static int	ft_change_path(t_shell *shell, char *path)
 	int	j;
 
 	node = ft_get_env_key(shell->env, "USER");
-	if (!node)
+	if (!node || !node->value)
 		return (EXIT_FAILURE);
 	i = 0;
 	while (path[i])

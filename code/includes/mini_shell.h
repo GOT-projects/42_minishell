@@ -47,6 +47,7 @@ t_env	*ft_get_env_key(t_env *lst, const char *key);
 char	*ft_get_env_val(t_env *node_var);
 t_env	*ft_replace_node(t_env *node, char *value, t_track **t);
 int		ft_export_add(t_shell *shell, char *key, char *new_val);
+void	ft_init_oldpwd(t_shell *shell);
 
 /* function in ft_get_env.c */
 void	ft_init_env(t_shell *shell, char **ev);

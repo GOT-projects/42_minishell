@@ -1,4 +1,15 @@
 #include "../../includes/mini_shell.h"
+
+void	ft_init_oldpwd(t_shell *shell)
+{
+	char	**cmd;
+
+	cmd = (char **)ft_memalloc(sizeof(char *) * 2);
+	cmd[0] = ft_strdup("OLDPWD");
+	ft_export(shell, cmd);
+	free(cmd[0]);
+	free(cmd);
+}
 /**
 * @brief function add all env to list
 * 
