@@ -6,7 +6,7 @@
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:42:24 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/02 23:25:04 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 23:31:07 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_prg_error_research_path(char **cmd, int error_research)
 		ft_putstr_fd(cmd[0], 2);
 		if (error_research == ERR_403_EXEC)
 			ft_putstr_fd(": Permission denied\n", 2);
-		else if (strchr(cmd[0], '/') && error_research == ERR_404_EXEC)
+		else if (ft_strchr(cmd[0], '/') && error_research == ERR_404_EXEC)
 			ft_putstr_fd(": No such file or directory\n", 2);
 		else
 			ft_putstr_fd(": Command not found\n", 2);
