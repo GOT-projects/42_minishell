@@ -14,6 +14,8 @@ int	ft_get_len_var(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
+		if (cmd[i] == '?')
+			return (1);
 		if (!(ft_isalnum((int)cmd[i]) || cmd[i] == '_'))
 			return (i);
 		else if (cmd[i] == DOUBLE_QUOTE || cmd[i] == SIMPLE_QUOTE)

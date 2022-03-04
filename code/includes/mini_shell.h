@@ -152,6 +152,7 @@ void	ft_complete_tab_quote(t_quote *quote, char *cmd);
 void	ft_set_quote(t_quote *quote, int *d, int c);
 void	ft_set_st(int **st, int j);
 void	ft_while_quote(t_quote *quote, int *d, int **st, char *cmd);
+void	ft_catch_dollar_var(t_var *var, t_shell *shell, int **st, int *d);
 
 // syntax
 int		ft_check_syntax(char *line);

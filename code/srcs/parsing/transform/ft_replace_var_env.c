@@ -95,7 +95,10 @@ static void	ft_completed_var(t_shell *shell, t_var *var, char *cmd, int **st)
 			d[2]++;
 		if (var->p_bool[d[1]] && cmd[d[0]] == '$'
 			&& ft_is_var(var->t_var[d[1]]))
+		{
 			ft_check_tmp(var, d, st, shell);
+
+		}
 		else
 		{
 			var->n_cmd[d[2]] = cmd[d[0]];

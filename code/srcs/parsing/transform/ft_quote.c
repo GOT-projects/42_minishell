@@ -1,4 +1,3 @@
-
 #include "../../../includes/mini_shell.h"
 
 static void	ft_track_quote(t_quote *quote, int len)
