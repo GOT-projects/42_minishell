@@ -93,7 +93,9 @@ SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c		\
 				ft_replace_var_tool.c	\
 				ft_quote_tool.c		\
 				ft_quote.c	\
-				wildcard_bonus.c	wildcard_tools_bonus.c
+				wildcard_bonus.c	\
+				wildcard_checker.c	\
+				wildcard_tools_bonus.c
 DIR_PARSING_TRANSFORM	=	srcs/parsing/transform
 
 SRC_PARSING_TREE	=	cmd.c				\
