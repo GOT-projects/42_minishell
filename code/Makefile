@@ -14,127 +14,149 @@
 ##                               Présentation                                 ##
 ################################################################################
 
-COLOR_NORM		=	\033[0m
-COLOR_RED		=	\033[31m
-COLOR_PURPLE	=	\033[35m
-
+COLOR_NORM			=	\033[0m
+COLOR_RED			=	\033[31m
+COLOR_PURPLE			=	\033[35m
+                        	
 ################################################################################
 ##                               SRCS                                         ##
 ################################################################################
-
-DIR_HDS			=	includes
-
-RELATIVE_HDS	=	mini_shell.h	\
-					struct.h		\
-					define_common.h	\
+                        	
+DIR_HDS				=	includes
+                        	
+RELATIVE_HDS			=	mini_shell.h					\
+					struct.h					\
+					define_common.h					\
 					includes.h
-
-RELATIVE_HDS_BONUS	=	mini_shell.h	\
-						struct_bonus.h		\
-						define_common.h	\
-						includes.h
-
-SRC_GLOBAL		=	main.c
+                        	
+RELATIVE_HDS_BONUS		=	mini_shell.h					\
+					struct_bonus.h					\
+					define_common.h					\
+					includes.h
+                        	
+SRC_GLOBAL			=	main.c
 DIR_GLOBAL			=	.
+                        	
+SRC_DEBUG			=	tree.c
+SRC_DEBUG_BONUS			=	tree_bonus.c
+DIR_DEBUG			=	debug
+                        	
+                        	
+SRC_BUILTIN			=	env.c						\
+					export.c					\
+					unset.c						\
+					exit.c						\
+					echo.c						\
+					pwd.c						\
+					cd.c						\
+					cd_utils.c
+                        	
+DIR_BUILTIN			=	srcs/builtin
+                        	
+SRC_SIGNAL			=	interactve_mode.c exec_mode.c
+                        	
+DIR_SIGNAL			=	srcs/signal
+                        	
+SRC_EXEC			=	exec_cmd.c 					\
+					exec_prg.c 					\
+					exec_prg_error.c 				\
+					exec.c						\
+					exec_pipe.c 					\
+					exec_redirection.c 				\
+					exec_redir_utils.c				\
+					exec_pipe_utils.c				
+                        	
+SRC_EXEC_BONUS			=	exec_cmd.c 					\
+					exec_prg.c 					\
+					exec_prg_error.c 				\
+					exec_bonus.c					\
+					exec_pipe.c 					\
+					exec_redirection.c 				\
+					exec_redir_utils.c				\
+					exec_pipe_utils.c 				\
+					exec_bool_bonus.c 				\
+					exec_sub_shell_bonus.c
+                        	
+DIR_EXEC			=	srcs/exec
+                        	
+SRC_PARSING_SYNTAX		=	check_syntax.c
+SRC_PARSING_SYNTAX_BONUS	=	check_syntax_bonus.c 				\
+					check_syntax_utils_bonus.c
+DIR_PARSING_SYNTAX		=	srcs/parsing/syntax
 
-SRC_DEBUG		=	tree.c
-SRC_DEBUG_BONUS	=	tree_bonus.c
-DIR_DEBUG		=	debug
+SRC_PARSING_PROMPT		=	get_forgot.c 					\
+					check_syntax.c					\
+					prompt.c					\
+					get_heredoc.c
 
+SRC_PARSING_PROMPT_BONUS	=	get_forgot.c 					\
+					check_syntax_bonus.c				\
+					prompt.c					\
+					check_syntax_utils_bonus.c			\
+					get_heredoc.c
 
-SRC_BUILTIN		=	env.c		\
-				export.c	\
-				unset.c		\
-				exit.c		\
-				echo.c		\
-				pwd.c		\
-				cd.c		\
-				cd_utils.c
+DIR_PARSING_PROMPT		=	srcs/parsing/prompt
 
-DIR_BUILTIN		=	srcs/builtin
+SRC_PARSING_TRANSFORM		=	split_str.c					\
+					split_str_utils.c				\
+					ft_replace_var_env.c				\
+					ft_replace_var_tool.c				\
+					ft_quote_tool.c					\
+					ft_quote.c
 
-SRC_SIGNAL		=	interactve_mode.c exec_mode.c
+SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c				\
+					split_str_utils_bonus.c				\
+					ft_replace_var_env.c				\
+					ft_replace_var_tool.c				\
+					ft_quote_tool.c					\
+					ft_quote.c					\
+					wildcard_bonus.c				\
+					wildcard_checker.c				\
+					wildcard_tools_bonus.c
 
-DIR_SIGNAL		=	srcs/signal
+DIR_PARSING_TRANSFORM		=	srcs/parsing/transform
+                        	
+SRC_PARSING_TREE		=	cmd.c						\
+					construct_childs.c				\
+					lst_childs.c 					\
+					pipe.c						\
+					redirection.c
 
-SRC_EXEC		=	exec_cmd.c exec_prg.c exec_prg_error.c exec.c		\
-					exec_pipe.c exec_redirection.c exec_redir_utils.c	\
-					exec_pipe_utils.c
-SRC_EXEC_BONUS	=	exec_cmd.c exec_prg.c exec_prg_error.c exec_bonus.c		\
-					exec_pipe.c exec_redirection.c exec_redir_utils.c	\
-					exec_pipe_utils.c exec_bool_bonus.c exec_sub_shell_bonus.c
-DIR_EXEC		=	srcs/exec
+SRC_PARSING_TREE_BONUS		=	cmd.c						\
+					construct_childs_bonus.c			\
+					sub_shell_bonus.c				\
+					bool_bonus.c					\
+					lst_childs.c 					\
+					pipe.c						\
+					redirection.c
 
-SRC_PARSING_SYNTAX			=	check_syntax.c
-SRC_PARSING_SYNTAX_BONUS	=	check_syntax_bonus.c \
-								check_syntax_utils_bonus.c
-DIR_PARSING_SYNTAX			=	srcs/parsing/syntax
+DIR_PARSING_TREE		=	srcs/parsing/tree
+                        	
+SRC_PARSING			=	parse.c						\
+					utils.c
+SRC_PARSING_BONUS		=	parse_bonus.c					\
+					utils_bonus.c					\
+					utils_2_bonus.c
 
-SRC_PARSING_PROMPT	=	get_forgot.c 			\
-						check_syntax.c		\
-						prompt.c		\
-						get_heredoc.c
-SRC_PARSING_PROMPT_BONUS	=	get_forgot.c 			\
-						check_syntax_bonus.c		\
-						prompt.c		\
-						check_syntax_utils_bonus.c		\
-						get_heredoc.c
-DIR_PARSING_PROMPT	=	srcs/parsing/prompt
-
-SRC_PARSING_TRANSFORM	=	split_str.c		\
-				split_str_utils.c	\
-				ft_replace_var_env.c	\
-				ft_replace_var_tool.c	\
-				ft_quote_tool.c		\
-				ft_quote.c
-SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c		\
-				split_str_utils_bonus.c	\
-				ft_replace_var_env.c	\
-				ft_replace_var_tool.c	\
-				ft_quote_tool.c		\
-				ft_quote.c	\
-				wildcard_bonus.c	\
-				wildcard_checker.c	\
-				wildcard_tools_bonus.c
-DIR_PARSING_TRANSFORM	=	srcs/parsing/transform
-
-SRC_PARSING_TREE	=	cmd.c				\
-				construct_childs.c		\
-				lst_childs.c 			\
-				pipe.c				\
-				redirection.c
-SRC_PARSING_TREE_BONUS	=	cmd.c				\
-				construct_childs_bonus.c		\
-				sub_shell_bonus.c		\
-				bool_bonus.c		\
-				lst_childs.c 			\
-				pipe.c				\
-				redirection.c
-DIR_PARSING_TREE	=	srcs/parsing/tree
-
-SRC_PARSING			=	parse.c	\
-						utils.c
-SRC_PARSING_BONUS	=	parse_bonus.c	\
-						utils_bonus.c	\
-						utils_2_bonus.c
 DIR_PARSING			=	srcs/parsing
+                        	
+SRC_ENV				=	lst_env.c					\
+					env_utils.c					\
+					ft_get_env.c					\
+					get_path.c
 
-SRC_ENV			=	lst_env.c	\
-				env_utils.c	\
-				ft_get_env.c	\
-				get_path.c
-#					lst_to_tab.c
-DIR_ENV			=	srcs/env
-
-MK			=	Makefile
+DIR_ENV				=	srcs/env
+                        	
+MK				=	Makefile
 
 ################################################################################
 ##                       Compilation Environnement                            ##
 ################################################################################
 
-NAME		=	minishell
-CC		=	cc
-CFLAGS		=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+NAME				=	minishell
+CC				=	cc
+CFLAGS				=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
 		INC_LIB = -L/usr/local/lib
@@ -144,52 +166,53 @@ UNAME_S := $(shell uname -s)
 		INC_LIB = -L ~/.brew/opt/readline/lib
 		INC_INC = -I ~/.brew/opt/readline/include
 	endif
-LIBS		=	$(INC_LIB) $(INC_INC) -lreadline
-DIR_LIBFT	= 	libft
-LIBFT_NAME	=	$(DIR_LIBFT)/libft.a
 
-SRCS	=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
-			$(addprefix $(DIR_DEBUG)/, $(SRC_DEBUG))	\
-			$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
-			$(addprefix $(DIR_ENV)/, $(SRC_ENV))			\
-			$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))			\
-			$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))			\
-			$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))	\
-			$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))	\
-			$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))	\
-			$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))	\
-			$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
+LIBS				=	$(INC_LIB) $(INC_INC) -lreadline
+DIR_LIBFT			= 	libft
+LIBFT_NAME			=	$(DIR_LIBFT)/libft.a
 
-SRCS_BONUS	=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
-	$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
-	$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))			\
-	$(addprefix $(DIR_ENV)/, $(SRC_ENV))			\
-	$(addprefix $(DIR_DEBUG)/, $(SRC_DEBUG_BONUS))	\
-	$(addprefix $(DIR_EXEC)/, $(SRC_EXEC_BONUS))			\
-	$(addprefix $(DIR_PARSING)/, $(SRC_PARSING_BONUS))	\
-	$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM_BONUS))	\
-	$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT_BONUS))	\
-	$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE_BONUS))	\
-	$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX_BONUS))
+SRCS				=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
+					$(addprefix $(DIR_DEBUG)/, $(SRC_DEBUG))	\
+					$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
+					$(addprefix $(DIR_ENV)/, $(SRC_ENV))		\
+					$(addprefix $(DIR_EXEC)/, $(SRC_EXEC))		\
+					$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))	\
+					$(addprefix $(DIR_PARSING)/, $(SRC_PARSING))	\
+					$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM))\
+					$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT))	\
+					$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE))		\
+					$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX))
 
-DIRS_SRC	=	$(DIR_GLOBAL) $(DIR_DEBUG) $(DIR_BUILTIN) $(DIR_ENV) \
-				$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) \
-				$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) \
-				$(DIR_EXEC) $(DIR_PARSING)
+SRCS_BONUS			=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))	\
+					$(addprefix $(DIR_BUILTIN)/, $(SRC_BUILTIN))	\
+					$(addprefix $(DIR_SIGNAL)/, $(SRC_SIGNAL))	\
+					$(addprefix $(DIR_ENV)/, $(SRC_ENV))		\
+					$(addprefix $(DIR_DEBUG)/, $(SRC_DEBUG_BONUS))	\
+					$(addprefix $(DIR_EXEC)/, $(SRC_EXEC_BONUS))	\
+					$(addprefix $(DIR_PARSING)/, $(SRC_PARSING_BONUS))			\
+					$(addprefix $(DIR_PARSING_TRANSFORM)/, $(SRC_PARSING_TRANSFORM_BONUS))	\
+					$(addprefix $(DIR_PARSING_PROMPT)/, $(SRC_PARSING_PROMPT_BONUS))	\
+					$(addprefix $(DIR_PARSING_TREE)/, $(SRC_PARSING_TREE_BONUS))		\
+					$(addprefix $(DIR_PARSING_SYNTAX)/, $(SRC_PARSING_SYNTAX_BONUS))
+
+DIRS_SRC			=	$(DIR_GLOBAL) $(DIR_DEBUG) $(DIR_BUILTIN) $(DIR_ENV)			\
+					$(DIR_PARSING_SYNTAX) $(DIR_PARSING_TRANSFORM) 				\
+					$(DIR_PARSING_PROMPT) $(DIR_SIGNAL) $(DIR_PARSING_TREE) 		\
+					$(DIR_EXEC) $(DIR_PARSING)
 
 
-DIR_OBJ		=	obj
+DIR_OBJ				=	obj
 
 ifeq ($(MAKECMDGOALS), bonus)
-CFLAGS	+= -DBONUS=1
-HDS	=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS_BONUS))
-OBJS	=	$(addprefix $(DIR_OBJ)/, $(SRCS_BONUS:.c=.o))
+CFLAGS				+= -DBONUS=1
+HDS				=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS_BONUS))
+OBJS				=	$(addprefix $(DIR_OBJ)/, $(SRCS_BONUS:.c=.o))
 else
-HDS			=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
-OBJS		=	$(addprefix $(DIR_OBJ)/, $(SRCS:.c=.o))
+HDS				=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
+OBJS				=	$(addprefix $(DIR_OBJ)/, $(SRCS:.c=.o))
 endif
 
-DEPENDS	=	$(HDS) $(MK) $(LIBFT_NAME)
+DEPENDS				=	$(HDS) $(MK) $(LIBFT_NAME)
 
 ################################################################################
 ##                                 Règles                                     ##
