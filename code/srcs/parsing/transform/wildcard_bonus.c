@@ -1,5 +1,22 @@
 #include "../../../includes/mini_shell.h"
 
+int	ft_end_wd(char *wd, char *cmd)
+{
+	int	i;
+	int	j;
+
+	i = ft_strlen(wd);
+	j = ft_strlen(cmd);
+	while (i > 0)
+	{
+		if (wd[i] != cmd[j])
+			return (0);
+		i--;
+		j--;
+	}
+	return (1);
+}
+
 /**
 * @brief function check wildcard
 * if true return true
@@ -19,6 +36,8 @@ int	ft_get_wildcard(char *wild, char *cmd)
 		return (1);
 	while (wild[i])
 	{
+		if (wild[i] == '*' && ft_strichr(wild + i + 1, '*') == -1 && ft_end_wd(wild + i, cmd + j))
+			return (1);
 		if (!cmd[j] && cmd[j - 1] == wild[i])
 			return (1);
 		if (!cmd[j])
