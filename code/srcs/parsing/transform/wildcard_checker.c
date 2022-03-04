@@ -82,13 +82,12 @@ int	*ft_checker_wildcard(t_shell *shell, char **cmd)
 		return (NULL);
 	while (cmd[++i])
 	{
-		if (ft_strichr(cmd[i], '*') > -1)
+		if (ft_ch_wd_var(shell, cmd[i]) || ft_strichr(cmd[i], '*') > -1)
 		{
 			if (ft_control_wd(cmd[i]))
 				wd[j] = 1;
 			else
 				wd[j] = 0;
-			printf("wd [%d]\n", wd[j]);
 			j++;
 		}
 	}

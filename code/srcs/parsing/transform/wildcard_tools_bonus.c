@@ -20,6 +20,34 @@ int	ft_check_wildcard(char **cmd)
 	return (0);
 }
 
+int	ft_ch_wd_var(t_shell *shell, char *cmd)
+{
+	char	*tmp;
+	char	*var;
+	int	i;
+	int	len;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '$')
+		{
+			len = ft_get_len_var(cmd + i + 1);
+			tmp = ft_strndup(cmd + i + 1, len);
+			var = ft_get_env_val(ft_get_env_key(shell->env, tmp));
+			if (ft_strichr(var, '*') > -1)
+			{
+				free (tmp);
+				return (1);
+			}
+			if (tmp)
+				free(tmp);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	ft_check_wild(char **cmd, int *wd)
 {
 	int	ret;
@@ -39,7 +67,6 @@ int	ft_check_wild(char **cmd, int *wd)
 		}
 		i++;
 	}
-	printf("ret = %d\n", ret);
 	return (ret);
 }
 
