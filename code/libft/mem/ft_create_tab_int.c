@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_tab_int.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmilhas <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:12:34 by jmilhas           #+#    #+#             */
-/*   Updated: 2021/11/03 18:48:14 by jmilhas          ###   ########.fr       */
+/*   Updated: 2022/03/02 23:09:47 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
- 
+
 int	**ft_create_tab_int(int nb_all, int size_all)
 {
 	int	**tab;

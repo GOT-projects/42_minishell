@@ -1,5 +1,5 @@
 #include "includes/mini_shell.h"
-#include "libft/include/libft.h"
+
 int	main(int ac, char **av, char **ev)
 {
 	t_shell	shell;

@@ -6,7 +6,7 @@
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:42:40 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/01 21:59:36 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 23:31:17 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int	ft_exec_prg(t_shell *shell, char **cmd)
 
 	ret = ERR_404_EXEC;
 	true_path = NULL;
-	if (strchr(cmd[0], '/'))
+	if (ft_strchr(cmd[0], '/'))
 		true_path = ft_check_prg_path_relative(cmd[0], &ret);
 	else
 		true_path = ft_check_prg_path(shell, cmd, &ret);

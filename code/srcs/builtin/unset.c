@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 22:46:18 by aartiges          #+#    #+#             */
+/*   Updated: 2022/03/02 22:46:20 by aartiges         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_shell.h"
 
 static void	ft_unset_node(t_shell *shell, t_env *prev, t_env *curr, t_env *next)

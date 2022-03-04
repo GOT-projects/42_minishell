@@ -32,7 +32,7 @@ int main(int c, char **argv, char **env)
 		   }
 		   len = strlen(name);
            while ((dp = readdir(dirp)) != NULL) {
-                   if (dp->d_namlen == len && strcmp(dp->d_name, name) == 0) {
+                   if (dp->d_namlen == len && ft_strcmp(dp->d_name, name) == 0) {
                            (void)closedir(dirp);
                            return (FOUND);
                    }

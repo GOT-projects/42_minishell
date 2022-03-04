@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 18:13:31 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/03/02 23:11:12 by aartiges         ###   ########lyon.fr   */
+/*   Created: 2022/03/02 22:51:04 by aartiges          #+#    #+#             */
+/*   Updated: 2022/03/02 22:51:05 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../includes/mini_shell.h"
 
-char	*ft_strncat(char *dest, const char *src, size_t n)
+/**
+* @brief function get path from lst
+* 
+* @param t_shell *shell
+* @return  Return (path/NULL)
+*/
+char	**ft_get_path(t_shell *shell)
 {
-	size_t	i;
-	size_t	j;
+	t_env	*node;
 
-	i = 0;
-	j = 0;
-	while (dest[i])
-		i++;
-	while (src[j] && j < n)
-		dest[i++] = src[j++];
-	dest[i++] = '\0';
-	return (dest);
+	node = ft_get_env_key(shell->env, "PATH");
+	if (node)
+		return (ft_strsplit(node->value, ':'));
+	return (NULL);
 }

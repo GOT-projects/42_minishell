@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:14:08 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 19:14:13 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 22:43:01 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 
 typedef struct s_wild
 {
-	int	len;
-	int	len_cmd;
-	int	len_full;
-	int	len_wild;
+	int		len;
+	int		len_cmd;
+	int		len_full;
+	int		len_wild;
 	char	**full_dir;
-	int	*p_bool;
+	int		*p_bool;
 }	t_wild;
 
 typedef struct s_env

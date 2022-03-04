@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_syntax_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 23:04:21 by aartiges          #+#    #+#             */
+/*   Updated: 2022/03/02 23:06:18 by aartiges         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mini_shell.h"
 
 /**
@@ -78,7 +90,7 @@ static int	ft_check_syntax_apply_algo(char *line, int *state, size_t *i)
  * @return int the error code of the syntax, CHECK_OK else
  */
 static int	ft_check_syntax_algo_with_quote(char *line, size_t *i, int *state,
-	char *quote)
+			char *quote)
 {
 	if (!(*quote) && (line[*i] == '"' || line[*i] == '\''))
 	{
@@ -92,7 +104,7 @@ static int	ft_check_syntax_algo_with_quote(char *line, size_t *i, int *state,
 		if (ft_check_syntax_algo_no_quote(line + *i, state) != CHECK_OK)
 			return (ft_check_syntax_algo_no_quote(line + *i, state));
 		if (ft_check_syntax_apply_algo(line, state, i) && *state
-				& (CHECK_AND | CHECK_OR | CHECK_RED_APPEND | CHECK_RED_HR_DOC))
+			& (CHECK_AND | CHECK_OR | CHECK_RED_APPEND | CHECK_RED_HR_DOC))
 			++(*i);
 	}
 	else if (line[*i] != ' ')

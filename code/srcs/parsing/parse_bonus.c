@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 22:57:45 by aartiges          #+#    #+#             */
+/*   Updated: 2022/03/02 22:57:46 by aartiges         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_shell.h"
 
 /**
@@ -18,9 +30,10 @@ int	ft_parse(t_shell *shell, char *line)
 	shell->operation->to_parse = ft_track(ft_strtrim(line, SPACES),
 			&(shell->t_pars));
 	if ((shell->operation->to_parse[ft_strlen(shell->operation->to_parse) - 1]
-		== '|'
-		|| shell->operation->to_parse[ft_strlen(shell->operation->to_parse) - 1]
-		== '&') && (ft_get_forgot_cmd(shell)
+			== '|'
+			|| shell->operation->to_parse
+			[ft_strlen(shell->operation->to_parse) - 1]
+			== '&') && (ft_get_forgot_cmd(shell)
 			|| ft_check_syntax(shell->operation->to_parse)))
 		return (1);
 	return (ft_construct_child(shell, shell->operation));

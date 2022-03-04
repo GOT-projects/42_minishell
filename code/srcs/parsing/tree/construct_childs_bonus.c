@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   construct_childs_bonus.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 23:16:28 by aartiges          #+#    #+#             */
+/*   Updated: 2022/03/02 23:20:20 by aartiges         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mini_shell.h"
 
 /**
@@ -41,6 +53,14 @@ _Bool	ft_priority_on_parentheses(char *line)
 	return (true);
 }
 
+static void	ft_scotch_priority(char *line, size_t i, t_priority *priority)
+{
+	if (line[i] == '|')
+		*priority = PIPE;
+	if ((*priority) != PIPE && (line[i] == '<' || line[i] == '>'))
+		*priority = REDIRECTION;
+}
+
 /**
  * @brief say which operator in the command line have the priority
  * 
@@ -65,12 +85,10 @@ t_priority	ft_get_top_priority(char *line)
 		if (!ft_pars_quote(line[i], &quote) && !quote
 			&& !ft_pars_parenthese(line[i], &sub_shell) && sub_shell == 0)
 		{
-			if (ft_str_start_with(line + i, "||") || ft_str_start_with(line + i, "&&"))
+			if (ft_str_start_with(line + i, "||")
+				|| ft_str_start_with(line + i, "&&"))
 				return (BOOL);
-			if (line[i] == '|')
-				priority = PIPE;
-			if (priority != PIPE && (line[i] == '<' || line[i] == '>'))
-				priority = REDIRECTION;
+			ft_scotch_priority(line, i, &priority);
 		}
 		++i;
 	}
@@ -98,7 +116,8 @@ int	ft_construct_child(t_shell *shell, t_node *current)
 		return (1);
 	else if (current->genre == BOOL && ft_construct_bool(shell, current))
 		return (1);
-	else if (current->genre == SUB_SHELL && ft_construct_subshell(shell, current))
+	else if (current->genre == SUB_SHELL
+		&& ft_construct_subshell(shell, current))
 		return (1);
 	ft_track_free(&(shell->t_pars), current->to_parse);
 	current->to_parse = NULL;

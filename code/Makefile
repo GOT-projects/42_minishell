@@ -6,7 +6,7 @@
 #    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/03/02 00:18:33 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/03/02 23:00:15 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ SRC_EXEC		=	exec_cmd.c exec_prg.c exec_prg_error.c exec.c		\
 					exec_pipe_utils.c
 SRC_EXEC_BONUS	=	exec_cmd.c exec_prg.c exec_prg_error.c exec_bonus.c		\
 					exec_pipe.c exec_redirection.c exec_redir_utils.c	\
-					exec_pipe_utils.c exec_bool.c exec_sub_shell.c
+					exec_pipe_utils.c exec_bool_bonus.c exec_sub_shell_bonus.c
 DIR_EXEC		=	srcs/exec
 
 SRC_PARSING_SYNTAX			=	check_syntax.c
@@ -115,12 +115,14 @@ DIR_PARSING_TREE	=	srcs/parsing/tree
 SRC_PARSING			=	parse.c	\
 						utils.c
 SRC_PARSING_BONUS	=	parse_bonus.c	\
-						utils_bonus.c
+						utils_bonus.c	\
+						utils_2_bonus.c
 DIR_PARSING			=	srcs/parsing
 
 SRC_ENV			=	lst_env.c	\
 				env_utils.c	\
-				ft_get_env.c		
+				ft_get_env.c	\
+				get_path.c
 #					lst_to_tab.c
 DIR_ENV			=	srcs/env
 

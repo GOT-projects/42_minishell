@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interactve_mode.c                                  :+:      :+:    :+:   */
+/*   exec_sub_shell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 23:26:11 by aartiges          #+#    #+#             */
-/*   Updated: 2022/03/02 23:26:19 by aartiges         ###   ########lyon.fr   */
+/*   Created: 2022/03/02 22:52:50 by aartiges          #+#    #+#             */
+/*   Updated: 2022/03/02 22:52:54 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini_shell.h"
 
-void	handler_interative(int signum)
+int	ft_exec_sub_shell(t_shell *shell, t_node *op)
 {
-	if (signum == SIGINT)
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid < 0)
 	{
-		ft_putchar_fd('\n', 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		perror("fork");
+		shell->last_exit_status = 1;
+		return (shell->last_exit_status);
 	}
-	else if (signum == SIGQUIT)
-		return ;
-}
-
-void	interactive_mode(void)
-{
-	struct sigaction	sa;
-
-	ft_bzero(&sa, sizeof(struct sigaction));
-	sa.sa_handler = &handler_interative;
-	if (sigaction(SIGINT, &sa, NULL) == -1
-		|| sigaction(SIGQUIT, &sa, NULL) == -1)
-		ft_putstr_fd("Error sigaction\n", 2);
+	if (pid == 0)
+		exit(ft_exec(shell, op->childs));
+	waitpid(pid, &status, 0);
+	shell->last_exit_status = ft_error_exit_process("sub_shell", status);
+	return (shell->last_exit_status);
 }
