@@ -20,6 +20,29 @@ int	ft_check_wildcard(char **cmd)
 	return (0);
 }
 
+int	ft_check_wild(char **cmd, int *wd)
+{
+	int	ret;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	ret = 0;
+	while (cmd[i])
+	{
+		if (ft_strichr(cmd[i], '*') > -1)
+		{
+			if (wd[j] == 1)
+				ret++;
+			j++;
+		}
+		i++;
+	}
+	printf("ret = %d\n", ret);
+	return (ret);
+}
+
 /**
 * @brief function init function wildcard
 * 

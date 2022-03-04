@@ -40,8 +40,10 @@ int	ft_prepare_cmd(t_shell *shell, t_node *op)
 {
 	size_t	i;
 	int		**var;
+	int		*wd;
 
 	i = 0;
+	wd = ft_checker_wildcard(shell, op->cmd);
 	while (op->cmd[i])
 	{
 		var = ft_replace_var(shell, &(op->cmd[i]));
@@ -52,7 +54,7 @@ int	ft_prepare_cmd(t_shell *shell, t_node *op)
 			ft_tolower_str(op->cmd[0]);
 		++i;
 	}
-	op->cmd = ft_wildcard(shell, op->cmd);
+	op->cmd = ft_wildcard(shell, op->cmd, wd);
 	return (0);
 }
 

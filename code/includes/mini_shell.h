@@ -20,16 +20,18 @@ int		ft_construct_bool(t_shell *shell, t_node *current);
 int		ft_exec_sub_shell(t_shell *shell, t_node *op);
 int		ft_exec_bool(t_shell *shell, t_node *op);
 int		ft_get_wildcard(char *wild, char *cmd);
-void	ft_add_wild(t_wild *wd, char *cmd);
+void	ft_add_wild(t_wild *wd, char **cmd);
 int		ft_get_len_p_bool(t_wild *wd);
 char	**ft_wild_to_cmd(t_wild *wd, char **cmd, int *id);
-char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd);
+char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd, int *wild);
 int		ft_check_wildcard(char **cmd);
 int		ft_init_wild(t_shell *shell, t_wild *wild, int len);
 int		ft_len_dir(char *p_dir);
 void	ft_get_dir(t_wild *wild, char *p_dir);
 void	ft_get_len_wild(t_wild *wd, char **cmd);
-char	**ft_wildcard(t_shell *shell, char **cmd);
+char	**ft_wildcard(t_shell *shell, char **cmd, int *wd);
+int		*ft_checker_wildcard(t_shell *shell, char **cmd);
+int		ft_check_wild(char **cmd, int *wd);
 
 # endif
 
