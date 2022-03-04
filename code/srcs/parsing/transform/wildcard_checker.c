@@ -39,9 +39,6 @@ int	ft_check_is_dir(char *cmd)
 
 int	ft_check_is_quote(char *cmd)
 {
-	int	i;
-
-	i = 0;
 	if (ft_strichr(cmd, DOUBLE_QUOTE) > -1)
 		return (0);
 	if (ft_strichr(cmd, SIMPLE_QUOTE) > -1)
@@ -50,9 +47,6 @@ int	ft_check_is_quote(char *cmd)
 }
 int	ft_control_wd(char *cmd)
 {
-	int	i;
-
-	i = 0;
 	if (!ft_check_is_dir(cmd))
 		return (0);
 	if (!ft_check_is_quote(cmd))
