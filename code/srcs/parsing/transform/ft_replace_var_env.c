@@ -55,7 +55,14 @@ static void	ft_check_tmp(t_var *var, int *d, int **st, t_shell *shell)
 
 	if (!ft_strcmp("?", var->t_var[d[1]]))
 	{
-		st = ft_catch_dollar_var(var, shell, st, &d);
+		/* st = ft_catch_dollar_var(var, shell, st, &d); */
+		tmp = ft_itoa(shell->last_exit_status);
+		var->n_cmd = ft_strcat(var->n_cmd, tmp);
+		st[d[1]][0] = d[2];
+		st[d[1]][1] = ft_strlen(tmp) + d[2];
+		d[0] += ft_strlen(var->t_var[d[1]]);
+		d[1] += 1;
+		free(tmp);
 		return ;
 	}
 	tmp = ft_get_env_val(ft_get_env_key(shell->env, var->t_var[d[1]]));

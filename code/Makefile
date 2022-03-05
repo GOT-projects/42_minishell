@@ -102,8 +102,8 @@ SRC_PARSING_TRANSFORM		=	split_str.c					\
 					ft_replace_var_env.c				\
 					ft_replace_var_tool.c				\
 					ft_quote_tool.c					\
+					ft_replace_var_tool1.c				\
 					ft_quote.c
-#					ft_replace_var_tool1.c				\
 
 SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c				\
 					split_str_utils_bonus.c				\
@@ -159,7 +159,8 @@ MK				=	Makefile
 
 NAME				=	minishell
 CC				=	cc
-CFLAGS				=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+CFLAGS				=	-Wall -Werror -Wextra -O3 -g3 
+#-fsanitize=address
 
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
