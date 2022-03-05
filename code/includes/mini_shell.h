@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:42:23 by aartiges          #+#    #+#             */
-/*   Updated: 2022/03/02 22:42:29 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/06 00:01:23 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 #  include "struct.h"
 # else
 #  include "struct_bonus.h"
-
-
 
 _Bool	ft_check_parenthese_post_pars(char *line);
 _Bool	ft_check_parenthese_pre_pars(char *line);

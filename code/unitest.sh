@@ -107,8 +107,8 @@ IFS=""
 
 exec_run()
 {
-	printf "${CYAN}exec "cmd-->" ${@}${RESET}" | head -c 50
-	evho ${@} | ${exe} > _logError
+	echo ${CYAN}exec "cmd-->" ${@}${RESET}
+	echo ${@} | ${exe} > _log
 	sed '1d' _log > _log2
 	sed '$d' _log2 > _log
 	rm _log2
@@ -116,7 +116,7 @@ exec_run()
 	sleep 0.1
 	if [[ $(diff _log _log1) ]];
 	then
-		echo -e ${RED}Error!${RESET}
+		echo ${RED}Error!${RESET}
 		echo "cmd----->"${@} >> _logError
 		cat _log >> _logError
 		cat _log1 >> _logError
@@ -227,12 +227,10 @@ count()
 	printf "${GREEN}bon = ${g}\n"
 	
 }
-if [ $# -eq 0 ]; then
-	builtin_echo
-	builtin_cd
-	builtin_exit
-	builtin_redi
-	builtin_pipe
-	builtin_error
-	count
-fi
+builtin_echo
+builtin_cd
+builtin_exit
+builtin_redi
+builtin_pipe
+builtin_error
+count
