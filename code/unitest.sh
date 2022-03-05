@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 RESET="\033[0m"
 BLACK="\033[30m"
 RED="\033[31m"
@@ -11,7 +11,7 @@ WHITE="\033[37m"
 exe="./minishell"
 e=0
 g=0
-rm _logError 2&>/dev/null
+rm -rf _logError
 declare -a c_echo=("echo test" 
 		   'echo test         test'
 		   'echo "test'
