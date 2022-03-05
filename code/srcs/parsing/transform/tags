@@ -1,0 +1,58 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	Development	//
+create_string	split_str_utils.c	/^char	*create_string(char *str, size_t start, size_t end)$/;"	f
+create_string	split_str_utils_bonus.c	/^char	*create_string(char *str, size_t start, size_t end)$/;"	f
+ft_add_wild	wildcard_bonus.c	/^void	ft_add_wild(t_wild *wd, char **cmd)$/;"	f
+ft_c_quote	ft_replace_var_tool.c	/^int	ft_c_quote(int c)$/;"	f
+ft_catch_dollar_var	ft_replace_var_tool1.c	/^void	ft_catch_dollar_var(t_var *var, t_shell *shell, int **st, int *d)$/;"	f
+ft_ch_wd_var	wildcard_tools_bonus.c	/^int	ft_ch_wd_var(t_shell *shell, char *cmd)$/;"	f
+ft_check_is_dir	wildcard_checker.c	/^int	ft_check_is_dir(char *cmd)$/;"	f
+ft_check_is_quote	wildcard_checker.c	/^int	ft_check_is_quote(char *cmd)$/;"	f
+ft_check_quote	ft_replace_var_env.c	/^static void	ft_check_quote(t_var *var, char *cmd)$/;"	f	file:
+ft_check_tmp	ft_replace_var_env.c	/^static void	ft_check_tmp(t_var *var, int *d, int **st, t_shell *shell)$/;"	f	file:
+ft_check_wild	wildcard_tools_bonus.c	/^int	ft_check_wild(char **cmd, int *wd)$/;"	f
+ft_check_wild_dir	wildcard_bonus.c	/^int	ft_check_wild_dir(t_wild *wd)$/;"	f
+ft_check_wildcard	wildcard_tools_bonus.c	/^int	ft_check_wildcard(char **cmd)$/;"	f
+ft_checker_wildcard	wildcard_checker.c	/^int	*ft_checker_wildcard(t_shell *shell, char **cmd)$/;"	f
+ft_complete_tab_quote	ft_quote_tool.c	/^void	ft_complete_tab_quote(t_quote *quote, char *cmd)$/;"	f
+ft_completed_var	ft_replace_var_env.c	/^static void	ft_completed_var(t_shell *shell, t_var *var, char *cmd, int **st)$/;"	f	file:
+ft_control_wd	wildcard_checker.c	/^int	ft_control_wd(char *cmd)$/;"	f
+ft_end_wd	wildcard_bonus.c	/^int	ft_end_wd(char *wd, char *cmd)$/;"	f
+ft_free2d_index	split_str_utils.c	/^int	ft_free2d_index(char **split, size_t index)$/;"	f
+ft_free2d_index	split_str_utils_bonus.c	/^int	ft_free2d_index(char **split, size_t index)$/;"	f
+ft_gen_pos	ft_quote.c	/^static int	ft_gen_pos(t_shell *shell, t_quote *quote, char *cmd, int **states)$/;"	f	file:
+ft_get_dir	wildcard_tools_bonus.c	/^void	ft_get_dir(t_wild *wild, char *p_dir)$/;"	f
+ft_get_full_len_var	ft_replace_var_tool.c	/^int	ft_get_full_len_var(t_shell *shell, t_var *var)$/;"	f
+ft_get_len_p_bool	wildcard_bonus.c	/^int	ft_get_len_p_bool(t_wild *wd)$/;"	f
+ft_get_len_var	ft_replace_var_tool.c	/^int	ft_get_len_var(char *cmd)$/;"	f
+ft_get_len_wild	wildcard_tools_bonus.c	/^void	ft_get_len_wild(t_wild *wd, char **cmd)$/;"	f
+ft_get_nb_var	ft_replace_var_tool.c	/^int	ft_get_nb_var(char *cmd)$/;"	f
+ft_get_var_in_tab	ft_replace_var_env.c	/^static char	**ft_get_var_in_tab(t_var *var, char *cmd)$/;"	f	file:
+ft_get_wild	wildcard_bonus.c	/^char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd, int *wild)$/;"	f
+ft_get_wildcard	wildcard_bonus.c	/^int	ft_get_wildcard(char *wild, char *cmd)$/;"	f
+ft_init_wild	wildcard_tools_bonus.c	/^int	ft_init_wild(t_shell *shell, t_wild *wild, int len)$/;"	f
+ft_len_dir	wildcard_tools_bonus.c	/^int	ft_len_dir(char *p_dir)$/;"	f
+ft_len_quote	ft_quote_tool.c	/^int	ft_len_quote(char *cmd)$/;"	f
+ft_len_wd	wildcard_checker.c	/^int	ft_len_wd(char **cmd)$/;"	f
+ft_nbsplit	split_str.c	/^static size_t	ft_nbsplit(char *s, char *to_find, size_t len_to_find)$/;"	f	file:
+ft_nbsplit	split_str_bonus.c	/^static size_t	ft_nbsplit(char *s, char *to_find, size_t len_to_find, int p)$/;"	f	file:
+ft_remove_quote	ft_quote.c	/^char	*ft_remove_quote(t_shell *shell, char *cmd, int **states)$/;"	f
+ft_replace_cmd_state	ft_quote.c	/^static char	*ft_replace_cmd_state(t_shell *shell, t_quote *quote, char *cmd)$/;"	f	file:
+ft_replace_var	ft_replace_var_env.c	/^int	**ft_replace_var(t_shell *shell, char **cmd)$/;"	f
+ft_set_quote	ft_quote_tool.c	/^void	ft_set_quote(t_quote *quote, int *d, int c)$/;"	f
+ft_set_st	ft_replace_var_tool.c	/^void	ft_set_st(int **st, int j)$/;"	f
+ft_split_str	split_str.c	/^char	**ft_split_str(char const *s, char *to_find)$/;"	f
+ft_split_str	split_str_bonus.c	/^char	**ft_split_str(char const *s, char *to_find)$/;"	f
+ft_split_str_finalise	split_str.c	/^static int	ft_split_str_finalise(char **split, char *str, size_t index[2],$/;"	f	file:
+ft_split_str_finalise	split_str_bonus.c	/^static int	ft_split_str_finalise(char **split, char *str, size_t index[2],$/;"	f	file:
+ft_track_quote	ft_quote.c	/^static void	ft_track_quote(t_quote *quote, int len)$/;"	f	file:
+ft_track_quote_states	ft_quote.c	/^static void	ft_track_quote_states(t_quote *quote, char *cmd, int **st)$/;"	f	file:
+ft_while_quote	ft_quote_tool.c	/^void	ft_while_quote(t_quote *quote, int *d, int **st, char *cmd)$/;"	f
+ft_wild_to_cmd	wildcard_bonus.c	/^char	**ft_wild_to_cmd(t_wild *wd, char **cmd, int *id)$/;"	f
+ft_wildcard	wildcard_bonus.c	/^char	**ft_wildcard(t_shell *shell, char **cmd, int *wd)$/;"	f
+write_split	split_str.c	/^static int	write_split(char **split, char *str, char *to_find,$/;"	f	file:
+write_split	split_str_bonus.c	/^static int	write_split(char **split, char *str, char *to_find,$/;"	f	file:
