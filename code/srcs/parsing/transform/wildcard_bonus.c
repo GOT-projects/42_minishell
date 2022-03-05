@@ -1,22 +1,5 @@
 #include "../../../includes/mini_shell.h"
 
-int	ft_end_wd(char *wd, char *cmd)
-{
-	int	i;
-	int	j;
-
-	i = ft_strlen(wd);
-	j = ft_strlen(cmd);
-	while (i > 0)
-	{
-		if (wd[i] != cmd[j])
-			return (0);
-		i--;
-		j--;
-	}
-	return (1);
-}
-
 /**
 * @brief function check wildcard
 * if true return true
@@ -32,79 +15,22 @@ int	ft_get_wildcard(char *wild, char *cmd)
 
 	i = 0;
 	j = 0;
-	if (wild[i] == '*' && wild[i + 1] == '\0')
-		return (1);
-	while (wild[i])
+	while (wild[i] || cmd[j])
 	{
-		if (wild[i] == '*' && ft_strichr(wild + i + 1, '*') == -1 && ft_end_wd(wild + i, cmd + j))
+		if (wild[i] == '*' && ft_strichr(wild + i + 1, '*')
+			== -1 && ft_end_wd(wild + i, cmd + j))
 			return (1);
-		if (!cmd[j] && cmd[j - 1] == wild[i])
-			return (1);
-		if (!cmd[j])
-			return (0);
 		if (wild[i] == '*' && wild[i + 1] == '*')
 			i++;
-		else if (wild[i] == '*')
-		{
-			i++;
+		else if (wild[i] == '*' && wild[i++] == '*')
 			while (cmd[j] && cmd[j] != wild[i])
 				j++;
-		}
-		else if (wild[i] == cmd[j])
-		{
+		else if (wild[i] == cmd[j] && wild[i] == cmd[j++])
 			i++;
-			j++;
-		}
 		else
 			return (0);
 	}
-	if (wild[i] != cmd[j])
-		return (0);
 	return (1);
-}
-
-/**
-* @brief function get the len of wildcard found
-* if true add true in p_bool
-* 
-* @param t_wild wd
-* @param1 char *cmd 
-* @return  Return void;
-*/
-void	ft_add_wild(t_wild *wd, char **cmd)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	while (cmd[j])
-	{
-		i = 0;
-		while (wd->full_dir[i])
-		{
-			if (ft_get_wildcard(cmd[j], wd->full_dir[i]))
-				wd->p_bool[i] = 1;
-			else
-				wd->p_bool[i] = 0;
-			i++;
-		}
-		j++;
-	}
-}
-int	ft_check_wild_dir(t_wild *wd)
-{
-	int	ret;
-	int	i;
-
-	i = 0;
-	ret = 0;
-	while (wd->full_dir[i])
-	{
-		if (wd->p_bool[i])
-			ret++;
-		i++;
-	}
-	return (ret);
 }
 
 /**
@@ -140,35 +66,29 @@ int	ft_get_len_p_bool(t_wild *wd)
 */
 char	**ft_wild_to_cmd(t_wild *wd, char **cmd, int *id)
 {
-	char	**n_cmd;
-	int	i;
-	int	j;
-	int	k;
+	char	**n;
+	int		dc[3];
 
-	i = 0;
-	j = 0;
-	k = 0;
+	ft_bzero(dc, sizeof(int) * 3);
 	ft_get_len_wild(wd, cmd);
-	n_cmd = (char **)ft_memalloc(sizeof(char *) * (wd->len_cmd + wd->len_wild + 1));
-	if (!n_cmd)
+	n = (char **)ft_memalloc(sizeof(char *) * (wd->len_cmd + wd->len_wild + 1));
+	if (!n)
 		return (NULL);
-	while ((i < wd->len_cmd + wd->len_wild + 1) && cmd[k])
+	while ((dc[0] < wd->len_cmd + wd->len_wild + 1) && cmd[dc[2]])
 	{
-		if (i == *id)
+		if (dc[0] == *id)
 		{
-			while (wd->full_dir[j])
-			{
-				if (wd->p_bool[j] == 1)
-					n_cmd[i++] = ft_strdup(wd->full_dir[j++]);
-				else
-					j++;
-			}
-			k++;
+			while (wd->full_dir[dc[1]])
+				if (wd->p_bool[dc[1]] == 1)
+					n[dc[0]++] = ft_strdup(wd->full_dir[dc[1]++]);
+			else
+					dc[1]++;
+			dc[2]++;
 		}
 		else
-			n_cmd[i++] = ft_strdup(cmd[k++]);
+			n[dc[0]++] = ft_strdup(cmd[dc[2]++]);
 	}
-	return (n_cmd);
+	return (n);
 }
 
 /**
@@ -185,25 +105,21 @@ char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd, int *wild)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	ft_add_wild(wd, cmd);
-	if (!ft_check_wild_dir(wd))
-		return (cmd);
-	while (cmd[i])
+	while (cmd[++i])
 	{
 		tmp = NULL;
 		if (ft_strichr(cmd[i], '*') > -1 && wild[j++])
 		{
 			tmp = ft_wild_to_cmd(wd, cmd, &i);
 			if (!tmp)
-				return NULL;
+				return (NULL);
 			ft_track_free_tab(&(shell->t_pars), (void **)cmd);
 			ft_track_tab((void **)tmp, &(shell)->t_pars);
 			cmd = tmp;
 			i += ft_get_len_p_bool(wd);
 		}
-		i++;
 	}
 	return (cmd);
 }
@@ -231,7 +147,11 @@ char	**ft_wildcard(t_shell *shell, char **cmd, int *wd)
 	ft_init_wild(shell, wild, wild->len);
 	ft_get_dir(wild, ".");
 	ft_track_tab((void **)wild->full_dir, &(shell)->t_pars);
-	cmd = ft_get_wild(shell, wild, cmd, wd);
+	ft_add_wild(wild, cmd);
+	if (ft_check_wild_dir(wild))
+		cmd = ft_get_wild(shell, wild, cmd, wd);
+	if (wild->c_dir == 1)
+		cmd = ft_add_dir_in_wild(wild, shell, cmd);
 	ft_track_free(&(shell)->t_pars, wild->p_bool);
 	ft_track_free_tab(&(shell)->t_pars, (void **)wild->full_dir);
 	return (cmd);

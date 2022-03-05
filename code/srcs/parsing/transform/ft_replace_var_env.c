@@ -1,4 +1,3 @@
-
 #include "../../../includes/mini_shell.h"
 
 static char	**ft_get_var_in_tab(t_var *var, char *cmd)
@@ -19,7 +18,6 @@ static char	**ft_get_var_in_tab(t_var *var, char *cmd)
 				var->t_var[d[1]] = ft_strndup(cmd + d[0] + 1, d[3]);
 			else
 				var->t_var[d[1]] = ft_strndup(cmd + d[0], 1);
-
 			d[1]++;
 		}
 		d[0]++;
@@ -57,13 +55,7 @@ static void	ft_check_tmp(t_var *var, int *d, int **st, t_shell *shell)
 
 	if (!ft_strcmp("?", var->t_var[d[1]]))
 	{
-		tmp = ft_itoa(shell->last_exit_status);
-		var->n_cmd = ft_strcat(var->n_cmd, tmp);
-		st[d[1]][0] = d[2];
-		st[d[1]][1] = ft_strlen(tmp) + d[2];
-		d[0] += ft_strlen(var->t_var[d[1]]);
-		d[1]++;
-		free(tmp);
+		st = ft_catch_dollar_var(var, shell, st, &d);
 		return ;
 	}
 	tmp = ft_get_env_val(ft_get_env_key(shell->env, var->t_var[d[1]]));
@@ -95,10 +87,7 @@ static void	ft_completed_var(t_shell *shell, t_var *var, char *cmd, int **st)
 			d[2]++;
 		if (var->p_bool[d[1]] && cmd[d[0]] == '$'
 			&& ft_is_var(var->t_var[d[1]]))
-		{
 			ft_check_tmp(var, d, st, shell);
-
-		}
 		else
 		{
 			var->n_cmd[d[2]] = cmd[d[0]];
@@ -131,7 +120,7 @@ int	**ft_replace_var(t_shell *shell, char **cmd)
 	var->t_var = (char **)malloc(sizeof(char *) * (var->l_var + 1));
 	st_pos = ft_create_tab_int(var->l_var + 1, 2);
 	var->p_bool = ft_track((int *)ft_memalloc(sizeof(int)
-			* (var->l_var + 1)), &(shell)->t_pars);
+				* (var->l_var + 1)), &(shell)->t_pars);
 	if (!st_pos || !var->t_var || !var->p_bool)
 		return (NULL);
 	ft_track_tab((void **)st_pos, &(shell)->t_pars);

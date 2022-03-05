@@ -75,4 +75,3 @@ void	ft_set_st(int **st, int j)
 	st[j][0] = -1;
 	st[j][1] = -1;
 }
-

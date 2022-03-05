@@ -24,8 +24,8 @@ int	ft_ch_wd_var(t_shell *shell, char *cmd)
 {
 	char	*tmp;
 	char	*var;
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 
 	i = 0;
 	while (cmd[i])
@@ -35,7 +35,7 @@ int	ft_ch_wd_var(t_shell *shell, char *cmd)
 			len = ft_get_len_var(cmd + i + 1);
 			tmp = ft_strndup(cmd + i + 1, len);
 			var = ft_get_env_val(ft_get_env_key(shell->env, tmp));
-			if (ft_strichr(var, '*') > -1)
+			if (var && ft_strichr(var, '*') > -1)
 			{
 				free (tmp);
 				return (1);
@@ -80,9 +80,9 @@ int	ft_check_wild(char **cmd, int *wd)
 */
 int	ft_init_wild(t_shell *shell, t_wild *wild, int len)
 {
-
 	wild->full_dir = (char **)ft_memalloc(sizeof(char *) * (len + 1));
-	wild->p_bool = ft_track((int *)ft_memalloc(sizeof(int) * (len + 1)), &(shell)->t_pars);
+	wild->p_bool = ft_track((int *)
+			ft_memalloc(sizeof(int) * (len + 1)), &(shell)->t_pars);
 	if (!wild->full_dir || !wild->p_bool)
 		return (0);
 	return (1);
@@ -96,66 +96,22 @@ int	ft_init_wild(t_shell *shell, t_wild *wild, int len)
 */
 int	ft_len_dir(char *p_dir)
 {
-	DIR *d;
-	struct dirent *dir;
-	int	len;
+	struct dirent	*dir;
+	DIR				*d;
+	int				len;
 
 	len = 0;
 	d = opendir(p_dir);
-    	if (d)
+	if (d)
 	{
-		while ((dir = readdir(d)) != NULL)
-			    len++;
+		dir = readdir(d);
+		len++;
+		while (dir != NULL)
+		{
+			dir = readdir(d);
+			len++;
+		}
 	}
 	closedir(d);
 	return (len);
-}
-
-/**
-* @brief function add dir to wild->full_dir
-* 
-* @param t_wild *wild, char *p_dir
-* @return  Return void
-*/
-void	ft_get_dir(t_wild *wild, char *p_dir)
-{
-	int	i;
-	DIR *d;
-	struct dirent *dir;
-
-	i = 0;
-	d = opendir(p_dir);
-    	if (d)
-	{
-		while ((dir = readdir(d)) != NULL)
-		{
-			if (ft_strcmp(".", dir->d_name) && ft_strcmp("..", dir->d_name))
-				wild->full_dir[i++] = ft_strdup(dir->d_name);
-		}
-	}
-	wild->full_dir[i++] = NULL;
-	closedir(d);
-}
-
-/**
-* @brief function get len of cmd and the wilcard to add
-* 
-* @param t_wild *wildcard
-* @param char **cmd
-* @return  Return void
-*/
-void	ft_get_len_wild(t_wild *wd, char **cmd)
-{
-	int	i;
-
-	i = -1;
-	while (cmd[++i])
-		wd->len_cmd++;
-	i = 0;
-	while (i < wd->len)
-	{
-		if (wd->p_bool[i] == 1)
-			wd->len_wild++;
-		i++;
-	}
 }

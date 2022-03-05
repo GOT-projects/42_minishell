@@ -1,4 +1,3 @@
-
 #include "../../../includes/mini_shell.h"
 
 int	ft_len_wd(char **cmd)
@@ -48,6 +47,7 @@ int	ft_check_is_quote(char *cmd)
 		return (0);
 	return (1);
 }
+
 int	ft_control_wd(char *cmd)
 {
 	int	i;
@@ -70,14 +70,14 @@ int	ft_control_wd(char *cmd)
 int	*ft_checker_wildcard(t_shell *shell, char **cmd)
 {
 	int	*wd;
-	int	l_wd;
+	int	l;
 	int	i;
 	int	j;
 
 	i = -1;
 	j = 0;
-	l_wd = ft_len_wd(cmd);
-	wd = ft_track((int *)ft_memalloc(sizeof(int) * (l_wd + 1)), &(shell)->t_pars);
+	l = ft_len_wd(cmd);
+	wd = ft_track((int *)ft_memalloc(sizeof(int) * (l + 1)), &(shell)->t_pars);
 	if (!wd)
 		return (NULL);
 	while (cmd[++i])

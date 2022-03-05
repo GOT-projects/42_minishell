@@ -22,8 +22,9 @@ typedef struct s_wild
 	int		len_cmd;
 	int		len_full;
 	int		len_wild;
-	char	**full_dir;
+	int		c_dir;
 	int		*p_bool;
+	char	**full_dir;
 }	t_wild;
 
 typedef struct s_env
