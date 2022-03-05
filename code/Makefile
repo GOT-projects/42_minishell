@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+         #
+#    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/03/05 16:41:48 by aartiges &       ###   ########lyon.fr    #
+#    Updated: 2022/03/05 17:56:36 by aartiges         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -159,7 +159,8 @@ MK				=	Makefile
 
 NAME				=	minishell
 CC				=	cc
-CFLAGS				=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+CFLAGS				=	-Wall -Werror -Wextra -O3 -g3 
+#-fsanitize=address
 
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
