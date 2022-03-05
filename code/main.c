@@ -79,6 +79,7 @@ int	main(int ac, char **av, char **ev)
 		if (line && line[0] != '\0')
 		{
 			add_history(line);
+			errno = 0;
 			if (!ft_strcmp(line, "q"))
 				break;
 			if (ft_check_syntax_prompt(line))

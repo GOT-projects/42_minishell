@@ -6,7 +6,7 @@
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 20:08:25 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/02 22:54:56 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/05 21:35:44 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static pid_t	*ft_get_pids(size_t nb_childs, int ***pipes)
  * @param pipes the array of int that will be a pipes
  * @param nb_pipes nomber of pipes + 2 (start with first and last pipe at NULL)
  * @return int 0 at success, else > 0
- */
+ *//*
 static int	ft_set_pipes(int **pipes, size_t nb_pipes)
 {
 	size_t	i;
@@ -63,7 +63,7 @@ static int	ft_set_pipes(int **pipes, size_t nb_pipes)
 		++i;
 	}
 	return (0);
-}
+}*/
 
 /**
  * @brief allocation of the pipes
@@ -93,8 +93,8 @@ static int	**ft_get_pipes(size_t nb_pipes)
 		}
 		++i;
 	}
-	if (ft_set_pipes(pipes, nb_pipes))
-		ft_free_pipes(&pipes, nb_pipes);
+	/*if (ft_set_pipes(pipes, nb_pipes))
+		ft_free_pipes(&pipes, nb_pipes);*/
 	return (pipes);
 }
 
@@ -128,6 +128,21 @@ static void	ft_exec_pipe_fork(t_shell *shell, t_node *op, int *pipes[2],
 	exit(status);
 }
 
+int	ft_error_create_pipe(pid_t *pids, size_t i, int ***pipes, size_t nb_childs)
+{
+	perror("pipe");
+	if ((*pipes)[i])
+	{
+		close((*pipes)[i][READ]);
+		close((*pipes)[i][WRITE]);
+	}
+	while (i > 0)
+		kill(pids[--i], SIGKILL);
+	ft_free_pipes(pipes, nb_childs + 1);
+	free(pids);
+	return (1);
+}
+
 /**
  * @brief function that execute the pipe
  * 
@@ -151,6 +166,8 @@ int	ft_exec_pipe(t_shell *shell, t_node *op)
 	op = op->childs;
 	while (op)
 	{
+		if (i + 1 < nb_childs && pipe(pipes[i + 1]) == -1)
+			return (ft_error_create_pipe(pids, i, &pipes, nb_childs));
 		pids[i] = fork();
 		if (pids[i] < 0)
 			return (ft_error_fork_of_pipe(pids, i, &pipes, nb_childs));
