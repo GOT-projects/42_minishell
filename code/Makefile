@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/03/05 17:56:36 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/03/05 23:46:40 by aartiges &       ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 ##                               Présentation                                 ##
 ################################################################################
 
-COLOR_NOR			=	\033[0m
+COLOR_NORM			=	\033[0m
 COLOR_RED			=	\033[31m
 COLOR_PURPLE			=	\033[35m
                         	
@@ -101,14 +101,15 @@ SRC_PARSING_TRANSFORM		=	split_str.c					\
 					split_str_utils.c				\
 					ft_replace_var_env.c				\
 					ft_replace_var_tool.c				\
+					ft_replace_var_tool1.c				\
 					ft_quote_tool.c					\
 					ft_quote.c
-#					ft_replace_var_tool1.c				\
 
 SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c				\
 					split_str_utils_bonus.c				\
 					ft_replace_var_env.c				\
 					ft_replace_var_tool.c				\
+					ft_replace_var_tool1.c				\
 					ft_quote_tool.c					\
 					ft_quote.c					\
 					wildcard_bonus.c				\
@@ -116,7 +117,6 @@ SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c				\
 					wildcard_tools_bonus.c				\
 					wildcard_tools1_bonus.c				\
 					wildcard_tools2_bonus.c
-#					ft_replace_var_tool1.c				\
 
 DIR_PARSING_TRANSFORM		=	srcs/parsing/transform
                         	
@@ -159,8 +159,7 @@ MK				=	Makefile
 
 NAME				=	minishell
 CC				=	cc
-CFLAGS				=	-Wall -Werror -Wextra -O3 -g3 
-#-fsanitize=address
+CFLAGS				=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
