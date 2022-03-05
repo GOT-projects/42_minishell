@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/03/02 23:00:15 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/03/04 15:41:26 by aartiges &       ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,9 +101,9 @@ SRC_PARSING_TRANSFORM		=	split_str.c					\
 					split_str_utils.c				\
 					ft_replace_var_env.c				\
 					ft_replace_var_tool.c				\
-					ft_replace_var_tool1.c				\
 					ft_quote_tool.c					\
 					ft_quote.c
+#					ft_replace_var_tool1.c				\
 
 SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c				\
 					split_str_utils_bonus.c				\

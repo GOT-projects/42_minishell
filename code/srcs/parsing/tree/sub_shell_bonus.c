@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_shell_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:14:02 by aartiges          #+#    #+#             */
-/*   Updated: 2022/03/02 23:14:24 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/04 21:41:45 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	ft_construct_subshell(t_shell *shell, t_node *current)
 	while (end > start && current->to_parse[end] != ')')
 		--end;
 	new->to_parse = ft_track(ft_substr(current->to_parse, start,
-				end - start + 1), &(shell->t_pars));
-	new->to_parse[end - start] = '\0';
+				end - start), &(shell->t_pars));
 	if (!(new->to_parse))
 		return (1);
 	current->childs = new;
