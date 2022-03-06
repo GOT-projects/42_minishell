@@ -55,8 +55,6 @@ void	ft_get_dir(char **full, char *p_dir)
 	if (d)
 	{		
 		dir = readdir(d);
-		if (dir->d_name[0] != '.')
-			full[i++] = ft_strdup(dir->d_name);
 		while (dir != NULL)
 		{
 			if (dir->d_name[0] != '.')
@@ -85,11 +83,9 @@ void	ft_get_dir_hid(char **full, char *p_dir)
 	if (d)
 	{		
 		dir = readdir(d);
-		if (ft_strcmp(".", dir->d_name) && ft_strcmp("..", dir->d_name))
-			full[i++] = ft_strdup(dir->d_name);
 		while (dir != NULL)
 		{
-			if (ft_strcmp(".", dir->d_name) && ft_strcmp("..", dir->d_name))
+			if (dir->d_name[0] == '.')
 				full[i++] = ft_strdup(dir->d_name);
 			dir = readdir(d);
 		}
