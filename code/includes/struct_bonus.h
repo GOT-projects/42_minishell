@@ -23,6 +23,7 @@ typedef struct s_wild
 	int		len_full;
 	int		len_wild;
 	int		c_dir;
+	int		check;
 	int		*p_bool;
 	char	**full_dir;
 }	t_wild;

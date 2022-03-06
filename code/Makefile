@@ -115,8 +115,7 @@ SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c				\
 					wildcard_bonus.c				\
 					wildcard_checker.c				\
 					wildcard_tools_bonus.c				\
-					wildcard_tools1_bonus.c				\
-					wildcard_tools2_bonus.c
+					wildcard_tools1_bonus.c				
 
 DIR_PARSING_TRANSFORM		=	srcs/parsing/transform
                         	
@@ -159,7 +158,8 @@ MK				=	Makefile
 
 NAME				=	minishell
 CC				=	cc
-CFLAGS				=	-Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+CFLAGS				=	-Wall -Werror -Wextra -O3 -g3 
+#-fsanitize=address
 
 UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)

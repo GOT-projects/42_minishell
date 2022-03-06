@@ -13,6 +13,36 @@
 #include "../../../includes/mini_shell.h"
 
 /**
+* @brief function check if is dir or not
+* 
+* @param t_wild *wd;
+* @param char *cmd;
+* @return  Return (bool);
+*/
+int	ft_check_dir_cmd(t_wild *wd, char *cmd)
+{
+	int	i;
+	int	check;
+
+	i = 0;
+	check = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '.' && cmd[i + 1] == '/')
+			check++;
+		else if (check && cmd[i] == '/' && cmd[i - 1] != '.')
+			return (0);
+		i++;
+	}
+	if (check == 1)
+	{
+		wd->c_dir = 1;
+		return (1);
+	}
+	return (0);
+}
+
+/**
 * @brief function check wildcard
 * if true return true
 * 
@@ -45,62 +75,38 @@ int	ft_get_wildcard(char *wild, char *cmd)
 	return (1);
 }
 
-/**
-* @brief function get the len of wildcard found
-* 
-* @param t_wild wd
-* @return  Return len;
-*/
-int	ft_get_len_p_bool(t_wild *wd)
+static char	**ft_add_wild_to_cmd(t_wild *wd, char **cmd, int index)
 {
-	int	i;
-	int	len;
+	char	**tmp;
+	int		i;
+	int		j;
+	int		k;
 
 	i = 0;
-	len = 0;
-	while (i < wd->len)
+	k = 0;
+	tmp = (char **)ft_memalloc(sizeof(char *) * (wd->len + ft_tablen(cmd) + 1));
+	if (!tmp)
+		return (cmd);
+	while (cmd[i])
 	{
-		if (wd->p_bool[i] == 1)
-			len++;
+		j = 0;
+		while (wd->full_dir[j] && i == index)
+		{
+			if (ft_get_wildcard(cmd[i], wd->full_dir[j]))
+			{
+				if (wd->c_dir)
+					tmp[k] = ft_join("./%s", wd->full_dir[j]);
+				else
+					tmp[k] = ft_strdup(wd->full_dir[j]);
+				k++;
+			}
+			j++;
+		}
+		if (i != index)
+			tmp[k++] = ft_strdup(cmd[i]);
 		i++;
 	}
-	return (len);
-}
-
-/**
-* @brief function add wildcard at the good position
-*
-* 
-* @param t_shell *shell
-* @param t_wild *wild
-* @param int *id 
-* @return  Return n_cmd;
-*/
-char	**ft_wild_to_cmd(t_wild *wd, char **cmd, int *id)
-{
-	char	**n;
-	int		dc[3];
-
-	ft_bzero(dc, sizeof(int) * 3);
-	ft_get_len_wild(wd, cmd);
-	n = (char **)ft_memalloc(sizeof(char *) * (wd->len_cmd + wd->len_wild + 1));
-	if (!n)
-		return (NULL);
-	while ((dc[0] < wd->len_cmd + wd->len_wild + 1) && cmd[dc[2]])
-	{
-		if (dc[0] == *id)
-		{
-			while (wd->full_dir[dc[1]])
-				if (wd->p_bool[dc[1]] == 1)
-					n[dc[0]++] = ft_strdup(wd->full_dir[dc[1]++]);
-			else
-					dc[1]++;
-			dc[2]++;
-		}
-		else
-			n[dc[0]++] = ft_strdup(cmd[dc[2]++]);
-	}
-	return (n);
+	return (tmp);
 }
 
 /**
@@ -111,27 +117,33 @@ char	**ft_wild_to_cmd(t_wild *wd, char **cmd, int *id)
 * @param char **cmd
 * @return  Return void
 */
-char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd, int *wild)
+char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd, int *st)
 {
 	char	**tmp;
 	int		i;
 	int		j;
 
-	i = -1;
+	i = 0;
 	j = 0;
-	while (cmd[++i])
+	while (cmd[i])
 	{
 		tmp = NULL;
-		if (ft_strichr(cmd[i], '*') > -1 && wild[j++])
+		wd->c_dir = 0;
+		if (ft_strichr(cmd[i], '*') > -1 && st[j++])
 		{
-			tmp = ft_wild_to_cmd(wd, cmd, &i);
-			if (!tmp)
-				return (NULL);
-			ft_track_free_tab(&(shell->t_pars), (void **)cmd);
+			if (cmd[i][0] == '.' && cmd[i][1] != '/')
+				ft_get_dir_hid(wd->full_dir, ".");
+			else 
+				ft_get_dir(wd->full_dir, "./");
+			if (ft_check_dir_cmd(wd, cmd[i]))
+				ft_strcpy(cmd[i], cmd[i] + 2);
+			tmp = ft_add_wild_to_cmd(wd, cmd, i);
+			ft_track_free_tab(&(shell)->t_pars, (void **)cmd);
 			ft_track_tab((void **)tmp, &(shell)->t_pars);
+			ft_track_tab((void **)wd->full_dir, &(shell)->t_pars);
 			cmd = tmp;
-			i += ft_get_len_p_bool(wd);
 		}
+		i++;
 	}
 	return (cmd);
 }
@@ -156,15 +168,10 @@ char	**ft_wildcard(t_shell *shell, char **cmd, int *wd)
 	if (!wild)
 		return (cmd);
 	wild->len = ft_len_dir(".");
-	ft_init_wild(shell, wild, wild->len);
-	ft_get_dir(wild, ".");
-	ft_track_tab((void **)wild->full_dir, &(shell)->t_pars);
-	ft_add_wild(wild, cmd);
-	if (ft_check_wild_dir(wild))
-		cmd = ft_get_wild(shell, wild, cmd, wd);
-	if (wild->c_dir == 1)
-		cmd = ft_add_dir_in_wild(wild, shell, cmd);
-	ft_track_free(&(shell)->t_pars, wild->p_bool);
+	wild->full_dir = (char **)ft_memalloc(sizeof(char *) * (wild->len + 1));
+	if (!wild->full_dir)
+		return (cmd);
+	cmd = ft_get_wild(shell, wild, cmd, wd);
 	ft_track_free_tab(&(shell)->t_pars, (void **)wild->full_dir);
 	return (cmd);
 }

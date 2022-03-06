@@ -23,30 +23,25 @@
 
 _Bool	ft_check_parenthese_post_pars(char *line);
 _Bool	ft_check_parenthese_pre_pars(char *line);
-char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd, int *wild);
-char	**ft_wild_to_cmd(t_wild *wd, char **cmd, int *id);
+char	**ft_add_dir_in_wild(t_wild *wd, t_shell *shell, char **cmd);
 char	**ft_wildcard(t_shell *shell, char **cmd, int *wd);
-char	**ft_alloc_tab_from_tab(char **cmd);
 int		*ft_checker_wildcard(t_shell *shell, char **cmd);
+int		ft_ch_wd_var(t_shell *shell, char *cmd);
 int		ft_check_dir_cmd(t_wild *wd, char *cmd);
-int		ft_check_wild_dir(t_wild *wd);
 int		ft_check_wild(char **cmd, int *wd);
 int		ft_check_wildcard(char **cmd);
 int		ft_construct_bool(t_shell *shell, t_node *current);
 int		ft_construct_subshell(t_shell *shell, t_node *current);
+int		ft_end_wd(char *wd, char *cmd);
 int		ft_exec_bool(t_shell *shell, t_node *op);
 int		ft_exec_sub_shell(t_shell *shell, t_node *op);
 int		ft_get_len_p_bool(t_wild *wd);
 int		ft_get_wildcard(char *wild, char *cmd);
-int		ft_init_wild(t_shell *shell, t_wild *wild, int len);
 int		ft_len_dir(char *p_dir);
 int		ft_pars_parenthese(char c, int *parenthese);
-int		ft_end_wd(char *wd, char *cmd);
-int		ft_ch_wd_var(t_shell *shell, char *cmd);
-void	ft_add_wild(t_wild *wd, char **cmd);
-char	**ft_add_dir_in_wild(t_wild *wd, t_shell *shell, char **cmd);
-void	ft_get_dir(t_wild *wild, char *p_dir);
-void	ft_get_len_wild(t_wild *wd, char **cmd);
+int	ft_tablen(char **t);
+void	ft_get_dir(char **full, char *p_dir);
+void	ft_get_dir_hid(char **full, char *p_dir);
 void	ft_syntax_error_bonus(int state);
 
 # endif

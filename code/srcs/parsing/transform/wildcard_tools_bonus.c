@@ -83,24 +83,6 @@ int	ft_check_wild(char **cmd, int *wd)
 }
 
 /**
-* @brief function init function wildcard
-* 
-* @param t_shell *t_shell
-* @param t_wild *wild 
-* @param int len;
-* @return  Return bool
-*/
-int	ft_init_wild(t_shell *shell, t_wild *wild, int len)
-{
-	wild->full_dir = (char **)ft_memalloc(sizeof(char *) * (len + 1));
-	wild->p_bool = ft_track((int *)
-			ft_memalloc(sizeof(int) * (len + 1)), &(shell)->t_pars);
-	if (!wild->full_dir || !wild->p_bool)
-		return (0);
-	return (1);
-}
-
-/**
 * @brief function len of the dir
 * 
 * @param char *p_dir
@@ -126,4 +108,14 @@ int	ft_len_dir(char *p_dir)
 	}
 	closedir(d);
 	return (len);
+}
+
+int	ft_tablen(char **t)
+{
+	int	i;
+
+	i = 0;
+	while (t[i])
+		i++;
+	return (i);
 }
