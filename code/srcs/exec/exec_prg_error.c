@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:42:24 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/06 00:31:32 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/06 23:22:24 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_error_exit_process(char *prg_name, int status)
 	{
 		tmp = ft_itoa(WTERMSIG(status));
 		sign = ft_join("%s : process terminated due to receipt of signal %s\n",
-			prg_name, tmp);
+				prg_name, tmp);
 		ft_putstr_fd(sign, 2);
 		free(sign);
 		free(tmp);
