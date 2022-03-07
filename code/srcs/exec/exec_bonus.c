@@ -6,7 +6,7 @@
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:56:01 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/03 00:31:04 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 17:30:22 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ int	ft_exec(t_shell *shell, t_node *op)
 		return (ft_exec_cmd(shell, op->cmd));
 	}
 	else if (op->genre == PIPE)
-		return (ft_exec_pipe(shell, op));
+	{
+		shell->last_exit_status = ft_exec_pipe(shell, op);
+		return (shell->last_exit_status);
+	}
 	else if (op->genre == REDIRECTION)
 	{
 		shell->last_exit_status = ft_exec_redir(shell, op);

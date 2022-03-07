@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prg_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:42:24 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/06 23:22:24 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 16:13:28 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,18 @@ int	ft_error_exit_process(char *prg_name, int status)
 
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	if (WIFSIGNALED(status))
+	if (DEBUG)
 	{
-		tmp = ft_itoa(WTERMSIG(status));
-		sign = ft_join("%s : process terminated due to receipt of signal %s\n",
-				prg_name, tmp);
-		ft_putstr_fd(sign, 2);
-		free(sign);
-		free(tmp);
+		if (WIFSIGNALED(status))
+		{
+			tmp = ft_itoa(WTERMSIG(status));
+			sign = ft_join("%s : process terminated due to receipt of \
+					signal %s\n",
+					prg_name, tmp);
+			ft_putstr_fd(sign, 2);
+			free(sign);
+			free(tmp);
+		}
 	}
 	return (1);
 }

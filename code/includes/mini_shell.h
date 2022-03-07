@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:42:23 by aartiges          #+#    #+#             */
-/*   Updated: 2022/03/07 01:18:36 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 17:41:38 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ void	ft_prg_error_research_path(char **cmd, int error_research);
 int		ft_error_fork_of_pipe(pid_t *pids, size_t i, int ***pipes,
 			size_t nb_childs);
 int		ft_end_of_pipe(t_shell *shell, pid_t *pids, int ***pipes,
+			size_t nb_childs);
+int		ft_error_create_pipe(pid_t *pids, size_t i, int ***pipes,
 			size_t nb_childs);
 int		ft_exec_pipe(t_shell *shell, t_node *op);
 void	ft_free_pipes(int ***pipes, size_t nb_pipes);

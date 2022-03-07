@@ -6,7 +6,7 @@
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 20:08:25 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/05 21:35:44 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 17:38:56 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,35 +35,6 @@ static pid_t	*ft_get_pids(size_t nb_childs, int ***pipes)
 	}
 	return (NULL);
 }
-
-/**
- * @brief take an array of pipes and the number of pipes and create pipes
- * 
- * @param pipes the array of int that will be a pipes
- * @param nb_pipes nomber of pipes + 2 (start with first and last pipe at NULL)
- * @return int 0 at success, else > 0
- *//*
-static int	ft_set_pipes(int **pipes, size_t nb_pipes)
-{
-	size_t	i;
-
-	i = 1;
-	while (i < nb_pipes - 1)
-	{
-		if (pipe(pipes[i]) == -1)
-		{
-			perror("pipe");
-			while (i > 1)
-			{
-				close(pipes[--i][READ]);
-				close(pipes[i][WRITE]);
-			}
-			return (1);
-		}
-		++i;
-	}
-	return (0);
-}*/
 
 /**
  * @brief allocation of the pipes
@@ -126,19 +97,14 @@ static void	ft_exec_pipe_fork(t_shell *shell, t_node *op, int *pipes[2],
 	exit(status);
 }
 
-int	ft_error_create_pipe(pid_t *pids, size_t i, int ***pipes, size_t nb_childs)
+static size_t	ft_pipe_init(int ***pipes, pid_t **pids, t_node *op)
 {
-	perror("pipe");
-	if ((*pipes)[i])
-	{
-		close((*pipes)[i][READ]);
-		close((*pipes)[i][WRITE]);
-	}
-	while (i > 0)
-		kill(pids[--i], SIGKILL);
-	ft_free_pipes(pipes, nb_childs + 1);
-	free(pids);
-	return (1);
+	size_t	nb_childs;
+
+	nb_childs = ft_op_bro_size(op->childs);
+	*pipes = ft_get_pipes(nb_childs + 1);
+	*pids = ft_get_pids(nb_childs, pipes);
+	return (nb_childs);
 }
 
 /**
@@ -155,9 +121,7 @@ int	ft_exec_pipe(t_shell *shell, t_node *op)
 	int		**pipes;
 	pid_t	*pids;
 
-	nb_childs = ft_op_bro_size(op->childs);
-	pipes = ft_get_pipes(nb_childs + 1);
-	pids = ft_get_pids(nb_childs, &pipes);
+	nb_childs = ft_pipe_init(&pipes, &pids, op);
 	if (!pipes || !pids)
 		return (1);
 	i = 0;

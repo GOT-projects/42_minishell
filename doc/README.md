@@ -37,6 +37,7 @@ https://tiswww.case.edu/php/chet/readline/readline.html
 
 https://stackoverflow.com/questions/55668865/how-to-kill-all-child-processes-after-parent-process-termination
 
+https://stackoverflow.com/questions/48358121/c-fork-and-kill-at-the-same-time-not-working
 
 ## 2 Definitions
 These definitions are used throughout the remainder of this manual.

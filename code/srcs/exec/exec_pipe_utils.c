@@ -6,7 +6,7 @@
 /*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 20:01:19 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/05 21:19:58 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 17:34:33 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,25 @@ int	ft_error_fork_of_pipe(pid_t *pids, size_t i, int ***pipes, size_t nb_childs)
 	while (i > 0)
 	{
 		kill(pids[--i], SIGKILL);
-		perror("debug");
+		wait(NULL);
+	}
+	ft_free_pipes(pipes, nb_childs + 1);
+	free(pids);
+	return (1);
+}
+
+int	ft_error_create_pipe(pid_t *pids, size_t i, int ***pipes, size_t nb_childs)
+{
+	perror("pipe");
+	if ((*pipes)[i])
+	{
+		close((*pipes)[i][READ]);
+		close((*pipes)[i][WRITE]);
+	}
+	while (i > 0)
+	{
+		kill(pids[--i], SIGKILL);
+		wait(NULL);
 	}
 	ft_free_pipes(pipes, nb_childs + 1);
 	free(pids);
