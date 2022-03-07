@@ -1,166 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 01:27:59 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/03/07 01:34:50 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/mini_shell.h"
+
+static void	debug_print_bool_type(t_node *op, size_t level)
+{
+	debug_print_tabs(level);
+	if (op->type_bool == AND)
+		printf("and\n");
+	else if (op->type_bool == OR)
+		printf("or\n");
+}
+
+static void	debug_print_bool(t_node *op, size_t level)
+{
+	debug_print_tabs(level);
+	printf("+BOOL\n");
+	debug_tree(op->childs, level + 1);
+}
+
+static void	debug_print_sub_shell(t_node *op, size_t level)
+{
+	debug_print_tabs(level);
+	printf("+SUB SHELL\n");
+	debug_tree(op->childs, level + 1);
+}
 
 void	debug_tree(t_node *op, int level)
 {
-	int			i;
-	int			j;
-	t_node	*redir;
-
 	while (op)
 	{
-		i = 0;
-		while (i++ < level)
-			printf("\t");
+		if (op->type_bool != NONE)
+		{
+			debug_print_bool_type(op, level);
+			++level;
+		}
 		if (op->genre == PIPE)
-		{
-			if (op->type_bool != NONE)
-			{
-				if (op->type_bool == AND)
-					printf("and\n");
-				else if (op->type_bool == OR)
-					printf("or\n");
-				i = 0;
-				while (i++ < level + 1)
-					printf("\t");
-				printf("+PIPE\n");
-				debug_tree(op->childs, level + 2);
-			}
-			else
-			{
-				printf("+PIPE\n");
-				debug_tree(op->childs, level + 1);
-			}
-		}
+			debug_print_pipe(op, level);
 		else if (op->genre == REDIRECTION)
-		{
-			if (op->type_bool != NONE)
-			{
-				if (op->type_bool == AND)
-					printf("and\n");
-				else if (op->type_bool == OR)
-					printf("or\n");
-				i = 0;
-				while (i++ < level + 1)
-					printf("\t");
-				printf("+REDIRECTION\n");
-				redir = op->lst_redir;
-				while (redir)
-				{
-					i = 0;
-					while (i++ < level + 2)
-						printf("\t");
-					if (redir->type_redirection == IN_1)
-						printf("< %s\n", redir->file);
-					else if (redir->type_redirection == IN_2)
-						printf("<< %s\n", redir->file);
-					else if (redir->type_redirection == OUT_1)
-						printf("> %s\n", redir->file);
-					else if (redir->type_redirection == OUT_2)
-						printf(">> %s\n", redir->file);
-					redir = redir->next;
-				}
-				debug_tree(op->childs, level + 3);
-			}
-			else
-			{
-				printf("+REDIRECTION\n");
-				redir = op->lst_redir;
-				while (redir)
-				{
-					i = 0;
-					while (i++ < level + 1)
-						printf("\t");
-					if (redir->type_redirection == IN_1)
-						printf("< %s\n", redir->file);
-					else if (redir->type_redirection == IN_2)
-						printf("<< %s\n", redir->file);
-					else if (redir->type_redirection == OUT_1)
-						printf("> %s\n", redir->file);
-					else if (redir->type_redirection == OUT_2)
-						printf(">> %s\n", redir->file);
-					redir = redir->next;
-				}
-				debug_tree(op->childs, level + 2);
-			}
-		}
+			debug_print_redir(op, level);
 		else if (op->genre == CMD)
-		{
-			if (op->type_bool != NONE)
-			{
-				if (op->type_bool == AND)
-					printf("and\n");
-				else if (op->type_bool == OR)
-					printf("or\n");
-				i = 0;
-				while (i++ < level + 1)
-					printf("\t");
-				printf("+CMD\n");
-				j = 0;
-				while (op->cmd[j])
-				{
-					i = 0;
-					while (i++ < level + 2)
-						printf("\t");
-					printf("%d: %s\n", j, op->cmd[j]);
-					++j;
-				}
-			}
-			else
-			{
-				printf("+CMD\n");
-				j = 0;
-				while (op->cmd[j])
-				{
-					i = 0;
-					while (i++ < level + 1)
-						printf("\t");
-					printf("%d: %s\n", j, op->cmd[j]);
-					++j;
-				}
-			}
-		}
+			debug_print_cmd(op, level);
 		else if (op->genre == SUB_SHELL)
-		{
-			if (op->type_bool != NONE)
-			{
-				if (op->type_bool == AND)
-					printf("and\n");
-				else if (op->type_bool == OR)
-					printf("or\n");
-				i = 0;
-				while (i++ < level + 1)
-					printf("\t");
-				printf("+SUB SHELL\n");
-				debug_tree(op->childs, level + 2);
-			}
-			else
-			{
-				printf("+SUB SHELL\n");
-				debug_tree(op->childs, level + 1);
-			}
-		}
+			debug_print_sub_shell(op, level);
 		else if (op->genre == BOOL)
-		{
-			if (op->type_bool != NONE)
-			{
-				if (op->type_bool == AND)
-					printf("and\n");
-				else if (op->type_bool == OR)
-					printf("or\n");
-				i = 0;
-				while (i++ < level + 1)
-					printf("\t");
-				printf("+BOOL\n");
-				debug_tree(op->childs, level + 2);
-			}
-			else
-			{
-				printf("+BOOL\n");
-				debug_tree(op->childs, level + 1);
-			}
-		}
+			debug_print_bool(op, level);
 		else
 			printf("#### error #####\n");
+		if (op->type_bool != NONE)
+			--level;
 		op = op->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:42:23 by aartiges          #+#    #+#             */
-/*   Updated: 2022/03/06 00:01:23 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 01:18:36 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_get_len_p_bool(t_wild *wd);
 int		ft_get_wildcard(char *wild, char *cmd);
 int		ft_len_dir(char *p_dir);
 int		ft_pars_parenthese(char c, int *parenthese);
-int	ft_tablen(char **t);
+int		ft_tablen(char **t);
 void	ft_get_dir(char **full, char *p_dir);
 void	ft_get_dir_hid(char **full, char *p_dir);
 void	ft_syntax_error_bonus(int state);
@@ -189,6 +189,10 @@ void	interactive_mode(void);
 /*                           DEBUG                             */
 /***************************************************************/
 
+void	debug_print_tabs(size_t level);
+void	debug_print_pipe(t_node *op, size_t level);
+void	debug_print_redir(t_node *op, size_t level);
+void	debug_print_cmd(t_node *op, size_t level);
 void	debug_tree(t_node *op, int level);
 
 #endif
