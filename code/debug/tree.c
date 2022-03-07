@@ -1,55 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 01:19:18 by aartiges &        #+#    #+#             */
+/*   Updated: 2022/03/07 01:19:20 by aartiges &       ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/mini_shell.h"
 
 void	debug_tree(t_node *op, int level)
 {
-	int			i;
-	int			j;
-	t_node	*redir;
-
 	while (op)
 	{
-		i = 0;
-		while (i++ < level)
-			printf("\t");
 		if (op->genre == PIPE)
-		{
-			printf("+PIPE\n");
-			debug_tree(op->childs, level + 1);
-		}
+			debug_print_pipe(op, level);
 		else if (op->genre == REDIRECTION)
-		{
-			printf("+REDIRECTION\n");
-			redir = op->lst_redir;
-			while (redir)
-			{
-				i = 0;
-				while (i++ < level + 1)
-					printf("\t");
-				if (redir->type_redirection == IN_1)
-					printf("< %s\n", redir->file);
-				else if (redir->type_redirection == IN_2)
-					printf("<< %s\n", redir->file);
-				else if (redir->type_redirection == OUT_1)
-					printf("> %s\n", redir->file);
-				else if (redir->type_redirection == OUT_2)
-					printf(">> %s\n", redir->file);
-				redir = redir->next;
-			}
-			debug_tree(op->childs, level + 2);
-		}
+			debug_print_redir(op, level);
 		else if (op->genre == CMD)
-		{
-			printf("+CMD\n");
-			j = 0;
-			while (op->cmd[j])
-			{
-				i = 0;
-				while (i++ < level + 1)
-					printf("\t");
-				printf("%d: %s\n", j, op->cmd[j]);
-				++j;
-			}
-		}
+			debug_print_cmd(op, level);
 		else
 			printf("#### error #####\n");
 		op = op->next;
