@@ -93,8 +93,6 @@ static int	**ft_get_pipes(size_t nb_pipes)
 		}
 		++i;
 	}
-	/*if (ft_set_pipes(pipes, nb_pipes))
-		ft_free_pipes(&pipes, nb_pipes);*/
 	return (pipes);
 }
 

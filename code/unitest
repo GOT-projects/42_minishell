@@ -399,7 +399,7 @@ if [ $# -eq 0 ]; then
 	builtin_pipe
 	builtin_error
 	count
-	if [ ${e} -lt 0 ]; then
+	if [ ${e} -gt 0 ]; then
 		cat -e _logError
 	fi
 	rm -rf _log _log1
@@ -411,6 +411,9 @@ else
 		builtin_wild
 		builtin_all_bonus
 		count
+		if [ ${e} -gt 0 ]; then
+			cat -e _logError
+		fi
 	else 
 		echo "error"
 	fi
