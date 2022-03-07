@@ -121,7 +121,8 @@ SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c			\
 								wildcard_checker.c			\
 								wildcard_tools_bonus.c		\
 								ft_check_var_is_empty.c		\
-								wildcard_tools1_bonus.c
+								wildcard_tools1_bonus.c		\
+								wildcard_tools2_bonus.c
 
 
 DIR_PARSING_TREE			=	srcs/parsing/tree

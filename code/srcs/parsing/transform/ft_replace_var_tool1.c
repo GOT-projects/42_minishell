@@ -25,23 +25,3 @@ int	**ft_catch_dollar_var(t_var *var, t_shell *shell, int **st, int **d)
 	free(tmp);
 	return (st);
 }
-
-/**
-* @brief function allocation wd->full_dir
-* 
-* @param t_wild *wild
-* @return  Return bool
-*/
-int	ft_all(t_wild *wd)
-{
-	wd->full_dir = (char **)ft_memalloc(sizeof(char *) * (wd->len + 1));
-	if (!wd->full_dir)
-		return (0);
-	return (1);
-}
-
-void	ft_free_add(t_shell *shell, t_wild *wd, char **cmd)
-{
-	ft_track_free_tab(&(shell)->t_pars, (void **)cmd);
-	ft_track_tab((void **)wd->full_dir, &(shell)->t_pars);
-}
