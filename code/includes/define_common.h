@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:14:55 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 20:27:42 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 01:42:34 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 # define DEFINE_COMMON_H
 
+# define DEBUG 0
 # if defined(__linux__) || defined(linux) || defined(__linux)
 #  define MY_SIZE_T_MAX	SIZE_MAX
 #  define PATH_MAX		4096
@@ -58,11 +59,11 @@
 # define CHECK_SEPARATOR	0b011101111101
 # define CHECK_SEPARATOR2	0b100011111010
 
-# define BLUE "\033[0;34m"
-# define C_NONE "\033[0;37m"
-# define RED "\033[0;31m"
-# define GREEN "\033[0;32m"
-# define PURPLE "\033[0;35m"
-# define CYAN "\033[0;36m"
+# define BLUE	"\033[0;34m"
+# define C_NONE	"\033[0;37m"
+# define RED	"\033[0;31m"
+# define GREEN	"\033[0;32m"
+# define PURPLE	"\033[0;35m"
+# define CYAN	"\033[0;36m"
 
 #endif
