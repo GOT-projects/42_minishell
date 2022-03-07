@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:56:01 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/07 17:29:22 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 21:47:26 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_prepare_cmd(t_shell *shell, t_node *op)
 			op->cmd[i] = ft_remove_quote(shell, op->cmd[i], var);
 		else
 		{
-			op->cmd = ft_remove_empty_cmd(shell, op->cmd, i);
+			op->cmd = ft_remove_empty_cmd(op->cmd, i);
 			i--;
 		}
 		if (!(op->cmd[i]))
