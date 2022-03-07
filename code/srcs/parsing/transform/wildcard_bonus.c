@@ -78,33 +78,24 @@ int	ft_get_wildcard(char *wild, char *cmd)
 static char	**ft_add_wild_to_cmd(t_wild *wd, char **cmd, int index)
 {
 	char	**tmp;
-	int		i;
-	int		j;
-	int		k;
+	int		d[3];
 
-	i = 0;
-	k = 0;
+	ft_bzero(d, sizeof(int) * 3);
 	tmp = (char **)ft_memalloc(sizeof(char *) * (wd->len + ft_tablen(cmd) + 1));
 	if (!tmp)
 		return (cmd);
-	while (cmd[i])
+	while (cmd[d[0]])
 	{
-		j = 0;
-		while (wd->full_dir[j] && i == index)
+		d[1] = 0;
+		while (wd->full_dir[d[1]] && d[0] == index)
 		{
-			if (ft_get_wildcard(cmd[i], wd->full_dir[j]))
-			{
-				if (wd->c_dir)
-					tmp[k] = ft_join("./%s", wd->full_dir[j]);
-				else
-					tmp[k] = ft_strdup(wd->full_dir[j]);
-				k++;
-			}
-			j++;
+			if (ft_get_wildcard(cmd[d[0]], wd->full_dir[d[1]]))
+				tmp[d[2]++] = ft_alloc_dir(wd, d);
+			d[1]++;
 		}
-		if (i != index)
-			tmp[k++] = ft_strdup(cmd[i]);
-		i++;
+		if (d[0] != index)
+			tmp[d[2]++] = ft_strdup(cmd[d[0]]);
+		d[0]++;
 	}
 	return (tmp);
 }
@@ -117,33 +108,30 @@ static char	**ft_add_wild_to_cmd(t_wild *wd, char **cmd, int index)
 * @param char **cmd
 * @return  Return void
 */
+
 char	**ft_get_wild(t_shell *shell, t_wild *wd, char **cmd, int *st)
 {
 	char	**tmp;
-	int		i;
-	int		j;
+	int		d[2];
 
-	i = 0;
-	j = 0;
-	while (cmd[i])
+	ft_bzero(d, sizeof(int) * 2);
+	while (cmd[d[0]])
 	{
 		tmp = NULL;
 		wd->c_dir = 0;
-		if (ft_strichr(cmd[i], '*') > -1 && st[j++])
+		if (ft_strichr(cmd[d[0]], '*') > -1 && st[d[1]++] && ft_all(wd))
 		{
-			if (cmd[i][0] == '.' && cmd[i][1] != '/')
+			if (cmd[d[0]][0] == '.' && cmd[d[0]][1] != '/')
 				ft_get_dir_hid(wd->full_dir, ".");
-			else 
+			else
 				ft_get_dir(wd->full_dir, "./");
-			if (ft_check_dir_cmd(wd, cmd[i]))
-				ft_strcpy(cmd[i], cmd[i] + 2);
-			tmp = ft_add_wild_to_cmd(wd, cmd, i);
-			ft_track_free_tab(&(shell)->t_pars, (void **)cmd);
+			if (ft_check_dir_cmd(wd, cmd[d[0]]))
+				ft_strcpy(cmd[d[0]], cmd[d[0]] + 2);
+			tmp = ft_add_wild_to_cmd(wd, cmd, d[0]);
 			ft_track_tab((void **)tmp, &(shell)->t_pars);
-			ft_track_tab((void **)wd->full_dir, &(shell)->t_pars);
 			cmd = tmp;
 		}
-		i++;
+		d[0]++;
 	}
 	return (cmd);
 }
@@ -168,10 +156,6 @@ char	**ft_wildcard(t_shell *shell, char **cmd, int *wd)
 	if (!wild)
 		return (cmd);
 	wild->len = ft_len_dir(".");
-	wild->full_dir = (char **)ft_memalloc(sizeof(char *) * (wild->len + 1));
-	if (!wild->full_dir)
-		return (cmd);
 	cmd = ft_get_wild(shell, wild, cmd, wd);
-	ft_track_free_tab(&(shell)->t_pars, (void **)wild->full_dir);
 	return (cmd);
 }

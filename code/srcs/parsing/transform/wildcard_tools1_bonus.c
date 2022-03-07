@@ -93,3 +93,21 @@ void	ft_get_dir_hid(char **full, char *p_dir)
 	full[i++] = NULL;
 	closedir(d);
 }
+
+/**
+* @brief function replace dir with ./ or not
+* 
+* @param t_wild *wd
+* @param int	*d
+* @return  new string
+*/
+char	*ft_alloc_dir(t_wild *wd, int *d)
+{
+	char	*tmp;
+
+	if (wd->c_dir)
+		tmp = ft_join("./%s", wd->full_dir[d[1]]);
+	else
+		tmp = ft_strdup(wd->full_dir[d[1]]);
+	return (tmp);
+}

@@ -15,7 +15,7 @@
 char	**ft_remove_empty_cmd(t_shell *shell, char **cmd, int index)
 {
 	size_t	i;
-	int	ret;
+	int		ret;
 
 	i = 0;
 	ret = shell->last_exit_status;

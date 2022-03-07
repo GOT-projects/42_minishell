@@ -44,7 +44,6 @@ declare -a c_echo=("echo test"
  		   'echo ""'
  		   'echo "\n \n \n"'
  		   'echo hi";" hihi'
- 		   'echo hi " ; " hihi'
 	   	   )
 
 declare -a c_cd=('cd .. | pwd'
@@ -54,7 +53,7 @@ declare -a c_cd=('cd .. | pwd'
 		 'cd test_dirr | pwd'
 		 'rm -rf ../test_dir | pwd'
 		 'cd . | pwd'
-		 'cd . | pwd'
+		 'cd ./test_dir | pwd'
 		 'cd .. | pwd'
 		 'cd no_file'
 		 'rm -rf test_dir'
@@ -148,23 +147,28 @@ declare -a c_ou=('ls || cat greg'
 
 declare -a c_par=('((ls))'
 		 '(ls)'
+		 '(()ls)'
 		 '(none)'
 	 	)
 
 declare -a c_wid=('cat M*'
 		 'cat M*e'
 		 'touch testelele && cat *le && rm -rf testelele'
+		 'echo salut > _test && cat _**************************************************************t && cat *est && rm -rf _test'
 		 'touch ....... && la .* && rm -rf .......'
+		 'ls ./* * .* '
 		 'ls ./*'
+		 'rm -rf .......'
 	 	)
 
 declare -a c_all_bonus=('(lol) || (ls ./*) && ls .*'
 		       '(ls) && cat -e Makefil | tr ab 12 || cat -e Makefile | tr ab 12 > _test && cat -e _test && rm _test')
+		       'ls  (test(test))'
 IFS=""
 
 exec_run()
 {
-	echo ${CYAN}exec "cmd-->" ${@}${RESET}
+	printf "${CYAN}exec cmd--> ${@}${RESET}\n" | head -c 50
 	echo ${@} | ${exe} > _log
 	sed '1d' _log > _log2
 	sed '$d' _log2 > _log
@@ -395,8 +399,10 @@ if [ $# -eq 0 ]; then
 	builtin_pipe
 	builtin_error
 	count
+	if [ ${e} -lt 0 ]; then
+		cat -e _logError
+	fi
 	rm -rf _log _log1
-	cat -e _logError
 else
 	if [ $1 = "bonus" ]; then
 		builtin_and

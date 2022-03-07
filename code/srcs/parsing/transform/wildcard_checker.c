@@ -21,7 +21,7 @@ int	ft_len_wd(char **cmd)
 	len = 0;
 	while (cmd[i])
 	{
-		if (ft_strichr(cmd[i], '*'))
+		if (ft_strichr(cmd[i], '*') > -1)
 			len++;
 		i++;
 	}
@@ -83,7 +83,7 @@ int	*ft_checker_wildcard(t_shell *shell, char **cmd)
 	i = -1;
 	j = 0;
 	l = ft_len_wd(cmd);
-	wd = ft_track((int *)ft_memalloc(sizeof(int) * (l + 100)), &(shell)->t_pars);
+	wd = ft_track((int *)ft_memalloc(sizeof(int) * (l + 1)), &(shell)->t_pars);
 	if (!wd)
 		return (NULL);
 	while (cmd[++i])
