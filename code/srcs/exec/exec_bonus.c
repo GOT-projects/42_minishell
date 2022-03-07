@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:56:01 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/07 21:47:50 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/08 00:11:35 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_prepare_cmd(t_shell *shell, t_node *op)
 		}
 		if (!(op->cmd[i]))
 			return (1);
-		if (!i)
+		if (!i && !ft_strchr(op->cmd[0], '/'))
 			ft_tolower_str(op->cmd[0]);
 		++i;
 	}

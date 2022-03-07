@@ -154,7 +154,7 @@ declare -a c_par=('((ls))'
 declare -a c_wid=('cat M*'
 		 'cat M*e'
 		 'touch testelele && cat *le && rm -rf testelele'
-		 'echo salut > _test && cat _**************************************************************t && cat *est && rm -rf _test'
+		 'echo salut > _tesit && cat _**************************************************************it && cat *esit && rm -rf _tesit'
 		 'touch ....... && la .* && rm -rf .......'
 		 'ls ./* * .* '
 		 'ls ./*'
@@ -162,8 +162,10 @@ declare -a c_wid=('cat M*'
 	 	)
 
 declare -a c_all_bonus=('(lol) || (ls ./*) && ls .*'
-		       '(ls) && cat -e Makefil | tr ab 12 || cat -e Makefile | tr ab 12 > _test && cat -e _test && rm _test')
+		       '(ls) && (cat -e Makefil | tr ab 12) || cat -e Makefile | tr ab 12 > _test && cat -e _test && rm _test'
+		       '(ls) && sgrvgrg || cat -e Makefile | tr ab 12 > _test && cat -e _test && rm _test'
 		       'ls  (test(test))'
+		)
 IFS=""
 
 exec_run()

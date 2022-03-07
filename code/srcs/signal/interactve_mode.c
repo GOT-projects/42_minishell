@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interactve_mode.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:26:11 by aartiges          #+#    #+#             */
-/*   Updated: 2022/03/02 23:26:19 by aartiges         ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 22:08:15 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ void	handler_interative(int signum)
 void	interactive_mode(void)
 {
 	struct sigaction	sa;
+	struct sigaction	sa1;
 
 	ft_bzero(&sa, sizeof(struct sigaction));
 	sa.sa_handler = &handler_interative;
+	ft_bzero(&sa1, sizeof(struct sigaction));
+	sa1.sa_handler = SIG_IGN;
 	if (sigaction(SIGINT, &sa, NULL) == -1
-		|| sigaction(SIGQUIT, &sa, NULL) == -1)
+		|| sigaction(SIGQUIT, &sa1, NULL) == -1)
 		ft_putstr_fd("Error sigaction\n", 2);
 }

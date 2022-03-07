@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/03 19:20:00 by aartiges          #+#    #+#              #
-#    Updated: 2022/03/07 17:26:16 by aartiges         ###   ########lyon.fr    #
+#    Updated: 2022/03/08 00:19:03 by aartiges &       ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
