@@ -47,7 +47,13 @@ int	ft_prepare_cmd(t_shell *shell, t_node *op)
 	while (op->cmd[i])
 	{
 		var = ft_replace_var(shell, &(op->cmd[i]));
-		op->cmd[i] = ft_remove_quote(shell, op->cmd[i], var);
+		if (op->cmd[i][0] != '\0')
+			op->cmd[i] = ft_remove_quote(shell, op->cmd[i], var);
+		else
+		{
+			op->cmd = ft_remove_empty_cmd(shell, op->cmd, i);
+			i--;
+		}
 		if (!(op->cmd[i]))
 			return (1);
 		if (!i)

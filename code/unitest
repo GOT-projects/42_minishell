@@ -12,6 +12,10 @@ exe="./minishell"
 e=0
 g=0
 rm -rf _logError
+
+##############################################################################################################
+##						minishell 						    ##
+##############################################################################################################
 declare -a c_echo=("echo test" 
 		   'echo test         test'
 		   'echo "test'
@@ -36,7 +40,6 @@ declare -a c_echo=("echo test"
 		   'echo hudifg d | | hugdfihd'
  		   'echo'
  		   'echo simple'
- 		   'echo -n simple'
  		   'echo '''
  		   'echo ""'
  		   'echo "\n \n \n"'
@@ -97,6 +100,13 @@ declare -a c_env=("env | sort | grep -v SHLVL | grep -v _="
 		  'export | sort'
 		   )
 
+declare -a c_unset=('unset PWD | ls'
+		    'unset PWD | /bin/Ls'
+		    'unset PWD | /bin/ls'
+		    'unset PWD USERS HOME LOGNAME | env | grep USERS HOME LOGNAME'
+		    'unset PWD | echo ok'
+		    )
+
 declare -a c_redi=('echo test > ls'
 		   '/bin/ls'
 		   'echo test > ls >> ls >> ls > echo test >> ls'
@@ -121,8 +131,35 @@ declare -a c_error=(';; test'
 		    'echo > <'
 		    'echo | |'
 		    '<'
-)
+		    )
 
+##############################################################################################################
+##						minishell bonus						    ##
+##############################################################################################################
+declare -a c_and=('ls && cat Makefile'
+		 'ls && error'
+	         'cat -e Makefile && ls && ls && ls && ls && ls && ls'
+	 	)
+
+declare -a c_ou=('ls || cat greg'
+		'cat -e Makefile || ls'
+		'ls || ls || grz || lol'
+		)
+
+declare -a c_par=('((ls))'
+		 '(ls)'
+		 '(none)'
+	 	)
+
+declare -a c_wid=('cat M*'
+		 'cat M*e'
+		 'touch testelele && cat *le && rm -rf testelele'
+		 'touch ....... && la .* && rm -rf .......'
+		 'ls ./*'
+	 	)
+
+declare -a c_all_bonus=('(lol) || (ls ./*) && ls .*'
+		       '(ls) && cat -e Makefil | tr ab 12 || cat -e Makefile | tr ab 12 > _test && cat -e _test && rm _test')
 IFS=""
 
 exec_run()
@@ -222,6 +259,7 @@ builtin_env()
 		exec_run ${i}
 	done
 }
+
 builtin_redi()
 {
 	printf "${CYAN}"
@@ -260,6 +298,18 @@ builtin_error()
 	done
 }
 
+builtin_unset()
+{
+	printf "${CYAN}"
+	printf	"========================\n"
+	printf	"==       Unset        ==\n"
+	printf	"========================\n"
+	printf "${RESET}"
+	for i in ${c_unset[@]}
+	do
+		exec_run ${i}
+	done
+}
 count()
 {
 	printf "${CYAN}"
@@ -271,15 +321,92 @@ count()
 	printf "${GREEN}bon = ${g}\n"
 }
 
+builtin_and()
+{
+	printf "${CYAN}"
+	printf	"========================\n"
+	printf	"==       &&           ==\n"
+	printf	"========================\n"
+	printf "${RESET}"
+	for i in ${c_and[@]}
+	do
+		exec_run ${i}
+	done
+}
+
+builtin_ou()
+{
+	printf "${CYAN}"
+	printf	"========================\n"
+	printf	"==       ||           ==\n"
+	printf	"========================\n"
+	printf "${RESET}"
+	for i in ${c_ou[@]}
+	do
+		exec_run ${i}
+	done
+}
+
+builtin_par()
+{
+	printf "${CYAN}"
+	printf	"========================\n"
+	printf	"==       ()          ==\n"
+	printf	"========================\n"
+	printf "${RESET}"
+	for i in ${c_par[@]}
+	do
+		exec_run ${i}
+	done
+}
+
+builtin_wild()
+{
+	printf "${CYAN}"
+	printf	"========================\n"
+	printf	"==     all bonus      ==\n"
+	printf	"========================\n"
+	printf "${RESET}"
+	for i in ${c_wid[@]}
+	do
+		exec_run ${i}
+	done
+}
+
+builtin_all_bonus()
+{
+	printf "${CYAN}"
+	printf	"========================\n"
+	printf	"==     all bonus      ==\n"
+	printf	"========================\n"
+	printf "${RESET}"
+	for i in ${c_all_bonus[@]}
+	do
+		exec_run ${i}
+	done
+}
 if [ $# -eq 0 ]; then
 	builtin_echo
 	builtin_cd
+	builtin_env
+	builtin_unset
 	builtin_exit
 	builtin_redi
 	builtin_pipe
 	builtin_error
 	count
+	rm -rf _log _log1
+	cat -e _logError
 else
-	echo "error"
+	if [ $1 = "bonus" ]; then
+		builtin_and
+		builtin_ou
+		builtin_par
+		builtin_wild
+		builtin_all_bonus
+		count
+	else 
+		echo "error"
+	fi
 fi
  

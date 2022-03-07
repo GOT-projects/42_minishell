@@ -107,6 +107,7 @@ SRC_PARSING_TRANSFORM		=	split_str.c					\
 								ft_replace_var_env.c		\
 								ft_replace_var_tool.c		\
 								ft_replace_var_tool1.c		\
+								ft_check_var_is_empty.c		\
 								ft_quote_tool.c				\
 								ft_quote.c
 SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c			\
@@ -119,6 +120,7 @@ SRC_PARSING_TRANSFORM_BONUS	=	split_str_bonus.c			\
 								wildcard_bonus.c			\
 								wildcard_checker.c			\
 								wildcard_tools_bonus.c		\
+								ft_check_var_is_empty.c		\
 								wildcard_tools1_bonus.c
 
 

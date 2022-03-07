@@ -139,6 +139,7 @@ int		ft_c_quote(int c);
 int		ft_free2d_index(char **split, size_t index);
 
 /* int		ft_init_quote(t_shell *shell, t_quote *quote, char *cmd); */
+char	**ft_remove_empty_cmd(t_shell *shell, char **cmd, int index);
 int		**ft_replace_var(t_shell *shell, char **cmd);
 int		ft_get_full_len_var(t_shell *shell, t_var *var);
 int		ft_get_full_len_var(t_shell *shell, t_var *var);
