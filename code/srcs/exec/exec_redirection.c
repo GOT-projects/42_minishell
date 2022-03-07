@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
+/*   By: aartiges <aartiges@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:52:32 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/02/21 19:52:33 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 19:17:03 by aartiges         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,17 @@ static int	ft_restore_stdin_stdout(int std[2])
 {
 	if (dup2(std[READ], READ) == -1)
 	{
+		ft_close_pipe(std);
 		perror("redirection: dup2 stdin");
 		return (1);
 	}
 	if (dup2(std[WRITE], WRITE) == -1)
 	{
+		ft_close_pipe(std);
 		perror("redirection: dup2 stdout");
 		return (1);
 	}
+	ft_close_pipe(std);
 	return (0);
 }
 
