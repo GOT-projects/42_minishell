@@ -40,7 +40,7 @@ int	ft_all(t_wild *wd)
 	return (1);
 }
 
-void	ft_free_add(t_shell *shell, t_wild *wd, char **cmd, char **tmp)
+void	ft_free_add(t_shell *shell, t_wild *wd, char **cmd)
 {
 	ft_track_free_tab(&(shell)->t_pars, (void **)cmd);
 	ft_track_tab((void **)wd->full_dir, &(shell)->t_pars);

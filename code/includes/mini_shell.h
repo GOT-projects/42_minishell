@@ -42,7 +42,7 @@ int		ft_get_wildcard(char *wild, char *cmd);
 int		ft_len_dir(char *p_dir);
 int		ft_pars_parenthese(char c, int *parenthese);
 int		ft_tablen(char **t);
-void	ft_free_add(t_shell *shell, t_wild *wd, char **cmd, char **tmp);
+void	ft_free_add(t_shell *shell, t_wild *wd, char **cmd);
 void	ft_get_dir(char **full, char *p_dir);
 void	ft_get_dir_hid(char **full, char *p_dir);
 void	ft_syntax_error_bonus(int state);
