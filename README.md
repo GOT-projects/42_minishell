@@ -8,7 +8,7 @@ Coder un bash (en plus simple).
 
 ### Partie obligatoire
 
-- Avoir un invite de commande avec um historique
+- Avoir un invite de commande avec un historique
 - Gestion de l'environnement
 - builtin:
   - echo (sans option sauf -n)
