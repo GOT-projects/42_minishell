@@ -18,7 +18,7 @@ Coder un bash (en plus simple).
   - unset (sans option)
   - env (sans option et argument)
   - exit
-- Gestion des signaux
+- Gestion des signaux (SIGNINT, SIGQUIT)
 - Gestion des pipes
 - Gestion des redirection d'entrée et de sortie (<, <<, >, >>)
 
