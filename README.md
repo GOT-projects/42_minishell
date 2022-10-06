@@ -28,7 +28,7 @@ Coder un bash (en plus simple).
 - Gestion des booléens && (and) et || (or)
 - Gestion des guillemets (quote)
 
-## Compilation
+### Compilation
 
 ```bash
 make        # compile mandatory part
