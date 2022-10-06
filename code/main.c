@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:33:11 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/08 00:07:19 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 16:14:58 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,37 @@ static void	ft_minishell(t_shell *shell)
 	free(buf);
 }
 
+/**
+ * @brief add or update the shell level
+ * 
+ * @param shell the shell
+ */
+static void	ft_shell_level(t_shell *shell)
+{
+	char	**cmd;
+	t_env	*tmp;
+
+	cmd = (char **)ft_memalloc(sizeof(char *) * 3);
+	cmd[1] = ft_strdup("SHLVL");
+	tmp = ft_get_env_key(shell->env, "SHLVL");
+	if (tmp && tmp->value)
+		cmd[2] = ft_itoa(ft_atoi(tmp->value) + 1);
+	if (cmd[2] == NULL)
+		cmd[2] = ft_strdup("1");
+	cmd[0] = ft_join("%s=%s", cmd[1], cmd[2]);
+	free(cmd[1]);
+	free(cmd[2]);
+	cmd[1] = NULL;
+	ft_export(shell, cmd);
+	free(cmd[0]);
+	free(cmd);
+}
+
 int	main(int ac, char **av, char **ev)
 {
 	t_shell	shell;
 
-	if (ac > 1)
+	if (ac > 2)
 	{
 		ft_putstr_fd(av[0], 2);
 		ft_putstr_fd("to many arguments\n", 2);
@@ -95,6 +121,7 @@ int	main(int ac, char **av, char **ev)
 	}
 	ft_init_env(&shell, ev);
 	ft_init_oldpwd(&shell);
+	ft_shell_level(&shell);
 	ft_minishell(&shell);
 	ft_track_free_all(&(shell.t_env));
 	rl_clear_history();
