@@ -6,6 +6,8 @@ Coder un bash (en plus simple).
 
 ## Détails
 
+### Partie obligatoire
+
 - Avoir un invite de commande avec um historique
 - Gestion de l'environnement
 - builtin:
@@ -39,3 +41,8 @@ make fclean # remove all files compilation
 ```bash
 ./minishell # voila
 ```
+
+## Crédits
+
+En collaboration avec [waxdred](https://github.com/waxdred).
+Quelques petits tests: [tester](https://github.com/waxdred/tester_minishell42)
