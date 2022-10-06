@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:22 by aartiges          #+#    #+#             */
-/*   Updated: 2022/03/08 00:07:12 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 16:23:39 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ void	exec_mode_sub_process(void)
 
 	ft_bzero(&sa, sizeof(struct sigaction));
 	sa.sa_handler = SIG_DFL;
+	if (sigaction(SIGINT, &sa, NULL) == -1
+		|| sigaction(SIGQUIT, &sa, NULL) == -1)
+		ft_putstr_fd("Error sigaction\n", 2);
+}
+
+void	exec_mode_ignore(void)
+{
+	struct sigaction	sa;
+
+	ft_bzero(&sa, sizeof(struct sigaction));
+	sa.sa_handler = SIG_IGN;
 	if (sigaction(SIGINT, &sa, NULL) == -1
 		|| sigaction(SIGQUIT, &sa, NULL) == -1)
 		ft_putstr_fd("Error sigaction\n", 2);

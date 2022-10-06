@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:42:23 by aartiges          #+#    #+#             */
-/*   Updated: 2022/03/07 21:47:00 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 16:23:54 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ Ctrl+\ - SIGQUIT 	Interruption forte (ctrl-\)	Terminaison + core dump
 void	exec_mode(void);
 void	exec_mode_sub_process(void);
 void	interactive_mode(void);
+void	exec_mode_ignore(void);
 
 /***************************************************************/
 /*                           DEBUG                             */

@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:33:11 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/10/06 16:14:58 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 16:26:54 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	ft_minishell_exec_cmd(t_shell *shell, char *line, char *buf)
 		{
 			if (DEBUG)
 				debug_tree(shell->operation, 0);
-			exec_mode();
+			exec_mode_ignore();
 			ft_exec(shell, shell->operation);
 			interactive_mode();
 		}
