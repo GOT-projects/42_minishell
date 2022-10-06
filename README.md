@@ -24,7 +24,7 @@ Coder un bash (en plus simple).
 
 ### Bonus
 
-- Traduction du wildcard *
+- Traduction du wildcard * in currente directory
 - Gestion des booléens && (and) et || (or)
 - Gestion des guillemets (quote)
 
