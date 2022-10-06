@@ -21,10 +21,10 @@ Coder un bash (en plus simple).
 - Gestion des signaux
 - Gestion des pipes
 - Gestion des redirection d'entrée et de sortie (<, <<, >, >>)
-- Traduction du wildcard *
 
 ### Bonus
 
+- Traduction du wildcard *
 - Gestion des booléens && (and) et || (or)
 - Gestion des guillemets (quote)
 
