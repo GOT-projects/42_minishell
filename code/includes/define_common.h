@@ -6,7 +6,7 @@
 /*   By: aartiges & jmilhas <x@student.42lyon.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 19:14:55 by aartiges &        #+#    #+#             */
-/*   Updated: 2022/03/07 01:42:34 by aartiges &       ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 05:50:29 by aartiges &       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@
 # define CHECK_SEPARATOR	0b011101111101
 # define CHECK_SEPARATOR2	0b100011111010
 
-# define BLUE	"\033[0;34m"
-# define C_NONE	"\033[0;37m"
-# define RED	"\033[0;31m"
-# define GREEN	"\033[0;32m"
-# define PURPLE	"\033[0;35m"
-# define CYAN	"\033[0;36m"
+# define BLUE	"\001\033[0;34m\002"
+# define C_NONE	"\001\033[0;37m\002"
+# define RED	"\001\033[0;31m\002"
+# define GREEN	"\001\033[0;32m\002"
+# define PURPLE	"\001\033[0;35m\002"
+# define CYAN	"\001\033[0;36m\002"
 
 #endif
